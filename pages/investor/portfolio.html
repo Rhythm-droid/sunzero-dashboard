@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>SunZero — Investor Portfolio</title>
-
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -15,95 +12,145 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-    <link rel="stylesheet" href="../../css/global.css" />
-
-    <!-- Page Specific Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              "sz-bg": "#F7F4EF",
-              "sz-card": "#FFFFFF",
-              "sz-border": "#EBEBEB",
-              "sz-sidebar": "#1A1A1A",
-              "sz-text": "#1A1A1A",
-              "sz-text-secondary": "#6B6B6B",
-              "sz-text-muted": "#8A8A8A",
-              "sz-text-disabled": "#B0B0B0",
-              "sz-orange": "#E8740C",
-              "sz-orange-hover": "#C2571A",
-              "sz-green": "#2E7D32",
-              "sz-green-light": "#E8F5E9",
-              "sz-amber": "#E65100",
-              "sz-amber-light": "#FFF8E1",
-              "sz-red": "#C62828",
-              "sz-red-light": "#FFEBEE",
-              "sz-blue": "#1565C0",
-              "sz-blue-neutral": "#6B8FA6",
-              "sz-battery": "#66BB6A",
               primary: "#E8740C",
-              "invest-blue": "#1565C0",
-              "invest-green": "#2E7D32",
-              "invest-orange": "#E65100",
+              "primary-dark": "#C2571A",
+              "bg-warm": "#F7F4EF",
+              sidebar: "#1A1A1A",
+              "sidebar-hover": "#2D2D2D",
+              "card-border": "#EBEBEB",
+              "text-primary": "#1A1A1A",
+              "text-secondary": "#6B6B6B",
+              "text-muted": "#8A8A8A",
+              "text-disabled": "#B0B0B0",
+              success: "#2E7D32",
+              "success-dark": "#1B5E20",
+              "success-light": "#E8F5E9",
+              error: "#C62828",
+              "error-light": "#FFEBEE",
+              warning: "#E65100",
+              "warning-light": "#FFF8E1",
+              "grid-blue": "#6B8FA6",
+              "battery-green": "#66BB6A",
+              "financial-blue": "#1565C0",
+              "financial-light": "#E3F2FD",
             },
-            fontFamily: {
-              inter: ["Inter", "sans-serif"],
-              display: ["Inter", "sans-serif"],
-            },
+            fontFamily: { sans: ["Inter", "sans-serif"] },
           },
         },
       };
     </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d1d1d1;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b0b0b0;
+      }
 
-    <style type="text/tailwindcss">
-      @layer utilities {
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      }
-      body {
-        @apply font-display text-gray-800 antialiased bg-[#F7F4EF];
-      }
-
-      .nav-item {
-        @apply flex items-center px-4 py-2.5 text-sm font-medium rounded-r-lg rounded-l-none transition-all duration-200 cursor-pointer text-[#8A8A8A] hover:bg-[#2D2D2D] hover:text-white border-l-[3px] border-transparent ml-0;
-      }
-      .nav-item.active {
-        @apply bg-gradient-to-r from-[#e9730c]/15 to-transparent text-[#e9730c] border-l-[#e9730c] font-semibold;
-      }
-      .nav-category {
-        @apply px-4 text-[11px] font-bold text-[#5C5C5C] tracking-wider uppercase mt-6 mb-2;
+      .sidebar-active {
+        background: linear-gradient(
+          90deg,
+          rgba(232, 116, 12, 0.15) 0%,
+          rgba(232, 116, 12, 0.03) 100%
+        );
+        border-left: 3px solid #e8740c;
       }
 
       .kpi-card {
-        @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between transition-all duration-200 hover:shadow-md;
+        transition:
+          transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.25s ease;
       }
-      .status-pill {
-        @apply px-2.5 py-0.5 rounded-full text-xs font-medium border;
+      .kpi-card:hover {
+        transform: translateY(-2px);
+      }
+      .kpi-card-blue:hover {
+        box-shadow: 0 8px 20px -4px rgba(21, 101, 192, 0.15);
+      }
+      .kpi-card-green:hover {
+        box-shadow: 0 8px 20px -4px rgba(46, 125, 50, 0.15);
+      }
+      .kpi-card-orange:hover {
+        box-shadow: 0 8px 20px -4px rgba(232, 116, 12, 0.15);
+      }
+      .kpi-card-gray:hover {
+        box-shadow: 0 8px 20px -4px rgba(107, 143, 166, 0.15);
+      }
+
+      .data-row:hover {
+        background-color: #f0f7fa !important;
+      }
+
+      .arrow-link-hover:hover .arrow-icon {
+        transform: translateX(4px);
+      }
+
+      .sidebar-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .sidebar-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sidebar-mobile {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar-mobile.active {
+        transform: translateX(0);
+      }
+
+      /* Donut chart */
+      .donut-segment {
+        transition: opacity 0.2s ease;
+      }
+      .donut-segment:hover {
+        opacity: 0.8;
+      }
+
+      /* Health bar animation */
+      @keyframes growWidth {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: var(--final-width);
+        }
+      }
+      .health-bar {
+        animation: growWidth 1s ease-out forwards;
       }
     </style>
   </head>
-  <body class="flex h-screen overflow-hidden bg-[#F7F4EF]">
-    <!-- ============================== -->
-    <!-- INVESTOR SIDEBAR               -->
-    <!-- ============================== -->
+
+  <body
+    class="font-sans bg-bg-warm text-text-primary flex h-screen overflow-hidden"
+  >
+    <!-- ==================== INVESTOR SIDEBAR ==================== -->
     <aside
-      class="w-[260px] bg-sidebar flex-shrink-0 flex flex-col h-full text-white border-r border-gray-800 z-30"
+      class="w-64 bg-sidebar flex-shrink-0 flex flex-col h-full text-white hidden lg:flex"
     >
-      <div class="h-[72px] flex items-center px-6 border-b border-gray-800">
-        <a href="../../index.html" class="flex items-center gap-2">
+      <!-- Logo -->
+      <div
+        class="h-[72px] flex items-center justify-between px-5 border-b border-white/10 flex-shrink-0"
+      >
+        <a href="portfolio.html" class="flex items-center gap-2">
           <span class="material-icons-round text-primary text-3xl"
             >wb_sunny</span
           >
@@ -111,741 +158,1329 @@
             >Sun<span class="text-primary">Zero</span></span
           >
         </a>
+        <span
+          class="bg-primary/15 text-primary text-[0.625rem] font-medium px-2.5 py-[3px] rounded-full"
+          >Investor</span
+        >
       </div>
 
-      <nav class="flex-1 overflow-y-auto py-2 space-y-0.5">
-        <div class="nav-category mt-4">OVERVIEW</div>
-        <a class="nav-item active" href="portfolio.html">
-          <span class="material-icons-round mr-3 text-lg">pie_chart</span>
-          Portfolio
-        </a>
-        <a class="nav-item" href="project.html">
-          <span class="material-icons-round mr-3 text-lg">solar_power</span>
-          My Projects
-        </a>
-
-        <div class="nav-category">FINANCIALS</div>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">currency_rupee</span>
-          Returns &amp; Revenue
-        </a>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">receipt_long</span>
-          Transactions
-        </a>
-
-        <div class="nav-category">DOCUMENTS</div>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">description</span>
-          Reports
-        </a>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">gavel</span>
-          Agreements
-        </a>
-
-        <div class="nav-category">ACCOUNT</div>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">settings</span>
-          Settings
-        </a>
+      <!-- Navigation -->
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Overview
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="portfolio.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem] transition-all"
+                ><span class="material-icons-round text-lg text-primary"
+                  >pie_chart</span
+                >Portfolio</a
+              >
+            </li>
+            <li>
+              <a
+                href="project.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">folder_open</span>My
+                Projects</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">trending_up</span
+                >Returns & Revenue</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">credit_card</span
+                >Transactions</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Documents
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports & Statements</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">assignment</span
+                >Agreements</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Account
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">settings</span
+                >Settings</a
+              >
+            </li>
+          </ul>
+        </div>
       </nav>
 
-      <div class="px-4 pb-4">
-        <div class="border-t border-gray-800 pt-4">
-          <a
-            href="../../index.html"
-            class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group"
-          >
-            <div class="relative">
-              <div
-                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden border border-gray-600 font-bold text-xs text-white"
+      <!-- Bottom Section -->
+      <div class="p-3 space-y-3 border-t border-white/10 flex-shrink-0">
+        <div
+          class="bg-sidebar-hover rounded-xl p-3.5 cursor-pointer hover:bg-[#3A3A3A] transition-colors group"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0"
+            >
+              <span class="material-icons-round text-primary text-sm"
+                >support_agent</span
               >
-                VM
-              </div>
-              <div
-                class="absolute -bottom-1 -right-1 bg-primary text-[9px] text-white px-1.5 py-0.5 rounded-full border-2 border-sidebar font-bold"
-              >
-                INV
-              </div>
             </div>
             <div class="flex-1 min-w-0">
-              <p
-                class="text-sm font-medium text-white truncate group-hover:text-primary transition-colors"
-              >
-                Vikram Mehta
-              </p>
-              <p class="text-xs text-gray-400 truncate">Investor</p>
+              <p class="text-[0.8125rem] font-medium">Need Help?</p>
+              <p class="text-[0.6875rem] text-[#6B6B6B]">Contact support</p>
             </div>
+            <span
+              class="material-icons-round text-[#6B6B6B] text-sm group-hover:translate-x-0.5 transition-transform"
+              >arrow_forward</span
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+          <div class="relative flex-shrink-0">
+            <div
+              class="w-9 h-9 rounded-full bg-financial-blue flex items-center justify-center text-white font-bold text-xs"
+            >
+              VM
+            </div>
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-sidebar rounded-full"
+            ></span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Vikram Mehta</p>
+            <p class="text-xs text-[#6B6B6B] truncate">Angel Investor</p>
+          </div>
+          <a
+            href="../../index.html"
+            class="text-[#6B6B6B] hover:text-white transition-colors"
+            title="Sign Out"
+          >
+            <span class="material-icons-round text-lg">logout</span>
           </a>
         </div>
       </div>
     </aside>
 
-    <!-- ============================== -->
-    <!-- MAIN CONTENT AREA              -->
-    <!-- ============================== -->
-    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-      <!-- Top Bar -->
-      <header
-        class="h-[72px] sticky top-0 bg-white border-b border-[#EBEBEB] flex items-center justify-between px-8 flex-shrink-0 z-20"
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      id="sidebarOverlay"
+      class="fixed inset-0 z-40 sidebar-overlay lg:hidden"
+      onclick="toggleMobileSidebar()"
+    ></div>
+
+    <!-- Mobile Sidebar -->
+    <aside
+      id="mobileSidebar"
+      class="fixed top-0 left-0 w-72 h-full bg-sidebar z-50 sidebar-mobile lg:hidden flex flex-col text-white"
+    >
+      <div
+        class="h-14 flex items-center justify-between px-5 border-b border-white/10"
       >
-        <div class="flex flex-col justify-center h-full">
-          <div
-            class="flex items-center gap-2 text-xs text-[#8A8A8A] font-medium mb-1"
+        <div class="flex items-center gap-2">
+          <span class="material-icons-round text-primary text-2xl"
+            >wb_sunny</span
           >
-            <span>Investor</span>
-            <span class="material-icons-round text-[10px]">chevron_right</span>
-            <span class="text-primary">Portfolio Overview</span>
-          </div>
-          <div class="flex items-baseline gap-2">
-            <h1 class="text-xl font-bold text-[#1A1A1A]">
-              Good morning, Vikram 👋
-            </h1>
-            <p class="text-sm text-[#5C5C5C] hidden xl:block">
-              Here's how your clean energy portfolio is performing.
-            </p>
-          </div>
+          <span class="text-lg font-bold tracking-tight"
+            >Sun<span class="text-primary">Zero</span></span
+          >
         </div>
+        <button
+          onclick="toggleMobileSidebar()"
+          class="text-[#8A8A8A] hover:text-white"
+        >
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Overview
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="portfolio.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem]"
+                ><span class="material-icons-round text-lg">pie_chart</span
+                >Portfolio</a
+              >
+            </li>
+            <li>
+              <a
+                href="project.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">folder_open</span>My
+                Projects</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">trending_up</span
+                >Returns & Revenue</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">credit_card</span
+                >Transactions</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Documents
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports & Statements</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">assignment</span
+                >Agreements</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ==================== MAIN AREA ==================== -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+      <!-- TOP BAR -->
+      <header
+        class="h-[72px] bg-white border-b border-card-border flex items-center justify-between px-6 lg:px-8 flex-shrink-0"
+      >
         <div class="flex items-center gap-4">
           <button
-            class="relative w-9 h-9 flex items-center justify-center border border-[#D1D1D1] rounded-[8px] text-gray-500 hover:text-primary hover:bg-gray-50 transition-colors"
+            onclick="toggleMobileSidebar()"
+            class="lg:hidden text-text-secondary hover:text-text-primary transition-colors"
           >
-            <span class="material-icons-round text-xl">notifications</span>
-            <span
-              class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"
-            ></span>
+            <span class="material-icons-round">menu</span>
           </button>
-          <button
-            class="flex items-center gap-2 bg-white border border-[#D1D1D1] pl-3 pr-2 py-1.5 rounded-[8px] text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          <div class="flex flex-col">
+            <nav class="hidden sm:flex text-[0.8125rem] items-center gap-1.5">
+              <span class="text-text-muted">Investor</span>
+              <span class="text-text-disabled">/</span>
+              <span class="text-text-primary font-medium"
+                >Portfolio Overview</span
+              >
+            </nav>
+            <h1 class="text-lg font-semibold text-text-primary mt-0.5">
+              Good morning, Vikram 👋
+            </h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center border border-[#D1D1D1] rounded-lg px-3 py-[7px] hover:border-primary/40 transition-colors cursor-pointer"
           >
-            <span class="material-icons-round text-gray-500 text-lg"
+            <span
+              class="material-icons-round text-text-secondary text-base mr-2"
               >calendar_today</span
             >
-            <span>FY 2024-25</span>
-            <span class="material-icons-round text-gray-400 text-lg"
+            <span class="text-[0.8125rem] font-medium text-text-primary"
+              >Jul 1 — Jul 28, 2025</span
+            >
+            <span class="material-icons-round text-text-disabled text-base ml-2"
               >expand_more</span
             >
+          </div>
+          <button
+            class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-text-secondary hover:text-text-primary transition-colors"
+          >
+            <span class="material-icons-round text-xl">notifications_none</span>
+            <span
+              class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-white"
+            ></span>
           </button>
+          <div
+            class="hidden sm:flex w-8 h-8 rounded-full bg-financial-blue items-center justify-center text-white font-bold text-xs cursor-pointer hover:ring-2 hover:ring-financial-blue/30 transition-all"
+          >
+            V
+          </div>
         </div>
       </header>
 
-      <!-- Page Content -->
-      <main
-        class="flex-1 overflow-y-auto p-8 bg-[#F7F4EF] scrollbar-hide page-content"
-      >
-        <!-- KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <!-- Total Invested -->
-          <div class="kpi-card border-l-4 border-l-invest-blue">
-            <div class="flex justify-between items-start mb-2">
-              <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
-              >
+      <!-- SCROLLABLE CONTENT -->
+      <main class="flex-1 overflow-y-auto p-5 lg:p-6">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-5">
+          <!-- ====== SECTION 1: KPI CARDS ====== -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Card 1: Total Invested -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-blue cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-financial-blue rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-financial-blue/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-financial-blue text-xl"
+                    >account_balance_wallet</span
+                  >
+                </div>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
                 Total Invested
               </p>
-              <span class="bg-blue-50 text-blue-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >account_balance_wallet</span
-                >
-              </span>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900">₹2.4 Cr</h3>
-              <div class="flex items-center gap-1 mt-1">
-                <span class="text-xs font-medium text-gray-400"
-                  >Deployed Capital</span
-                >
-              </div>
-              <div class="text-[0.6875rem] text-gray-500 mt-1">
-                ₹1.9 Cr Solar · ₹0.5 Cr Battery
-              </div>
-            </div>
-          </div>
-
-          <!-- Total Returns -->
-          <div class="kpi-card border-l-4 border-l-invest-green">
-            <div class="flex justify-between items-start mb-2">
               <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
               >
-                Total Returns
+                ₹2.50 Cr
               </p>
-              <span class="bg-green-50 text-green-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >trending_up</span
-                >
-              </span>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900">₹68.4 L</h3>
-              <div class="flex items-center gap-1 mt-1 text-green-600">
-                <span class="material-icons-round text-xs">arrow_upward</span>
-                <span class="text-xs font-bold">+12.4%</span>
-                <span class="text-xs text-gray-400 font-normal ml-1"
-                  >vs last year</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Portfolio IRR -->
-          <div class="kpi-card border-l-4 border-l-invest-orange">
-            <div class="flex justify-between items-start mb-2">
-              <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
-              >
-                Portfolio IRR
+              <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                ₹1.9 Cr Solar
+                <span class="text-text-disabled mx-1">·</span> ₹0.6 Cr Battery
               </p>
-              <span class="bg-orange-50 text-orange-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >percent</span
-                >
-              </span>
             </div>
-            <div>
-              <h3 class="text-2xl font-bold" style="color: #e8740c">28.5%</h3>
-              <div class="flex items-center gap-1 mt-1">
-                <span class="text-xs font-medium text-gray-400"
-                  >Benchmark: 25%</span
-                >
-                <span class="material-icons-round text-xs text-green-600"
-                  >arrow_upward</span
-                >
-              </div>
-            </div>
-          </div>
 
-          <!-- Active Projects -->
-          <div class="kpi-card border-l-4 border-l-gray-500">
-            <div class="flex justify-between items-start mb-2">
+            <!-- Card 2: Total Returns -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-green cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-success rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-success text-xl"
+                    >trending_up</span
+                  >
+                </div>
+                <span
+                  class="bg-success-light text-success text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
+                >
+                  <span class="material-icons-round text-[13px]"
+                    >trending_up</span
+                  >
+                  24.3%
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">Total Returns</p>
               <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
               >
+                ₹42.0 L
+              </p>
+            </div>
+
+            <!-- Card 3: Portfolio IRR -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-orange cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-primary rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-primary text-xl"
+                    >percent</span
+                  >
+                </div>
+                <span
+                  class="bg-success-light text-success text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
+                >
+                  <span class="material-icons-round text-[13px]"
+                    >arrow_upward</span
+                  >
+                  Above target
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">Portfolio IRR</p>
+              <p class="text-[1.75rem] font-bold text-primary leading-tight">
+                24.8%
+              </p>
+              <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                Benchmark: 25%
+              </p>
+            </div>
+
+            <!-- Card 4: Active Projects -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-gray cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-grid-blue rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-grid-blue/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-grid-blue text-xl"
+                    >grid_view</span
+                  >
+                </div>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
                 Active Projects
               </p>
-              <span class="bg-gray-100 text-gray-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >solar_power</span
-                >
-              </span>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900">6</h3>
-              <div class="flex flex-col gap-1 mt-1">
-                <div class="flex items-center gap-1">
-                  <span
-                    class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
-                  ></span>
-                  <span class="text-xs font-medium text-gray-400"
-                    >All Systems Operational</span
-                  >
-                </div>
-                <div class="flex gap-1 mt-1">
-                  <span class="material-icons-round text-[10px] text-orange-400"
-                    >wb_sunny</span
-                  >
-                  <span class="material-icons-round text-[10px] text-orange-400"
-                    >wb_sunny</span
-                  >
-                  <span class="material-icons-round text-[10px] text-orange-400"
-                    >wb_sunny</span
-                  >
-                  <span class="material-icons-round text-[10px] text-orange-400"
-                    >wb_sunny</span
-                  >
-                  <span class="material-icons-round text-[10px] text-green-500"
-                    >battery_charging_full</span
-                  >
-                  <span class="material-icons-round text-[10px] text-green-500"
-                    >battery_charging_full</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Performance Chart -->
-        <div
-          class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8"
-        >
-          <div class="flex justify-between items-center mb-6">
-            <div>
-              <h3 class="text-lg font-bold text-gray-900">
-                Portfolio Performance
-              </h3>
-              <p class="text-sm text-gray-500">
-                Actual vs Expected Returns Over Time
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                5
               </p>
-            </div>
-            <div class="flex items-center gap-6">
-              <div
-                class="flex items-center gap-2 bg-green-50 px-2 py-1 rounded text-green-700 border border-green-100 mr-2"
-              >
-                <span class="text-xs font-bold">↑ 10.3% above expected</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="w-3 h-3 bg-invest-blue rounded-full"></span>
-                <span class="text-sm text-gray-600 font-medium"
-                  >Actual Returns</span
-                >
-              </div>
-              <div class="flex items-center gap-2">
+              <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                3 operational · 1 installing · 1 planning
+              </p>
+              <div class="flex items-center gap-1 mt-1.5">
                 <span
-                  class="w-3 h-0.5 bg-gray-400 border-t border-dashed border-gray-400"
-                ></span>
-                <span class="text-sm text-gray-600 font-medium"
-                  >Expected Returns</span
+                  class="material-icons-round text-primary"
+                  style="font-size: 12px"
+                  >wb_sunny</span
+                >
+                <span
+                  class="material-icons-round text-primary"
+                  style="font-size: 12px"
+                  >wb_sunny</span
+                >
+                <span
+                  class="material-icons-round text-primary"
+                  style="font-size: 12px"
+                  >wb_sunny</span
+                >
+                <span
+                  class="material-icons-round text-battery-green"
+                  style="font-size: 12px"
+                  >battery_charging_full</span
+                >
+                <span
+                  class="material-icons-round text-battery-green"
+                  style="font-size: 12px"
+                  >battery_charging_full</span
                 >
               </div>
-              <select
-                class="text-sm border-gray-200 rounded-md text-gray-600 focus:ring-invest-blue focus:border-invest-blue ml-2"
-              >
-                <option>Last 12 Months</option>
-                <option>YTD</option>
-                <option>All Time</option>
-              </select>
             </div>
           </div>
-          <div class="relative h-[320px] w-full pt-6 pb-8 pl-8 pr-4">
-            <div
-              class="absolute left-0 top-6 bottom-8 flex flex-col justify-between text-xs text-gray-400 font-medium text-right w-6"
-            >
-              <span>80L</span>
-              <span>60L</span>
-              <span>40L</span>
-              <span>20L</span>
-              <span>0</span>
-            </div>
-            <div
-              class="absolute inset-0 left-8 right-4 top-6 bottom-8 flex flex-col justify-between pointer-events-none"
-            >
-              <div class="border-b border-gray-100 w-full h-0"></div>
-              <div class="border-b border-gray-100 w-full h-0"></div>
-              <div class="border-b border-gray-100 w-full h-0"></div>
-              <div class="border-b border-gray-100 w-full h-0"></div>
-              <div class="border-b border-gray-200 w-full h-0"></div>
-            </div>
-            <div class="relative h-full w-full ml-2">
-              <svg
-                class="w-full h-full overflow-visible"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 100"
-              >
-                <defs>
-                  <linearGradient id="blueGradient" x1="0" x2="0" y1="0" y2="1">
-                    <stop
-                      offset="0%"
-                      stop-color="#1565C0"
-                      stop-opacity="0.2"
-                    ></stop>
-                    <stop
-                      offset="100%"
-                      stop-color="#1565C0"
-                      stop-opacity="0"
-                    ></stop>
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M0,100 L0,90 L10,85 L20,78 L30,70 L40,65 L50,55 L60,45 L70,35 L80,28 L90,20 L100,15 L100,100 Z"
-                  fill="url(#blueGradient)"
-                ></path>
-                <path
-                  d="M0,92 L10,84 L20,76 L30,68 L40,60 L50,52 L60,44 L70,36 L80,28 L90,20 L100,12"
-                  fill="none"
-                  stroke="#9CA3AF"
-                  stroke-dasharray="4,4"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                ></path>
-                <path
-                  d="M0,90 L10,85 L20,78 L30,70 L40,65 L50,55 L60,45 L70,35 L80,28 L90,20 L100,15"
-                  fill="none"
-                  stroke="#1565C0"
-                  stroke-width="3"
-                  vector-effect="non-scaling-stroke"
-                ></path>
-                <!-- Data Points -->
-                <circle
-                  cx="0"
-                  cy="90"
-                  fill="#fff"
-                  r="3"
-                  stroke="#1565C0"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                ></circle>
-                <circle
-                  cx="20"
-                  cy="78"
-                  fill="#fff"
-                  r="3"
-                  stroke="#1565C0"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                ></circle>
-                <circle
-                  cx="40"
-                  cy="65"
-                  fill="#fff"
-                  r="3"
-                  stroke="#1565C0"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                ></circle>
-                <circle
-                  cx="60"
-                  cy="45"
-                  fill="#fff"
-                  r="3"
-                  stroke="#1565C0"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                ></circle>
-                <circle
-                  cx="80"
-                  cy="28"
-                  fill="#fff"
-                  r="3"
-                  stroke="#1565C0"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                ></circle>
-                <circle
-                  cx="100"
-                  cy="15"
-                  fill="#1565C0"
-                  r="4"
-                  stroke="#fff"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                ></circle>
-              </svg>
 
-              <!-- Tooltip -->
-              <div
-                class="absolute right-0 top-[8%] bg-[#1A1A1A] text-white text-xs py-1.5 px-3 rounded shadow-lg transform -translate-x-1/2 -translate-y-full"
-              >
-                ₹68.4L Returns
+          <!-- ====== SECTION 2: PORTFOLIO PERFORMANCE CHART ====== -->
+          <div class="bg-white rounded-xl border border-card-border">
+            <div
+              class="p-6 border-b border-[#F0F0F0] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+            >
+              <div>
+                <h2 class="text-lg font-semibold text-text-primary">
+                  Portfolio Performance
+                </h2>
+                <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                  Actual vs expected cumulative returns
+                </p>
+              </div>
+              <div class="flex items-center gap-3">
+                <span
+                  class="hidden sm:inline-flex bg-success-light text-success text-[0.75rem] font-semibold px-3 py-1.5 rounded-lg items-center gap-1"
+                >
+                  <span class="material-icons-round text-sm">arrow_upward</span>
+                  10.7% above expected
+                </span>
                 <div
-                  class="absolute bottom-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-[#1A1A1A] rotate-45"
-                ></div>
+                  class="flex border border-[#D1D1D1] rounded-lg overflow-hidden"
+                >
+                  <button
+                    class="px-3.5 py-1.5 text-xs font-medium text-text-secondary hover:bg-financial-light transition-colors border-r border-[#D1D1D1]"
+                  >
+                    6M
+                  </button>
+                  <button
+                    class="px-3.5 py-1.5 text-xs font-medium bg-financial-blue text-white"
+                  >
+                    1Y
+                  </button>
+                  <button
+                    class="px-3.5 py-1.5 text-xs font-medium text-text-secondary hover:bg-financial-light transition-colors border-l border-[#D1D1D1]"
+                  >
+                    All
+                  </button>
+                </div>
               </div>
             </div>
-            <div
-              class="flex justify-between mt-4 text-xs text-gray-500 font-medium ml-2"
-            >
-              <span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span
-              ><span>Dec</span><span>Jan</span> <span>Feb</span><span>Mar</span
-              ><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+
+            <div class="p-6">
+              <div class="relative h-[300px] w-full">
+                <canvas id="investorChart"></canvas>
+              </div>
+
+              <!-- Legend -->
+              <div class="flex items-center justify-center gap-6 mt-4">
+                <div class="flex items-center gap-2">
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-financial-blue"
+                  ></span>
+                  <span class="text-[0.8125rem] text-text-muted"
+                    >Actual Returns</span
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="w-4 h-0 border-t-2 border-dashed border-text-disabled inline-block"
+                  ></span>
+                  <span class="text-[0.8125rem] text-text-muted"
+                    >Expected Returns</span
+                  >
+                </div>
+              </div>
             </div>
-            <div class="mt-6 text-right">
-              <p class="text-xs italic text-[#B0B0B0]">
+
+            <!-- Summary Stats -->
+            <div
+              class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#F0F0F0] border-t border-[#F0F0F0]"
+            >
+              <div class="text-center py-4">
+                <p
+                  class="text-xs text-text-muted uppercase tracking-wide font-medium mb-1"
+                >
+                  This Month
+                </p>
+                <p class="text-lg font-bold text-text-primary">₹3.2 L</p>
+                <p class="text-[0.6875rem] text-success mt-0.5">+8.2% MoM</p>
+              </div>
+              <div class="text-center py-4">
+                <p
+                  class="text-xs text-text-muted uppercase tracking-wide font-medium mb-1"
+                >
+                  Best Month
+                </p>
+                <p class="text-lg font-bold text-text-primary">₹3.7 L</p>
+                <p class="text-[0.6875rem] text-text-disabled mt-0.5">
+                  May 2025
+                </p>
+              </div>
+              <div class="text-center py-4">
+                <p
+                  class="text-xs text-text-muted uppercase tracking-wide font-medium mb-1"
+                >
+                  Avg Monthly Return
+                </p>
+                <p class="text-lg font-bold text-text-primary">₹2.5 L</p>
+              </div>
+            </div>
+
+            <!-- Note -->
+            <div class="px-6 pb-4">
+              <p class="text-[0.6875rem] text-text-disabled italic">
                 Returns include energy revenue, carbon credit income, and
                 government incentives. Net of platform fees.
               </p>
             </div>
           </div>
-        </div>
 
-        <!-- Project Table -->
-        <div
-          class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden"
-        >
+          <!-- ====== SECTION 3: PROJECT LIST TABLE ====== -->
           <div
-            class="px-6 py-5 border-b border-gray-100 flex justify-between items-center"
+            class="bg-white rounded-xl border border-card-border overflow-hidden"
           >
-            <h3 class="text-lg font-bold text-gray-900">Project Portfolio</h3>
-            <button
-              class="text-sm text-invest-blue font-medium hover:text-blue-800 transition-colors"
-            >
-              View All Projects
-            </button>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left border-collapse">
-              <thead
-                class="text-xs text-gray-500 uppercase bg-gray-50/50 border-b border-gray-100"
-              >
-                <tr>
-                  <th class="px-6 py-4 font-semibold">Project</th>
-                  <th class="px-6 py-4 font-semibold">Location</th>
-                  <th class="px-6 py-4 font-semibold">Capacity</th>
-                  <th class="px-6 py-4 font-semibold">Invested</th>
-                  <th class="px-6 py-4 font-semibold">Returns (YTD)</th>
-                  <th class="px-6 py-4 font-semibold">IRR</th>
-                  <th class="px-6 py-4 font-semibold">Status</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-100">
-                <!-- Project 1 (Clickable) -->
-                <tr
-                  class="hover:bg-gray-50 transition-colors group cursor-pointer relative"
-                  onclick="window.location.href = 'project.html'"
-                >
-                  <td
-                    class="px-6 py-4 font-medium text-gray-900 flex items-center gap-3 relative"
-                  >
-                    <div
-                      class="absolute left-0 top-0 bottom-0 w-[3px] bg-invest-green"
-                    ></div>
-                    <div
-                      class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs"
-                    >
-                      SP
-                    </div>
-                    Solar Park Alpha
-                  </td>
-                  <td class="px-6 py-4 text-gray-600">Jodhpur, RJ</td>
-                  <td class="px-6 py-4 text-gray-600">1.2 MW</td>
-                  <td class="px-6 py-4 text-gray-900 font-medium">₹85.0 L</td>
-                  <td
-                    class="px-6 py-4 text-green-600 font-medium flex items-center gap-2"
-                  >
-                    <span>+ ₹12.4 L</span>
-                    <svg
-                      class="w-[40px] h-[16px] text-green-500"
-                      preserveAspectRatio="none"
-                      viewBox="0 0 40 16"
-                    >
-                      <path
-                        d="M0,16 L5,12 L10,14 L15,8 L20,10 L25,5 L30,8 L35,2 L40,0"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                      ></path>
-                    </svg>
-                  </td>
-                  <td class="px-6 py-4 text-gray-900">14.2%</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="status-pill bg-green-50 text-green-700 border-green-200"
-                      >Operational</span
-                    >
-                  </td>
-                </tr>
-
-                <!-- Project 2 -->
-                <tr
-                  class="hover:bg-gray-50 transition-colors group cursor-pointer relative"
-                  onclick="window.location.href = 'project.html'"
-                >
-                  <td
-                    class="px-6 py-4 font-medium text-gray-900 flex items-center gap-3 relative"
-                  >
-                    <div
-                      class="absolute left-0 top-0 bottom-0 w-[3px] bg-invest-green"
-                    ></div>
-                    <div
-                      class="w-8 h-8 rounded bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs"
-                    >
-                      RT
-                    </div>
-                    Rooftop Beta
-                  </td>
-                  <td class="px-6 py-4 text-gray-600">Pune, MH</td>
-                  <td class="px-6 py-4 text-gray-600">450 kW</td>
-                  <td class="px-6 py-4 text-gray-900 font-medium">₹32.5 L</td>
-                  <td
-                    class="px-6 py-4 text-green-600 font-medium flex items-center gap-2"
-                  >
-                    <span>+ ₹4.8 L</span>
-                    <svg
-                      class="w-[40px] h-[16px] text-green-500"
-                      preserveAspectRatio="none"
-                      viewBox="0 0 40 16"
-                    >
-                      <path
-                        d="M0,14 L5,12 L10,13 L15,9 L20,11 L25,7 L30,8 L35,4 L40,2"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                      ></path>
-                    </svg>
-                  </td>
-                  <td class="px-6 py-4 text-gray-900">13.8%</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="status-pill bg-green-50 text-green-700 border-green-200"
-                      >Operational</span
-                    >
-                  </td>
-                </tr>
-
-                <!-- More rows truncated for brevity, but include all from your Stitch code -->
-
-                <!-- Total Row -->
-                <tr
-                  class="bg-[#F0F7FA] border-t-2 border-gray-200 font-bold sticky bottom-0"
-                >
-                  <td class="px-6 py-4 text-gray-900">Total (6 projects)</td>
-                  <td class="px-6 py-4"></td>
-                  <td class="px-6 py-4 text-gray-900">3,000 kW</td>
-                  <td class="px-6 py-4 text-gray-900">₹2.40 Cr</td>
-                  <td class="px-6 py-4 text-green-700">₹63.8L</td>
-                  <td class="px-6 py-4 text-gray-900">28.5%</td>
-                  <td class="px-6 py-4"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Bottom: Returns & Health -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Returns Breakdown -->
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative"
-          >
-            <h3 class="text-lg font-bold text-gray-900 mb-8">
-              Returns Breakdown
-            </h3>
             <div
-              class="flex items-center justify-center mb-10 mt-8 relative pl-8"
+              class="p-6 border-b border-[#F0F0F0] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
             >
-              <div class="relative w-48 h-48">
-                <div
-                  class="absolute -top-[4px] -right-[4px] w-48 h-48 rounded-full border-[12px] border-transparent border-t-invest-blue border-r-invest-blue transform -rotate-45"
-                  style="clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%)"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-48 h-48 rounded-full border-[12px] border-l-invest-green border-b-gray-100 border-r-transparent border-t-transparent transform -rotate-45"
-                ></div>
-                <div class="absolute -top-6 -right-16 z-10 flex items-center">
-                  <div class="w-8 h-[1px] bg-gray-400 rotate-45 mr-1"></div>
-                  <div
-                    class="bg-white border border-gray-200 shadow-md rounded px-2 py-1 text-xs font-bold text-gray-800 whitespace-nowrap"
-                  >
-                    ₹44.5L · Energy Revenue
-                  </div>
-                </div>
-                <div
-                  class="absolute inset-0 flex flex-col items-center justify-center"
-                >
-                  <span class="text-3xl font-bold text-gray-900">₹68.4L</span>
-                  <span class="text-xs text-gray-500 font-medium uppercase"
-                    >Total</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="space-y-3 pt-4">
-              <div class="flex items-center justify-between text-sm">
-                <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded bg-invest-blue"></span
-                  ><span class="text-gray-600">Energy Revenue</span>
-                </div>
-                <span class="font-bold text-gray-900">65%</span>
-              </div>
-              <div class="flex items-center justify-between text-sm">
-                <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded bg-invest-green"></span
-                  ><span class="text-gray-600">Carbon Credits</span>
-                </div>
-                <span class="font-bold text-gray-900">25%</span>
-              </div>
-              <div class="flex items-center justify-between text-sm">
-                <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded bg-orange-400"></span
-                  ><span class="text-gray-600">Govt. Incentives</span>
-                </div>
-                <span class="font-bold text-gray-900">10%</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Portfolio Health -->
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 lg:col-span-2"
-          >
-            <div class="flex justify-between items-start mb-6">
               <div>
-                <h3 class="text-lg font-bold text-gray-900">
-                  Portfolio Health
-                </h3>
-                <p class="text-sm text-gray-500">
-                  Key performance indicators across all assets
+                <h2 class="text-lg font-semibold text-text-primary">
+                  My Projects
+                </h2>
+                <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                  All your invested solar and battery projects
                 </p>
               </div>
-              <button class="text-gray-400 hover:text-gray-600">
-                <span class="material-icons-round">more_horiz</span>
-              </button>
-            </div>
-            <div
-              class="mb-8 bg-green-50/50 rounded-xl p-4 border border-green-100 flex items-center gap-6"
-            >
-              <div class="flex flex-col">
-                <span
-                  class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1"
-                  >Overall Health Score</span
-                >
-                <span class="text-4xl font-bold text-gray-900"
-                  >91<span class="text-2xl text-gray-400 font-normal"
-                    >/100</span
-                  ></span
-                >
-              </div>
-              <div class="flex-1">
-                <div class="w-full bg-gray-200 rounded-full h-3">
-                  <div
-                    class="bg-green-600 h-3 rounded-full relative"
-                    style="width: 91%"
+              <div class="flex items-center gap-3">
+                <div class="relative">
+                  <span
+                    class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-base"
+                    >search</span
                   >
-                    <div
-                      class="absolute right-0 -top-1 w-5 h-5 bg-white border-2 border-green-600 rounded-full shadow-sm"
-                    ></div>
-                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search projects..."
+                    class="pl-9 pr-4 py-[7px] w-48 border border-[#D1D1D1] rounded-lg text-[0.8125rem] text-text-primary placeholder-text-disabled focus:outline-none focus:border-financial-blue focus:ring-2 focus:ring-financial-blue/15 transition-all"
+                  />
                 </div>
-                <div
-                  class="flex justify-between mt-2 text-xs text-gray-500 font-medium"
+                <button
+                  class="flex items-center gap-2 border border-[#D1D1D1] rounded-lg px-4 py-[7px] text-[0.8125rem] font-medium text-text-secondary hover:border-primary hover:text-primary transition-colors"
                 >
-                  <span>Poor</span><span>Needs Attention</span><span>Good</span
-                  ><span class="text-green-700 font-bold">Excellent</span>
-                </div>
+                  <span class="material-icons-round text-base">download</span>
+                  Export
+                </button>
               </div>
             </div>
-            <!-- Health Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700"
-                    >Grid Uptime</span
-                  ><span class="text-sm font-bold text-gray-900">99.8%</span>
-                </div>
-                <div class="w-full bg-gray-100 rounded-full h-2">
-                  <div
-                    class="bg-green-500 h-2 rounded-full"
-                    style="width: 99.8%"
-                  ></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-1">Target: 99.0%</p>
-              </div>
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700"
-                    >PR (Performance Ratio)</span
-                  ><span class="text-sm font-bold text-gray-900">82.4%</span>
-                </div>
-                <div class="w-full bg-gray-100 rounded-full h-2">
-                  <div
-                    class="bg-invest-blue h-2 rounded-full"
-                    style="width: 82.4%"
-                  ></div>
-                </div>
-                <p class="text-xs text-gray-400 mt-1">Target: 80.0%</p>
-              </div>
-              <!-- Add remaining health items... -->
+
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[780px]">
+                <thead>
+                  <tr class="bg-bg-warm border-b border-[#F0F0F0]">
+                    <th
+                      class="text-left text-[0.6875rem] font-semibold text-text-muted uppercase tracking-[0.04em] px-5 py-3"
+                    >
+                      Project
+                    </th>
+                    <th
+                      class="text-left text-[0.6875rem] font-semibold text-text-muted uppercase tracking-[0.04em] px-4 py-3"
+                    >
+                      Location
+                    </th>
+                    <th
+                      class="text-center text-[0.6875rem] font-semibold text-text-muted uppercase tracking-[0.04em] px-4 py-3"
+                    >
+                      Capacity
+                    </th>
+                    <th
+                      class="text-right text-[0.6875rem] font-semibold text-text-muted uppercase tracking-[0.04em] px-4 py-3"
+                    >
+                      Invested
+                    </th>
+                    <th
+                      class="text-right text-[0.6875rem] font-semibold text-text-muted uppercase tracking-[0.04em] px-4 py-3"
+                    >
+                      Returns
+                    </th>
+                    <th
+                      class="text-center text-[0.6875rem] font-semibold text-text-muted uppercase tracking-[0.04em] px-4 py-3"
+                    >
+                      IRR
+                    </th>
+                    <th
+                      class="text-center text-[0.6875rem] font-semibold text-text-muted uppercase tracking-[0.04em] px-4 py-3"
+                    >
+                      Status
+                    </th>
+                    <th class="w-8 px-2 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Row 1: Noida Factory -->
+                  <tr
+                    class="data-row border-b border-[#F0F0F0] cursor-pointer"
+                    onclick="window.location.href = 'project.html'"
+                  >
+                    <td class="px-5 py-3.5">
+                      <div class="flex items-center gap-2.5">
+                        <div
+                          class="w-[3px] h-8 rounded-full bg-success flex-shrink-0"
+                        ></div>
+                        <span
+                          class="material-icons-round text-text-disabled text-base"
+                          >business</span
+                        >
+                        <span
+                          class="text-[0.8125rem] font-medium text-text-primary"
+                          >Noida Factory</span
+                        >
+                      </div>
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary"
+                    >
+                      Noida, UP
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary text-center"
+                    >
+                      500 KW
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-text-primary text-right"
+                    >
+                      ₹85.0L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-success text-right"
+                    >
+                      ₹14.2L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-semibold text-success text-center"
+                    >
+                      28.2%
+                    </td>
+                    <td class="px-4 py-3.5 text-center">
+                      <span
+                        class="inline-flex items-center bg-success-light text-success text-[0.625rem] font-semibold px-2.5 py-0.5 rounded-full"
+                        >Active</span
+                      >
+                    </td>
+                    <td class="px-2 py-3.5">
+                      <span
+                        class="material-icons-round text-text-disabled text-base"
+                        >chevron_right</span
+                      >
+                    </td>
+                  </tr>
+
+                  <!-- Row 2: Gurgaon Warehouse -->
+                  <tr
+                    class="data-row border-b border-[#F0F0F0] bg-[#FAFAFA] cursor-pointer"
+                    onclick="window.location.href = 'project.html'"
+                  >
+                    <td class="px-5 py-3.5">
+                      <div class="flex items-center gap-2.5">
+                        <div
+                          class="w-[3px] h-8 rounded-full bg-success flex-shrink-0"
+                        ></div>
+                        <span
+                          class="material-icons-round text-text-disabled text-base"
+                          >business</span
+                        >
+                        <span
+                          class="text-[0.8125rem] font-medium text-text-primary"
+                          >Gurgaon Warehouse</span
+                        >
+                      </div>
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary"
+                    >
+                      Gurgaon, HR
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary text-center"
+                    >
+                      350 KW
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-text-primary text-right"
+                    >
+                      ₹62.0L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-success text-right"
+                    >
+                      ₹9.8L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-semibold text-success text-center"
+                    >
+                      23.5%
+                    </td>
+                    <td class="px-4 py-3.5 text-center">
+                      <span
+                        class="inline-flex items-center bg-success-light text-success text-[0.625rem] font-semibold px-2.5 py-0.5 rounded-full"
+                        >Active</span
+                      >
+                    </td>
+                    <td class="px-2 py-3.5">
+                      <span
+                        class="material-icons-round text-text-disabled text-base"
+                        >chevron_right</span
+                      >
+                    </td>
+                  </tr>
+
+                  <!-- Row 3: Pune Manufacturing -->
+                  <tr
+                    class="data-row border-b border-[#F0F0F0] cursor-pointer"
+                    onclick="window.location.href = 'project.html'"
+                  >
+                    <td class="px-5 py-3.5">
+                      <div class="flex items-center gap-2.5">
+                        <div
+                          class="w-[3px] h-8 rounded-full bg-success flex-shrink-0"
+                        ></div>
+                        <span
+                          class="material-icons-round text-text-disabled text-base"
+                          >business</span
+                        >
+                        <span
+                          class="text-[0.8125rem] font-medium text-text-primary"
+                          >Pune Manufacturing</span
+                        >
+                      </div>
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary"
+                    >
+                      Pune, MH
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary text-center"
+                    >
+                      750 KW
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-text-primary text-right"
+                    >
+                      ₹1.25 Cr
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-success text-right"
+                    >
+                      ₹18.0L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-semibold text-success text-center"
+                    >
+                      22.1%
+                    </td>
+                    <td class="px-4 py-3.5 text-center">
+                      <span
+                        class="inline-flex items-center bg-success-light text-success text-[0.625rem] font-semibold px-2.5 py-0.5 rounded-full"
+                        >Active</span
+                      >
+                    </td>
+                    <td class="px-2 py-3.5">
+                      <span
+                        class="material-icons-round text-text-disabled text-base"
+                        >chevron_right</span
+                      >
+                    </td>
+                  </tr>
+
+                  <!-- Row 4: Chennai Logistics — Installing -->
+                  <tr
+                    class="data-row border-b border-[#F0F0F0] bg-[#FAFAFA] cursor-pointer"
+                    onclick="window.location.href = 'project.html'"
+                  >
+                    <td class="px-5 py-3.5">
+                      <div class="flex items-center gap-2.5">
+                        <div
+                          class="w-[3px] h-8 rounded-full bg-warning flex-shrink-0"
+                        ></div>
+                        <span
+                          class="material-icons-round text-text-disabled text-base"
+                          >business</span
+                        >
+                        <span
+                          class="text-[0.8125rem] font-medium text-text-primary"
+                          >Chennai Logistics</span
+                        >
+                      </div>
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary"
+                    >
+                      Chennai, TN
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary text-center"
+                    >
+                      280 KW
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-text-primary text-right"
+                    >
+                      ₹48.0L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-disabled text-right"
+                    >
+                      —
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-disabled text-center"
+                    >
+                      —
+                    </td>
+                    <td class="px-4 py-3.5 text-center">
+                      <span
+                        class="inline-flex items-center bg-warning-light text-warning text-[0.625rem] font-semibold px-2.5 py-0.5 rounded-full"
+                        >Installing</span
+                      >
+                    </td>
+                    <td class="px-2 py-3.5">
+                      <span
+                        class="material-icons-round text-text-disabled text-base"
+                        >chevron_right</span
+                      >
+                    </td>
+                  </tr>
+
+                  <!-- Row 5: Jaipur Textile Mill — Planning -->
+                  <tr
+                    class="data-row border-b border-[#F0F0F0] cursor-pointer"
+                    onclick="window.location.href = 'project.html'"
+                  >
+                    <td class="px-5 py-3.5">
+                      <div class="flex items-center gap-2.5">
+                        <div
+                          class="w-[3px] h-8 rounded-full bg-text-disabled flex-shrink-0"
+                        ></div>
+                        <span
+                          class="material-icons-round text-text-disabled text-base"
+                          >business</span
+                        >
+                        <span
+                          class="text-[0.8125rem] font-medium text-text-primary"
+                          >Jaipur Textile Mill</span
+                        >
+                      </div>
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary"
+                    >
+                      Jaipur, RJ
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-secondary text-center"
+                    >
+                      420 KW
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-medium text-text-primary text-right"
+                    >
+                      ₹72.0L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-disabled text-right"
+                    >
+                      —
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] text-text-disabled text-center"
+                    >
+                      —
+                    </td>
+                    <td class="px-4 py-3.5 text-center">
+                      <span
+                        class="inline-flex items-center bg-[#F5F5F5] text-text-muted text-[0.625rem] font-semibold px-2.5 py-0.5 rounded-full"
+                        >Planning</span
+                      >
+                    </td>
+                    <td class="px-2 py-3.5">
+                      <span
+                        class="material-icons-round text-text-disabled text-base"
+                        >chevron_right</span
+                      >
+                    </td>
+                  </tr>
+
+                  <!-- Total Row -->
+                  <tr class="bg-[#F0F7FA] border-t-2 border-card-border">
+                    <td
+                      class="px-5 py-3.5 text-[0.8125rem] font-semibold text-text-primary"
+                    >
+                      Total (5 projects)
+                    </td>
+                    <td class="px-4 py-3.5 text-[0.8125rem] text-text-disabled">
+                      —
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-semibold text-text-primary text-center"
+                    >
+                      2,300 KW
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-bold text-text-primary text-right"
+                    >
+                      ₹2.50 Cr
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-bold text-success text-right"
+                    >
+                      ₹42.0L
+                    </td>
+                    <td
+                      class="px-4 py-3.5 text-[0.8125rem] font-bold text-text-primary text-center"
+                    >
+                      24.8% avg
+                    </td>
+                    <td class="px-4 py-3.5"></td>
+                    <td class="px-2 py-3.5"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="px-6 py-3 border-t border-[#F0F0F0] flex justify-between items-center"
+            >
+              <p class="text-[0.75rem] text-text-muted">
+                Showing 5 of 5 projects
+              </p>
+              <a
+                href="project.html"
+                class="text-[0.8125rem] font-medium text-primary flex items-center gap-1 hover:gap-2 transition-all arrow-link-hover"
+              >
+                View detailed project page
+                <span
+                  class="arrow-icon material-icons-round text-base transition-transform"
+                  >arrow_forward</span
+                >
+              </a>
             </div>
           </div>
-        </div>
 
-        <!-- Bottom Spacer -->
-        <div class="h-8"></div>
+          <!-- ====== SECTION 4: BOTTOM ROW ====== -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- Card A: Returns Breakdown -->
+            <div
+              class="bg-white rounded-xl border border-card-border p-6 flex flex-col"
+            >
+              <h3 class="text-base font-semibold text-text-primary">
+                Returns Breakdown
+              </h3>
+              <p class="text-[0.8125rem] text-text-muted mt-0.5 mb-5">
+                How your returns are distributed
+              </p>
+
+              <!-- CSS Donut Chart -->
+              <div class="flex justify-center my-4">
+                <div
+                  class="relative w-[140px] h-[140px] flex items-center justify-center"
+                >
+                  <svg
+                    class="w-full h-full transform -rotate-90"
+                    viewBox="0 0 140 140"
+                  >
+                    <!-- Track -->
+                    <circle
+                      cx="70"
+                      cy="70"
+                      r="54"
+                      fill="transparent"
+                      stroke="#F0F0F0"
+                      stroke-width="20"
+                    ></circle>
+                    <!-- Energy Revenue 65% -->
+                    <circle
+                      cx="70"
+                      cy="70"
+                      r="54"
+                      fill="transparent"
+                      stroke="#1565C0"
+                      stroke-width="20"
+                      stroke-dasharray="220.5 339.3"
+                      stroke-dashoffset="0"
+                      class="donut-segment"
+                    ></circle>
+                    <!-- Carbon Credits 22% -->
+                    <circle
+                      cx="70"
+                      cy="70"
+                      r="54"
+                      fill="transparent"
+                      stroke="#2E7D32"
+                      stroke-width="20"
+                      stroke-dasharray="74.6 339.3"
+                      stroke-dashoffset="-224.5"
+                      class="donut-segment"
+                    ></circle>
+                    <!-- Incentives 13% -->
+                    <circle
+                      cx="70"
+                      cy="70"
+                      r="54"
+                      fill="transparent"
+                      stroke="#E8740C"
+                      stroke-width="20"
+                      stroke-dasharray="44.1 339.3"
+                      stroke-dashoffset="-303.1"
+                      class="donut-segment"
+                    ></circle>
+                  </svg>
+                  <div
+                    class="absolute inset-0 flex flex-col items-center justify-center"
+                  >
+                    <span class="text-[1.125rem] font-bold text-text-primary"
+                      >₹42.0L</span
+                    >
+                    <span class="text-[0.6875rem] text-text-muted mt-0.5"
+                      >total returns</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Legend -->
+              <div class="space-y-2.5 mt-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="w-2.5 h-2.5 rounded-full bg-financial-blue"
+                    ></span>
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Energy Revenue</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="text-[0.8125rem] font-semibold text-text-primary"
+                      >₹27.3L</span
+                    >
+                    <span class="text-[0.6875rem] text-text-muted">65%</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-success"></span>
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Carbon Credits</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="text-[0.8125rem] font-semibold text-text-primary"
+                      >₹9.2L</span
+                    >
+                    <span class="text-[0.6875rem] text-text-muted">22%</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Incentives & Subsidies</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="text-[0.8125rem] font-semibold text-text-primary"
+                      >₹5.5L</span
+                    >
+                    <span class="text-[0.6875rem] text-text-muted">13%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card B: Portfolio Health -->
+            <div
+              class="bg-white rounded-xl border border-card-border p-6 flex flex-col"
+            >
+              <h3 class="text-base font-semibold text-text-primary">
+                Portfolio Health
+              </h3>
+              <p class="text-[0.8125rem] text-text-muted mt-0.5 mb-4">
+                Risk and performance indicators
+              </p>
+
+              <!-- Overall Score -->
+              <div class="text-center mb-4 pb-4 border-b border-[#F0F0F0]">
+                <p class="text-text-primary">
+                  <span class="text-[2rem] font-bold">91</span>
+                  <span class="text-[1rem] text-text-muted">/100</span>
+                </p>
+                <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                  Portfolio Score
+                </p>
+                <div
+                  class="w-20 h-1 bg-[#E0E0E0] rounded-full mx-auto mt-2 overflow-hidden"
+                >
+                  <div
+                    class="bg-success h-full rounded-full health-bar"
+                    style="--final-width: 91%"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Health Indicators -->
+              <div class="space-y-0 flex-1">
+                <!-- Row 1: Overall Performance -->
+                <div class="py-3 border-b border-[#F5F5F5]">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Overall Performance</span
+                    >
+                    <span
+                      class="bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                      >Excellent</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 h-[6px] bg-[#E0E0E0] rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-success h-full rounded-full health-bar"
+                        style="--final-width: 92%"
+                      ></div>
+                    </div>
+                    <span class="text-[0.625rem] text-text-muted w-8 text-right"
+                      >92</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Row 2: Payment Collection -->
+                <div class="py-3 border-b border-[#F5F5F5]">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Payment Collection</span
+                    >
+                    <span
+                      class="bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                      >Good</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 h-[6px] bg-[#E0E0E0] rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-success h-full rounded-full health-bar"
+                        style="--final-width: 88%"
+                      ></div>
+                    </div>
+                    <span class="text-[0.625rem] text-text-muted w-8 text-right"
+                      >88</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Row 3: System Uptime -->
+                <div class="py-3 border-b border-[#F5F5F5]">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >System Uptime</span
+                    >
+                    <span
+                      class="bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                      >Excellent</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 h-[6px] bg-[#E0E0E0] rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-success h-full rounded-full health-bar"
+                        style="--final-width: 98%"
+                      ></div>
+                    </div>
+                    <span class="text-[0.625rem] text-text-muted w-8 text-right"
+                      >98</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Row 4: Counterparty Risk -->
+                <div class="py-3">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Counterparty Risk</span
+                    >
+                    <span
+                      class="bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                      >Low</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 h-[6px] bg-[#E0E0E0] rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-success h-full rounded-full health-bar"
+                        style="--final-width: 85%"
+                      ></div>
+                    </div>
+                    <span class="text-[0.625rem] text-text-muted w-8 text-right"
+                      >85</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Summary callout -->
+              <div
+                class="mt-4 bg-financial-light rounded-lg px-3.5 py-3 border-l-[3px] border-financial-blue"
+              >
+                <p class="text-[0.75rem] text-financial-blue leading-relaxed">
+                  📊 Your portfolio is performing above benchmark with low risk
+                  exposure. All payment collections are on track.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <footer class="mt-2 mb-2 text-center">
+            <p class="text-xs text-text-disabled">
+              © 2026 SunZero Energy Intelligence
+            </p>
+          </footer>
+        </div>
       </main>
     </div>
 
-    <!-- Navigation Script -->
-    <script src="../../js/navigation.js"></script>
+    <script>
+      function toggleMobileSidebar() {
+        document.getElementById("mobileSidebar").classList.toggle("active");
+        document.getElementById("sidebarOverlay").classList.toggle("active");
+      }
+    </script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <!-- Mock Data & Charts -->
+    <script src="../../js/mock-data.js"></script>
+    <script src="../../js/charts.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        renderInvestorChart("investorChart");
+      });
+    </script>
   </body>
 </html>

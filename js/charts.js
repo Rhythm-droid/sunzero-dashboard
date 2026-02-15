@@ -483,3 +483,151 @@ function renderInvestorChart(canvasId) {
     },
   });
 }
+
+// ============================================================
+// PROJECT DETAIL: Revenue Trend (Bar Chart)
+// ============================================================
+function renderProjectRevenueChart(canvasId) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+      datasets: [
+        {
+          label: "Monthly Revenue",
+          data: [148000, 162000, 178000, 195000, 210000, 240000],
+          backgroundColor: "#1565C0",
+          borderRadius: 6,
+          borderSkipped: false,
+          barPercentage: 0.5,
+          categoryPercentage: 0.7,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (item) => {
+              const val = item.parsed.y;
+              return ` Revenue: ₹${(val / 100000).toFixed(1)}L`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 11 } },
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: "#F0F0F0" },
+          ticks: {
+            callback: (val) => "₹" + val / 100000 + "L",
+            font: { size: 11 },
+            maxTicksLimit: 5,
+          },
+        },
+      },
+    },
+  });
+}
+
+// ============================================================
+// PROJECT DETAIL: Energy Performance (Actual vs Expected Lines)
+// ============================================================
+function renderProjectEnergyChart(canvasId) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+
+  const chartCtx = ctx.getContext("2d");
+  const actualGradient = chartCtx.createLinearGradient(0, 0, 0, 220);
+  actualGradient.addColorStop(0, "rgba(232, 116, 12, 0.12)");
+  actualGradient.addColorStop(1, "rgba(232, 116, 12, 0.01)");
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+      datasets: [
+        {
+          label: "Actual Generation",
+          data: [38500, 41200, 44800, 48200, 50100, 52800],
+          borderColor: "#E8740C",
+          backgroundColor: actualGradient,
+          fill: true,
+          pointBackgroundColor: "#E8740C",
+          pointBorderColor: "#FFFFFF",
+          pointHoverBorderColor: "#E8740C",
+          pointRadius: 3,
+          pointBorderWidth: 2,
+          tension: 0.4,
+          borderWidth: 2.5,
+        },
+        {
+          label: "Expected Generation",
+          data: [37000, 40000, 43000, 45000, 48000, 50000],
+          borderColor: "#B0B0B0",
+          backgroundColor: "transparent",
+          fill: false,
+          borderDash: [6, 4],
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.4,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: "index",
+        intersect: false,
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (item) =>
+              ` ${item.dataset.label}: ${item.parsed.y.toLocaleString()} kWh`,
+            afterBody: (items) => {
+              if (items.length >= 2) {
+                const actual = items[0].parsed.y;
+                const expected = items[1].parsed.y;
+                const perf = ((actual / expected) * 100).toFixed(1);
+                return `\n  Performance: ${perf}%`;
+              }
+              return "";
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 11 } },
+        },
+        y: {
+          beginAtZero: false,
+          grid: { color: "#F0F0F0" },
+          ticks: {
+            callback: (val) => (val / 1000).toFixed(0) + "K",
+            font: { size: 11 },
+            maxTicksLimit: 5,
+          },
+          title: {
+            display: true,
+            text: "kWh",
+            font: { size: 11, weight: "500" },
+            color: "#8A8A8A",
+          },
+        },
+      },
+    },
+  });
+}

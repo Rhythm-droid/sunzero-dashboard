@@ -1,0 +1,1253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SunZero — Site Detail</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#E8740C",
+              "primary-dark": "#C2571A",
+              "bg-warm": "#F7F4EF",
+              sidebar: "#1A1A1A",
+              "sidebar-hover": "#2D2D2D",
+              "card-border": "#EBEBEB",
+              "text-primary": "#1A1A1A",
+              "text-secondary": "#6B6B6B",
+              "text-muted": "#8A8A8A",
+              "text-disabled": "#B0B0B0",
+              success: "#2E7D32",
+              "success-dark": "#1B5E20",
+              "success-light": "#E8F5E9",
+              error: "#C62828",
+              "error-light": "#FFEBEE",
+              warning: "#E65100",
+              "warning-light": "#FFF8E1",
+              "grid-blue": "#6B8FA6",
+              "battery-green": "#66BB6A",
+              "financial-blue": "#1565C0",
+              "financial-light": "#E3F2FD",
+            },
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d1d1d1;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b0b0b0;
+      }
+
+      .sidebar-active {
+        background: linear-gradient(
+          90deg,
+          rgba(232, 116, 12, 0.15) 0%,
+          rgba(232, 116, 12, 0.03) 100%
+        );
+        border-left: 3px solid #e8740c;
+      }
+
+      .kpi-card {
+        transition:
+          transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.25s ease;
+      }
+      .kpi-card:hover {
+        transform: translateY(-2px);
+      }
+      .kpi-card-orange:hover {
+        box-shadow: 0 8px 20px -4px rgba(232, 116, 12, 0.15);
+      }
+      .kpi-card-red:hover {
+        box-shadow: 0 8px 20px -4px rgba(198, 40, 40, 0.15);
+      }
+      .kpi-card-green:hover {
+        box-shadow: 0 8px 20px -4px rgba(46, 125, 50, 0.15);
+      }
+      .kpi-card-blue:hover {
+        box-shadow: 0 8px 20px -4px rgba(21, 101, 192, 0.15);
+      }
+
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.3);
+          opacity: 0.7;
+        }
+      }
+      .pulse-dot {
+        animation: pulse-dot 1.5s ease-in-out infinite;
+      }
+
+      .arrow-link-hover:hover .arrow-icon {
+        transform: translateX(4px);
+      }
+
+      .sidebar-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .sidebar-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sidebar-mobile {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar-mobile.active {
+        transform: translateX(0);
+      }
+
+      .timeline-line::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 7px;
+        width: 2px;
+        height: 100%;
+        background-color: #e0e0e0;
+        z-index: 0;
+      }
+    </style>
+  </head>
+
+  <body
+    class="font-sans bg-bg-warm text-text-primary flex h-screen overflow-hidden"
+  >
+    <!-- ==================== ADMIN SIDEBAR ==================== -->
+    <aside
+      class="w-[260px] bg-sidebar flex-shrink-0 flex flex-col h-full text-white hidden lg:flex"
+    >
+      <div
+        class="h-[72px] flex items-center justify-between px-5 border-b border-white/10 flex-shrink-0"
+      >
+        <a href="fleet.html" class="flex items-center gap-2">
+          <span class="material-icons-round text-primary text-3xl"
+            >wb_sunny</span
+          >
+          <span class="text-xl font-bold tracking-tight"
+            >Sun<span class="text-primary">Zero</span></span
+          >
+        </a>
+        <span
+          class="bg-error/[0.12] text-error text-[0.625rem] font-medium px-2.5 py-[3px] rounded-full"
+          >Admin</span
+        >
+      </div>
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Operations
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="fleet.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">layers</span>Fleet
+                Overview</a
+              >
+            </li>
+            <li>
+              <a
+                href="site.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem] transition-all"
+                ><span class="material-icons-round text-lg text-primary"
+                  >business</span
+                >Site Management</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center justify-between px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="flex items-center gap-3"
+                  ><span class="material-icons-round text-lg"
+                    >warning_amber</span
+                  >Alerts & Incidents</span
+                ><span
+                  class="w-[18px] h-[18px] bg-error rounded-full flex items-center justify-center text-white text-[0.5625rem] font-bold"
+                  >3</span
+                ></a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Analytics
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">bar_chart</span
+                >Performance</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">currency_rupee</span
+                >Financial Overview</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Management
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">people</span
+                >Customers</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg"
+                  >business_center</span
+                >Investors</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            System
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">settings</span
+                >Settings</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="p-3 space-y-3 border-t border-white/10 flex-shrink-0">
+        <div
+          class="bg-sidebar-hover rounded-xl p-3.5 cursor-pointer hover:bg-[#3A3A3A] transition-colors group"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0"
+            >
+              <span class="material-icons-round text-primary text-sm"
+                >support_agent</span
+              >
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[0.8125rem] font-medium">Need Help?</p>
+              <p class="text-[0.6875rem] text-[#6B6B6B]">Contact support</p>
+            </div>
+            <span
+              class="material-icons-round text-[#6B6B6B] text-sm group-hover:translate-x-0.5 transition-transform"
+              >arrow_forward</span
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+          <div class="relative flex-shrink-0">
+            <div
+              class="w-9 h-9 rounded-full bg-error flex items-center justify-center text-white font-bold text-xs"
+            >
+              HS
+            </div>
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-sidebar rounded-full"
+            ></span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Harpreet Sohal</p>
+            <p class="text-xs text-[#6B6B6B] truncate">System Admin</p>
+          </div>
+          <a
+            href="../../index.html"
+            class="text-[#6B6B6B] hover:text-white transition-colors"
+            title="Sign Out"
+            ><span class="material-icons-round text-lg">logout</span></a
+          >
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      id="sidebarOverlay"
+      class="fixed inset-0 z-40 sidebar-overlay lg:hidden"
+      onclick="toggleMobileSidebar()"
+    ></div>
+
+    <!-- Mobile Sidebar -->
+    <aside
+      id="mobileSidebar"
+      class="fixed top-0 left-0 w-72 h-full bg-sidebar z-50 sidebar-mobile lg:hidden flex flex-col text-white"
+    >
+      <div
+        class="h-14 flex items-center justify-between px-5 border-b border-white/10"
+      >
+        <div class="flex items-center gap-2">
+          <span class="material-icons-round text-primary text-2xl"
+            >wb_sunny</span
+          >
+          <span class="text-lg font-bold tracking-tight"
+            >Sun<span class="text-primary">Zero</span></span
+          >
+          <span
+            class="bg-error/[0.12] text-error text-[0.5rem] font-medium px-2 py-[2px] rounded-full ml-1"
+            >Admin</span
+          >
+        </div>
+        <button
+          onclick="toggleMobileSidebar()"
+          class="text-[#8A8A8A] hover:text-white"
+        >
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Operations
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="fleet.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">layers</span>Fleet
+                Overview</a
+              >
+            </li>
+            <li>
+              <a
+                href="site.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem]"
+                ><span class="material-icons-round text-lg">business</span>Site
+                Management</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center justify-between px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="flex items-center gap-3"
+                  ><span class="material-icons-round text-lg"
+                    >warning_amber</span
+                  >Alerts & Incidents</span
+                ><span
+                  class="w-[18px] h-[18px] bg-error rounded-full flex items-center justify-center text-white text-[0.5625rem] font-bold"
+                  >3</span
+                ></a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Analytics
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">bar_chart</span
+                >Performance</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">currency_rupee</span
+                >Financial Overview</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Management
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">people</span
+                >Customers</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg"
+                  >business_center</span
+                >Investors</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ==================== MAIN AREA ==================== -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+      <!-- TOP BAR -->
+      <header
+        class="h-[72px] bg-white border-b border-card-border flex items-center justify-between px-6 lg:px-8 flex-shrink-0"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="toggleMobileSidebar()"
+            class="lg:hidden text-text-secondary hover:text-text-primary transition-colors"
+          >
+            <span class="material-icons-round">menu</span>
+          </button>
+          <a
+            href="fleet.html"
+            class="hidden sm:flex items-center gap-1 text-[0.8125rem] font-medium text-text-muted hover:text-text-primary hover:underline transition-colors mr-2"
+          >
+            <span class="material-icons-round text-sm">arrow_back</span>Back to
+            Fleet
+          </a>
+          <div class="hidden sm:block w-px h-6 bg-card-border mx-1"></div>
+          <div class="flex flex-col">
+            <nav class="hidden sm:flex text-[0.8125rem] items-center gap-1.5">
+              <span class="text-text-muted">Admin</span>
+              <span class="text-text-disabled">/</span>
+              <span class="text-text-primary font-medium"
+                >Ludhiana Textile Mill</span
+              >
+            </nav>
+            <h1
+              class="text-lg font-semibold text-text-primary mt-0.5 flex items-center gap-2"
+            >
+              Ludhiana Textile Mill
+              <span class="w-2 h-2 rounded-full bg-error pulse-dot"></span>
+            </h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center border border-[#D1D1D1] rounded-lg px-3 py-[7px] hover:border-primary/40 transition-colors cursor-pointer"
+          >
+            <span
+              class="material-icons-round text-text-secondary text-base mr-2"
+              >calendar_today</span
+            >
+            <span class="text-[0.8125rem] font-medium text-text-primary"
+              >Jul 28, 2025</span
+            >
+            <span class="material-icons-round text-text-disabled text-base ml-2"
+              >expand_more</span
+            >
+          </div>
+          <button
+            class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-text-secondary hover:text-text-primary transition-colors"
+          >
+            <span class="material-icons-round text-xl">notifications_none</span>
+            <span
+              class="absolute -top-0.5 -right-0.5 w-[18px] h-[18px] bg-error rounded-full flex items-center justify-center text-white text-[0.5rem] font-bold ring-2 ring-white"
+              >3</span
+            >
+          </button>
+          <div
+            class="hidden sm:flex w-8 h-8 rounded-full bg-error items-center justify-center text-white font-bold text-xs cursor-pointer hover:ring-2 hover:ring-error/30 transition-all"
+          >
+            H
+          </div>
+        </div>
+      </header>
+
+      <!-- SCROLLABLE CONTENT -->
+      <main class="flex-1 overflow-y-auto p-5 lg:p-6">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-5">
+          <!-- ====== SECTION 1: SITE HEADER ====== -->
+          <div
+            class="bg-white rounded-2xl p-5 lg:p-6 border border-card-border border-t-[3px] border-t-error"
+          >
+            <div
+              class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"
+            >
+              <!-- Left -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-14 h-14 rounded-xl bg-error/10 flex items-center justify-center flex-shrink-0"
+                >
+                  <span class="material-icons-round text-error text-[28px]"
+                    >warning_amber</span
+                  >
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span
+                      class="inline-flex items-center gap-1 bg-error-light text-error text-[0.6875rem] font-semibold px-3 py-1 rounded-full"
+                    >
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"
+                      ></span
+                      >Alert Active
+                    </span>
+                  </div>
+                  <h1 class="text-[1.375rem] font-bold text-text-primary">
+                    Ludhiana Textile Mill
+                  </h1>
+                  <div class="flex items-center gap-1.5 mt-1">
+                    <span
+                      class="material-icons-round text-text-muted"
+                      style="font-size: 14px"
+                      >location_on</span
+                    >
+                    <span class="text-[0.875rem] text-text-secondary"
+                      >GT Road, Ludhiana, Punjab</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Center Info -->
+              <div
+                class="flex flex-wrap items-center gap-0 divide-x divide-card-border"
+              >
+                <div class="px-4 lg:px-5 py-1 first:pl-0">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">
+                    Capacity
+                  </p>
+                  <p class="text-[0.9375rem] font-semibold text-text-primary">
+                    350 kW
+                  </p>
+                </div>
+                <div class="px-4 lg:px-5 py-1">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">
+                    Customer
+                  </p>
+                  <p class="text-[0.9375rem] font-semibold text-text-primary">
+                    Punjab Textiles Ltd
+                  </p>
+                </div>
+                <div class="px-4 lg:px-5 py-1">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">
+                    Commissioned
+                  </p>
+                  <p class="text-[0.9375rem] font-semibold text-text-primary">
+                    Nov 10, 2024
+                  </p>
+                </div>
+                <div class="px-4 lg:px-5 py-1">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">
+                    System Type
+                  </p>
+                  <p class="text-[0.9375rem] font-semibold text-text-primary">
+                    Solar + Battery
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right Actions -->
+              <div class="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+                <button
+                  class="flex items-center justify-center gap-2 bg-white border border-[#D1D1D1] rounded-lg px-4 py-2.5 text-[0.8125rem] font-medium text-text-secondary hover:bg-gray-50 transition-colors"
+                >
+                  <span class="material-icons-round text-base">call</span
+                  >Contact
+                </button>
+                <button
+                  class="flex items-center justify-center gap-2 bg-error hover:bg-red-700 text-white rounded-lg px-4 py-2.5 text-[0.8125rem] font-medium shadow-sm transition-colors"
+                >
+                  <span class="material-icons-round text-base">build</span
+                  >Resolve Alert
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== SECTION 2: ALERT DETAIL BANNER ====== -->
+          <div
+            class="bg-error-light border border-red-200 border-l-[4px] border-l-error rounded-xl p-5 flex flex-col md:flex-row md:items-start gap-4"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-sm text-error"
+            >
+              <span class="material-icons-round text-2xl">error_outline</span>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-[0.9375rem] font-bold text-error mb-1">
+                Inverter #3 Offline — Production Impacted
+              </h2>
+              <p class="text-[0.8125rem] text-text-secondary leading-relaxed">
+                Inverter 3 stopped responding at 11:45 AM today. System running
+                at 66% capacity. Grid fallback activated to maintain load.
+                <br />Estimated generation loss: <strong>420 kWh</strong>.
+              </p>
+              <div
+                class="flex items-center gap-4 mt-3 text-[0.75rem] text-text-muted"
+              >
+                <span>Detected: Today, 11:45 AM</span>
+                <span>Duration: 2h 45m</span>
+                <span
+                  class="text-error font-medium bg-white px-2 py-0.5 rounded border border-red-100"
+                  >Est. Revenue Loss: ₹3,864</span
+                >
+              </div>
+            </div>
+            <button
+              class="flex-shrink-0 text-[0.8125rem] font-medium text-error hover:underline flex items-center gap-1 mt-2 md:mt-0"
+            >
+              Assign Technician
+              <span class="material-icons-round text-base">arrow_forward</span>
+            </button>
+          </div>
+
+          <!-- ====== SECTION 3: SITE KPI CARDS ====== -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Gen Today -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-orange"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-primary rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-primary text-xl"
+                    >wb_sunny</span
+                  >
+                </div>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
+                Generation Today
+              </p>
+              <p class="text-[1.5rem] font-bold text-error leading-tight">
+                680 <span class="text-sm font-normal text-text-muted">kWh</span>
+              </p>
+              <span
+                class="inline-block mt-2 bg-error-light text-error text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                >↓ 52% vs normal</span
+              >
+            </div>
+
+            <!-- Uptime -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-red"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-error rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-error/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-error text-xl">
+                    show_chart
+                  </span>
+                </div>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">System Uptime</p>
+              <p class="text-[1.5rem] font-bold text-error leading-tight">
+                84.2%
+              </p>
+              <span
+                class="inline-block mt-2 bg-error-light text-error text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                >Below 95% threshold</span
+              >
+            </div>
+
+            <!-- Battery -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-green"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-battery-green rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-battery-green/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-battery-green text-xl"
+                    >battery_charging_full</span
+                  >
+                </div>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">Battery SoC</p>
+              <p
+                class="text-[1.5rem] font-bold text-text-primary leading-tight"
+              >
+                64%
+              </p>
+              <span
+                class="inline-block mt-2 bg-bg-warm text-text-secondary text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                >Discharging to compensate</span
+              >
+            </div>
+
+            <!-- Impact -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-blue"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-financial-blue rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-financial-blue/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-financial-blue text-xl"
+                    >person</span
+                  >
+                </div>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
+                Customer Impact
+              </p>
+              <p
+                class="text-[1.25rem] font-bold text-text-primary leading-tight"
+              >
+                Grid Fallback
+              </p>
+              <span
+                class="inline-block mt-2 bg-warning-light text-warning text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                >Using grid at ₹9.20/kWh</span
+              >
+            </div>
+          </div>
+
+          <!-- ====== SECTION 4: CHART (Fault Visualization) ====== -->
+          <div class="bg-white rounded-xl border border-card-border p-5">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h2 class="text-base font-semibold text-text-primary">
+                  Today's Generation Profile
+                </h2>
+                <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                  Real-time performance vs expected curve
+                </p>
+              </div>
+              <div class="flex items-center gap-4 text-[0.75rem]">
+                <div class="flex items-center gap-2">
+                  <span
+                    class="w-3 h-3 rounded-sm bg-primary/20 border border-primary"
+                  ></span
+                  >Actual Gen
+                </div>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="w-3 h-0 border-t-2 border-dashed border-text-disabled"
+                  ></span
+                  >Expected
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-sm bg-error/20"></span>Fault
+                  Period
+                </div>
+              </div>
+            </div>
+            <div class="relative h-[280px] w-full">
+              <canvas id="siteDetailChart"></canvas>
+            </div>
+          </div>
+
+          <!-- ====== SECTION 5: SPLIT VIEW (Status + Logs) ====== -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Left: Equipment Status (7/12) -->
+            <div
+              class="lg:col-span-7 bg-white rounded-xl border border-card-border p-5"
+            >
+              <h3 class="text-base font-semibold text-text-primary mb-4">
+                Equipment Status
+              </h3>
+              <div class="space-y-3">
+                <!-- Item 1 -->
+                <div
+                  class="flex items-center justify-between p-3 bg-bg-warm rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="w-2.5 h-2.5 rounded-full bg-success"></div>
+                    <div>
+                      <p class="text-[0.8125rem] font-medium text-text-primary">
+                        Inverter #1
+                      </p>
+                      <p class="text-[0.6875rem] text-text-muted">
+                        Growatt 125K
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[0.8125rem] font-medium text-success">
+                      Online · 120 kW
+                    </p>
+                    <p class="text-[0.625rem] text-text-disabled">
+                      Last sync: 1m ago
+                    </p>
+                  </div>
+                </div>
+                <!-- Item 2 -->
+                <div
+                  class="flex items-center justify-between p-3 bg-bg-warm rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="w-2.5 h-2.5 rounded-full bg-success"></div>
+                    <div>
+                      <p class="text-[0.8125rem] font-medium text-text-primary">
+                        Inverter #2
+                      </p>
+                      <p class="text-[0.6875rem] text-text-muted">
+                        Growatt 125K
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[0.8125rem] font-medium text-success">
+                      Online · 118 kW
+                    </p>
+                    <p class="text-[0.625rem] text-text-disabled">
+                      Last sync: 1m ago
+                    </p>
+                  </div>
+                </div>
+                <!-- Item 3: FAULTY -->
+                <div
+                  class="flex items-center justify-between p-3 bg-error-light/40 border border-error/20 rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="relative flex h-2.5 w-2.5">
+                      <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"
+                      ></span>
+                      <span
+                        class="relative inline-flex rounded-full h-2.5 w-2.5 bg-error"
+                      ></span>
+                    </div>
+                    <div>
+                      <p class="text-[0.8125rem] font-bold text-error">
+                        Inverter #3
+                      </p>
+                      <p class="text-[0.6875rem] text-error/80">Growatt 125K</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="bg-error text-white text-[0.625rem] font-bold px-2 py-0.5 rounded"
+                      >OFFLINE</span
+                    >
+                    <p class="text-[0.625rem] text-error mt-1">
+                      Last sync: 2h 45m ago
+                    </p>
+                  </div>
+                </div>
+                <!-- Battery -->
+                <div class="flex items-center justify-center gap-4 py-2">
+                  <div class="h-px bg-card-border flex-1"></div>
+                  <span class="text-[0.6875rem] text-text-muted font-medium"
+                    >Storage & Grid</span
+                  >
+                  <div class="h-px bg-card-border flex-1"></div>
+                </div>
+                <!-- Item 4 -->
+                <div
+                  class="flex items-center justify-between p-3 bg-bg-warm rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="w-2.5 h-2.5 rounded-full bg-success"></div>
+                    <div>
+                      <p class="text-[0.8125rem] font-medium text-text-primary">
+                        Battery System
+                      </p>
+                      <p class="text-[0.6875rem] text-text-muted">
+                        Li-Ion 250 kWh
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[0.8125rem] font-medium text-battery-green">
+                      Discharging · 64% SoC
+                    </p>
+                  </div>
+                </div>
+                <!-- Item 5 -->
+                <div
+                  class="flex items-center justify-between p-3 bg-bg-warm rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="w-2.5 h-2.5 rounded-full bg-warning"></div>
+                    <div>
+                      <p class="text-[0.8125rem] font-medium text-text-primary">
+                        Grid Connection
+                      </p>
+                      <p class="text-[0.6875rem] text-text-muted">
+                        3-Phase 11kV
+                      </p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[0.8125rem] font-medium text-warning">
+                      Importing · 62 kW
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Timeline + Contact (5/12) -->
+            <div class="lg:col-span-5 flex flex-col gap-5">
+              <!-- Timeline -->
+              <div
+                class="bg-white rounded-xl border border-card-border p-5 flex-1"
+              >
+                <h3 class="text-base font-semibold text-text-primary mb-4">
+                  Recent Activity
+                </h3>
+                <div class="relative pl-4 timeline-line space-y-6">
+                  <!-- Event 1 -->
+                  <div class="relative z-10">
+                    <div
+                      class="absolute -left-[21px] top-1 w-[10px] h-[10px] rounded-full bg-error border-2 border-white shadow-sm"
+                    ></div>
+                    <p class="text-[0.8125rem] font-bold text-error">
+                      Inverter #3 Failure
+                    </p>
+                    <p class="text-[0.6875rem] text-text-primary mt-0.5">
+                      Auto-alert: Output dropped to 0
+                    </p>
+                    <p class="text-[0.625rem] text-text-muted mt-1">
+                      Today, 11:45 AM
+                    </p>
+                  </div>
+                  <!-- Event 2 -->
+                  <div class="relative z-10">
+                    <div
+                      class="absolute -left-[21px] top-1 w-[10px] h-[10px] rounded-full bg-success border-2 border-white shadow-sm"
+                    ></div>
+                    <p class="text-[0.8125rem] font-medium text-text-primary">
+                      Scheduled Panel Cleaning
+                    </p>
+                    <p class="text-[0.6875rem] text-text-secondary mt-0.5">
+                      Completed by EPC team
+                    </p>
+                    <p class="text-[0.625rem] text-text-muted mt-1">
+                      Jul 20, 2025
+                    </p>
+                  </div>
+                  <!-- Event 3 -->
+                  <div class="relative z-10">
+                    <div
+                      class="absolute -left-[21px] top-1 w-[10px] h-[10px] rounded-full bg-success border-2 border-white shadow-sm"
+                    ></div>
+                    <p class="text-[0.8125rem] font-medium text-text-primary">
+                      Firmware Update v2.4
+                    </p>
+                    <p class="text-[0.6875rem] text-text-secondary mt-0.5">
+                      Remote patch applied
+                    </p>
+                    <p class="text-[0.625rem] text-text-muted mt-1">
+                      Jul 12, 2025
+                    </p>
+                  </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-card-border text-center">
+                  <a
+                    href="#"
+                    class="text-[0.75rem] font-medium text-primary hover:underline"
+                    >View Full Log</a
+                  >
+                </div>
+              </div>
+
+              <!-- Contact Card -->
+              <div class="bg-sidebar rounded-xl p-5 text-white">
+                <h3 class="text-[0.875rem] font-semibold mb-3">Site Contact</h3>
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center font-bold text-sm"
+                  >
+                    AK
+                  </div>
+                  <div>
+                    <p class="text-[0.8125rem] font-medium">Amit Khanna</p>
+                    <p class="text-[0.6875rem] text-white/60">
+                      Facility Manager
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <a
+                    href="tel:+919876543210"
+                    class="flex items-center gap-3 text-[0.8125rem] text-white/80 hover:text-white transition-colors"
+                  >
+                    <span class="material-icons-round text-sm">call</span> +91
+                    98765 43210
+                  </a>
+                  <a
+                    href="mailto:amit.k@punjabtex.com"
+                    class="flex items-center gap-3 text-[0.8125rem] text-white/80 hover:text-white transition-colors"
+                  >
+                    <span class="material-icons-round text-sm">email</span>
+                    amit.k@punjabtex.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <footer class="mt-2 mb-2 text-center">
+            <p class="text-xs text-text-disabled">
+              © 2026 SunZero Energy Intelligence
+            </p>
+          </footer>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      function toggleMobileSidebar() {
+        document.getElementById("mobileSidebar").classList.toggle("active");
+        document.getElementById("sidebarOverlay").classList.toggle("active");
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script>
+      // Page specific chart
+      document.addEventListener("DOMContentLoaded", () => {
+        const ctx = document.getElementById("siteDetailChart");
+        if (ctx) {
+          const chartCtx = ctx.getContext("2d");
+
+          // Gradients
+          const fillGradient = chartCtx.createLinearGradient(0, 0, 0, 300);
+          fillGradient.addColorStop(0, "rgba(232, 116, 12, 0.15)");
+          fillGradient.addColorStop(1, "rgba(232, 116, 12, 0.01)");
+
+          // Annotation plugin logic (simple manual implementation via scatter points or separate dataset)
+          // We'll use a mixed chart: Line for Actual, Line for Expected
+
+          const labels = [
+            "6AM",
+            "7AM",
+            "8AM",
+            "9AM",
+            "10AM",
+            "11AM",
+            "12PM",
+            "1PM",
+            "2PM",
+            "3PM",
+            "4PM",
+            "5PM",
+            "6PM",
+          ];
+          const expectedData = [
+            20, 80, 180, 280, 340, 380, 400, 390, 350, 280, 150, 50, 0,
+          ];
+          // Fault happens at 11:45 (between 11AM and 12PM index). Drop significantly.
+          const actualData = [
+            20,
+            78,
+            175,
+            278,
+            335,
+            375,
+            210,
+            205,
+            190,
+            null,
+            null,
+            null,
+            null,
+          ];
+          // 'null' for future points if we assume current time is 2:30PM
+
+          new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "Expected",
+                  data: expectedData,
+                  borderColor: "#B0B0B0",
+                  borderWidth: 2,
+                  borderDash: [5, 5],
+                  pointRadius: 0,
+                  fill: false,
+                  tension: 0.4,
+                },
+                {
+                  label: "Actual",
+                  data: actualData,
+                  borderColor: "#E8740C",
+                  backgroundColor: fillGradient,
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  pointHoverRadius: 4,
+                  fill: true,
+                  tension: 0.4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              interaction: { mode: "index", intersect: false },
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  mode: "index",
+                  intersect: false,
+                  backgroundColor: "#1A1A1A",
+                  titleFont: { size: 11 },
+                  bodyFont: { size: 12 },
+                  padding: 10,
+                  displayColors: true,
+                  callbacks: {
+                    label: function (context) {
+                      return (
+                        " " +
+                        context.dataset.label +
+                        ": " +
+                        context.parsed.y +
+                        " kW"
+                      );
+                    },
+                  },
+                },
+                annotation: {
+                  // Note: Chart.js annotation requires a plugin, we'll simulate the "Fault Period" visual
+                  // by adding a red background rectangle via CSS behind the chart or using a specialized dataset.
+                  // For this simple version, we'll keep it clean.
+                },
+              },
+              scales: {
+                x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+                y: {
+                  beginAtZero: true,
+                  grid: { color: "#F0F0F0" },
+                  ticks: { font: { size: 11 } },
+                },
+              },
+            },
+            plugins: [
+              {
+                id: "faultArea",
+                beforeDraw: (chart) => {
+                  const ctx = chart.ctx;
+                  const xAxis = chart.scales.x;
+                  const yAxis = chart.scales.y;
+
+                  // Draw red background for fault period (approx 11:45 to end)
+                  // Index 5 is 11AM, Index 6 is 12PM.
+                  const startPixel = xAxis.getPixelForValue(5.75); // approx 11:45
+                  const endPixel = xAxis.getPixelForValue(8.5); // approx 2:30 PM (current time)
+
+                  ctx.save();
+                  ctx.fillStyle = "rgba(198, 40, 40, 0.06)";
+                  ctx.fillRect(
+                    startPixel,
+                    yAxis.top,
+                    endPixel - startPixel,
+                    yAxis.bottom - yAxis.top,
+                  );
+
+                  // Draw dashed vertical line start
+                  ctx.beginPath();
+                  ctx.lineWidth = 1;
+                  ctx.strokeStyle = "#C62828";
+                  ctx.setLineDash([4, 4]);
+                  ctx.moveTo(startPixel, yAxis.top);
+                  ctx.lineTo(startPixel, yAxis.bottom);
+                  ctx.stroke();
+
+                  // Label
+                  ctx.fillStyle = "#C62828";
+                  ctx.font = "bold 10px Inter";
+                  ctx.fillText(
+                    "FAULT DETECTED",
+                    startPixel + 5,
+                    yAxis.top + 20,
+                  );
+
+                  ctx.restore();
+                },
+              },
+            ],
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

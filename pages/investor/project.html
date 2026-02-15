@@ -3,10 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>SunZero — Investor Project Detail</title>
-
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <title>SunZero — Project Detail</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -15,95 +12,142 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-    <link rel="stylesheet" href="../../css/global.css" />
-
-    <!-- Page Specific Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              "sz-bg": "#F7F4EF",
-              "sz-card": "#FFFFFF",
-              "sz-border": "#EBEBEB",
-              "sz-sidebar": "#1A1A1A",
-              "sz-text": "#1A1A1A",
-              "sz-text-secondary": "#6B6B6B",
-              "sz-text-muted": "#8A8A8A",
-              "sz-text-disabled": "#B0B0B0",
-              "sz-orange": "#E8740C",
-              "sz-orange-hover": "#C2571A",
-              "sz-green": "#2E7D32",
-              "sz-green-light": "#E8F5E9",
-              "sz-amber": "#E65100",
-              "sz-amber-light": "#FFF8E1",
-              "sz-red": "#C62828",
-              "sz-red-light": "#FFEBEE",
-              "sz-blue": "#1565C0",
-              "sz-blue-neutral": "#6B8FA6",
-              "sz-battery": "#66BB6A",
               primary: "#E8740C",
-              "invest-blue": "#1565C0",
-              "invest-green": "#2E7D32",
-              "invest-orange": "#E65100",
+              "primary-dark": "#C2571A",
+              "bg-warm": "#F7F4EF",
+              sidebar: "#1A1A1A",
+              "sidebar-hover": "#2D2D2D",
+              "card-border": "#EBEBEB",
+              "text-primary": "#1A1A1A",
+              "text-secondary": "#6B6B6B",
+              "text-muted": "#8A8A8A",
+              "text-disabled": "#B0B0B0",
+              success: "#2E7D32",
+              "success-dark": "#1B5E20",
+              "success-light": "#E8F5E9",
+              error: "#C62828",
+              "error-light": "#FFEBEE",
+              warning: "#E65100",
+              "warning-light": "#FFF8E1",
+              "grid-blue": "#6B8FA6",
+              "battery-green": "#66BB6A",
+              "financial-blue": "#1565C0",
+              "financial-light": "#E3F2FD",
             },
-            fontFamily: {
-              inter: ["Inter", "sans-serif"],
-              display: ["Inter", "sans-serif"],
-            },
+            fontFamily: { sans: ["Inter", "sans-serif"] },
           },
         },
       };
     </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d1d1d1;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b0b0b0;
+      }
 
-    <style type="text/tailwindcss">
-      @layer utilities {
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      }
-      body {
-        @apply font-display text-gray-800 antialiased bg-[#F7F4EF];
-      }
-
-      .nav-item {
-        @apply flex items-center px-4 py-2.5 text-sm font-medium rounded-r-lg rounded-l-none transition-all duration-200 cursor-pointer text-[#8A8A8A] hover:bg-[#2D2D2D] hover:text-white border-l-[3px] border-transparent ml-0;
-      }
-      .nav-item.active {
-        @apply bg-gradient-to-r from-[#e9730c]/15 to-transparent text-[#e9730c] border-l-[#e9730c] font-semibold;
-      }
-      .nav-category {
-        @apply px-4 text-[11px] font-bold text-[#5C5C5C] tracking-wider uppercase mt-6 mb-2;
+      .sidebar-active {
+        background: linear-gradient(
+          90deg,
+          rgba(232, 116, 12, 0.15) 0%,
+          rgba(232, 116, 12, 0.03) 100%
+        );
+        border-left: 3px solid #e8740c;
       }
 
       .kpi-card {
-        @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between transition-all duration-200 hover:shadow-md;
+        transition:
+          transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.25s ease;
       }
-      .status-pill {
-        @apply px-2.5 py-0.5 rounded-full text-xs font-medium border;
+      .kpi-card:hover {
+        transform: translateY(-2px);
+      }
+      .kpi-card-blue:hover {
+        box-shadow: 0 8px 20px -4px rgba(21, 101, 192, 0.15);
+      }
+      .kpi-card-green:hover {
+        box-shadow: 0 8px 20px -4px rgba(46, 125, 50, 0.15);
+      }
+      .kpi-card-orange:hover {
+        box-shadow: 0 8px 20px -4px rgba(232, 116, 12, 0.15);
+      }
+      .kpi-card-gray:hover {
+        box-shadow: 0 8px 20px -4px rgba(107, 143, 166, 0.15);
+      }
+
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.4);
+          opacity: 0.6;
+        }
+      }
+      .pulse-dot {
+        animation: pulse-dot 1.5s ease-in-out infinite;
+      }
+
+      @keyframes growWidth {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: var(--final-width);
+        }
+      }
+      .health-bar {
+        animation: growWidth 1s ease-out forwards;
+      }
+
+      .sidebar-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .sidebar-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sidebar-mobile {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar-mobile.active {
+        transform: translateX(0);
       }
     </style>
   </head>
-  <body class="flex h-screen overflow-hidden bg-[#F7F4EF]">
-    <!-- ============================== -->
-    <!-- INVESTOR SIDEBAR               -->
-    <!-- ============================== -->
+
+  <body
+    class="font-sans bg-bg-warm text-text-primary flex h-screen overflow-hidden"
+  >
+    <!-- ==================== INVESTOR SIDEBAR ==================== -->
     <aside
-      class="w-[260px] bg-sidebar flex-shrink-0 flex flex-col h-full text-white border-r border-gray-800 z-30"
+      class="w-64 bg-sidebar flex-shrink-0 flex flex-col h-full text-white hidden lg:flex"
     >
-      <div class="h-[72px] flex items-center px-6 border-b border-gray-800">
-        <a href="../../index.html" class="flex items-center gap-2">
+      <div
+        class="h-[72px] flex items-center justify-between px-5 border-b border-white/10 flex-shrink-0"
+      >
+        <a href="portfolio.html" class="flex items-center gap-2">
           <span class="material-icons-round text-primary text-3xl"
             >wb_sunny</span
           >
@@ -111,824 +155,1124 @@
             >Sun<span class="text-primary">Zero</span></span
           >
         </a>
+        <span
+          class="bg-primary/15 text-primary text-[0.625rem] font-medium px-2.5 py-[3px] rounded-full"
+          >Investor</span
+        >
       </div>
-
-      <nav class="flex-1 overflow-y-auto py-2 space-y-0.5">
-        <div class="nav-category mt-4">OVERVIEW</div>
-        <a class="nav-item" href="portfolio.html">
-          <span class="material-icons-round mr-3 text-lg">pie_chart</span>
-          Portfolio
-        </a>
-        <a class="nav-item active" href="project.html">
-          <span class="material-icons-round mr-3 text-lg">solar_power</span>
-          My Projects
-        </a>
-
-        <div class="nav-category">FINANCIALS</div>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">currency_rupee</span>
-          Returns &amp; Revenue
-        </a>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">receipt_long</span>
-          Transactions
-        </a>
-
-        <div class="nav-category">DOCUMENTS</div>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">description</span>
-          Reports
-        </a>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">gavel</span>
-          Agreements
-        </a>
-
-        <div class="nav-category">ACCOUNT</div>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">settings</span>
-          Settings
-        </a>
-      </nav>
-
-      <div class="px-4 pb-4">
-        <div class="border-t border-gray-800 pt-4">
-          <a
-            href="../../index.html"
-            class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group"
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
           >
-            <div class="relative">
-              <div
-                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden border border-gray-600 font-bold text-xs text-white"
+            Overview
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="portfolio.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">pie_chart</span
+                >Portfolio</a
               >
-                VM
-              </div>
-              <div
-                class="absolute -bottom-1 -right-1 bg-primary text-[9px] text-white px-1.5 py-0.5 rounded-full border-2 border-sidebar font-bold"
+            </li>
+            <li>
+              <a
+                href="project.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem] transition-all"
+                ><span class="material-icons-round text-lg text-primary"
+                  >folder_open</span
+                >My Projects</a
               >
-                INV
-              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">trending_up</span
+                >Returns & Revenue</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">credit_card</span
+                >Transactions</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Documents
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports & Statements</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">assignment</span
+                >Agreements</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Account
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">settings</span
+                >Settings</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="p-3 space-y-3 border-t border-white/10 flex-shrink-0">
+        <div
+          class="bg-sidebar-hover rounded-xl p-3.5 cursor-pointer hover:bg-[#3A3A3A] transition-colors group"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0"
+            >
+              <span class="material-icons-round text-primary text-sm"
+                >support_agent</span
+              >
             </div>
             <div class="flex-1 min-w-0">
-              <p
-                class="text-sm font-medium text-white truncate group-hover:text-primary transition-colors"
-              >
-                Vikram Mehta
-              </p>
-              <p class="text-xs text-gray-400 truncate">Investor</p>
+              <p class="text-[0.8125rem] font-medium">Need Help?</p>
+              <p class="text-[0.6875rem] text-[#6B6B6B]">Contact support</p>
             </div>
+            <span
+              class="material-icons-round text-[#6B6B6B] text-sm group-hover:translate-x-0.5 transition-transform"
+              >arrow_forward</span
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+          <div class="relative flex-shrink-0">
+            <div
+              class="w-9 h-9 rounded-full bg-financial-blue flex items-center justify-center text-white font-bold text-xs"
+            >
+              VM
+            </div>
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-sidebar rounded-full"
+            ></span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Vikram Mehta</p>
+            <p class="text-xs text-[#6B6B6B] truncate">Angel Investor</p>
+          </div>
+          <a
+            href="../../index.html"
+            class="text-[#6B6B6B] hover:text-white transition-colors"
+            title="Sign Out"
+          >
+            <span class="material-icons-round text-lg">logout</span>
           </a>
         </div>
       </div>
     </aside>
 
-    <!-- ============================== -->
-    <!-- MAIN CONTENT AREA              -->
-    <!-- ============================== -->
-    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-      <!-- Top Bar -->
-      <header
-        class="h-[72px] sticky top-0 bg-white border-b border-[#EBEBEB] flex items-center justify-between px-8 flex-shrink-0 z-20"
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      id="sidebarOverlay"
+      class="fixed inset-0 z-40 sidebar-overlay lg:hidden"
+      onclick="toggleMobileSidebar()"
+    ></div>
+
+    <!-- Mobile Sidebar -->
+    <aside
+      id="mobileSidebar"
+      class="fixed top-0 left-0 w-72 h-full bg-sidebar z-50 sidebar-mobile lg:hidden flex flex-col text-white"
+    >
+      <div
+        class="h-14 flex items-center justify-between px-5 border-b border-white/10"
       >
-        <div class="flex flex-col justify-center h-full">
-          <div
-            class="flex items-center gap-2 text-xs text-[#8A8A8A] font-medium mb-1"
+        <div class="flex items-center gap-2">
+          <span class="material-icons-round text-primary text-2xl"
+            >wb_sunny</span
           >
-            <span>Investor</span>
-            <span class="material-icons-round text-[10px]">chevron_right</span>
-            <span>My Projects</span>
-            <span class="material-icons-round text-[10px]">chevron_right</span>
-            <span class="text-primary">Noida Manufacturing Hub</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <a
-              class="text-sm font-semibold text-gray-500 hover:text-gray-900 flex items-center transition-colors"
-              href="portfolio.html"
-            >
-              <span class="material-icons-round text-lg mr-1">arrow_back</span>
-              Back to Portfolio
-            </a>
-          </div>
+          <span class="text-lg font-bold tracking-tight"
+            >Sun<span class="text-primary">Zero</span></span
+          >
         </div>
+        <button
+          onclick="toggleMobileSidebar()"
+          class="text-[#8A8A8A] hover:text-white"
+        >
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Overview
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="portfolio.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">pie_chart</span
+                >Portfolio</a
+              >
+            </li>
+            <li>
+              <a
+                href="project.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem]"
+                ><span class="material-icons-round text-lg">folder_open</span>My
+                Projects</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">trending_up</span
+                >Returns & Revenue</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">credit_card</span
+                >Transactions</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ==================== MAIN AREA ==================== -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+      <!-- TOP BAR -->
+      <header
+        class="h-[72px] bg-white border-b border-card-border flex items-center justify-between px-6 lg:px-8 flex-shrink-0"
+      >
         <div class="flex items-center gap-4">
           <button
-            class="relative w-9 h-9 flex items-center justify-center border border-[#D1D1D1] rounded-[8px] text-gray-500 hover:text-primary hover:bg-gray-50 transition-colors"
+            onclick="toggleMobileSidebar()"
+            class="lg:hidden text-text-secondary hover:text-text-primary transition-colors"
           >
-            <span class="material-icons-round text-xl">notifications</span>
-            <span
-              class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"
-            ></span>
+            <span class="material-icons-round">menu</span>
           </button>
-          <button
-            class="flex items-center gap-2 bg-white border border-[#D1D1D1] pl-3 pr-2 py-1.5 rounded-[8px] text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          <a
+            href="portfolio.html"
+            class="hidden sm:flex items-center gap-1 text-[0.8125rem] font-medium text-grid-blue hover:text-text-primary hover:underline transition-colors mr-2"
           >
-            <span class="material-icons-round text-gray-500 text-lg"
+            <span class="material-icons-round text-sm">arrow_back</span>
+            Back to Portfolio
+          </a>
+          <div class="hidden sm:block w-px h-6 bg-card-border mx-1"></div>
+          <div class="flex flex-col">
+            <nav class="hidden sm:flex text-[0.8125rem] items-center gap-1.5">
+              <a
+                href="portfolio.html"
+                class="text-text-muted hover:text-text-primary transition-colors"
+                >Investor</a
+              >
+              <span class="text-text-disabled">/</span>
+              <a
+                href="portfolio.html"
+                class="text-text-muted hover:text-text-primary transition-colors"
+                >My Projects</a
+              >
+              <span class="text-text-disabled">/</span>
+              <span class="text-text-primary font-medium">Noida Factory</span>
+            </nav>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center border border-[#D1D1D1] rounded-lg px-3 py-[7px] hover:border-primary/40 transition-colors cursor-pointer"
+          >
+            <span
+              class="material-icons-round text-text-secondary text-base mr-2"
               >calendar_today</span
             >
-            <span>2024-25</span>
-            <span class="material-icons-round text-gray-400 text-lg"
+            <span class="text-[0.8125rem] font-medium text-text-primary"
+              >Jul 1 — Jul 28, 2025</span
+            >
+            <span class="material-icons-round text-text-disabled text-base ml-2"
               >expand_more</span
             >
+          </div>
+          <button
+            class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-text-secondary hover:text-text-primary transition-colors"
+          >
+            <span class="material-icons-round text-xl">notifications_none</span>
+            <span
+              class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-white"
+            ></span>
           </button>
+          <div
+            class="hidden sm:flex w-8 h-8 rounded-full bg-financial-blue items-center justify-center text-white font-bold text-xs cursor-pointer hover:ring-2 hover:ring-financial-blue/30 transition-all"
+          >
+            V
+          </div>
         </div>
       </header>
 
-      <!-- Page Content -->
-      <main
-        class="flex-1 overflow-y-auto p-8 bg-[#F7F4EF] scrollbar-hide page-content"
-      >
-        <!-- Project Header Card -->
-        <div
-          class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6"
-        >
+      <!-- SCROLLABLE CONTENT -->
+      <main class="flex-1 overflow-y-auto p-5 lg:p-6">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-5">
+          <!-- ====== SECTION 1: PROJECT HEADER ====== -->
           <div
-            class="flex flex-col md:flex-row justify-between md:items-start gap-6"
-          >
-            <div class="flex-1 flex gap-5">
-              <div
-                class="w-14 h-14 bg-[#FFF3E0] rounded-lg flex-shrink-0 flex items-center justify-center border border-orange-100"
-              >
-                <span class="material-icons-round text-orange-500 text-[28px]"
-                  >wb_sunny</span
-                >
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                  <h1 class="text-2xl font-bold text-gray-900">
-                    Noida Manufacturing Hub
-                  </h1>
-                  <div
-                    class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-green-50 border border-green-200 text-green-700 text-xs font-medium"
-                  >
-                    <span class="relative flex h-2 w-2">
-                      <span
-                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
-                      ></span>
-                      <span
-                        class="relative inline-flex rounded-full h-2 w-2 bg-green-500"
-                      ></span>
-                    </span>
-                    Operational
-                  </div>
-                </div>
-                <div class="flex items-center gap-1 text-sm text-gray-500 mb-6">
-                  <span class="material-icons-round text-gray-400 text-lg"
-                    >place</span
-                  >
-                  Sector 63, Noida, Uttar Pradesh
-                </div>
-                <div
-                  class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border-t border-gray-100 pt-5"
-                >
-                  <div>
-                    <p
-                      class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1"
-                    >
-                      System Size
-                    </p>
-                    <p
-                      class="text-base font-bold text-gray-900 flex items-center gap-1.5"
-                    >
-                      <span
-                        class="material-icons-round text-gray-400 text-[10px]"
-                        >bolt</span
-                      >
-                      500 kW
-                    </p>
-                  </div>
-                  <div>
-                    <p
-                      class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1"
-                    >
-                      Type
-                    </p>
-                    <p class="text-base font-bold text-gray-900">
-                      Solar (SEAS)
-                    </p>
-                  </div>
-                  <div>
-                    <p
-                      class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1"
-                    >
-                      Commissioned
-                    </p>
-                    <p
-                      class="text-base font-bold text-gray-900 flex items-center gap-1.5"
-                    >
-                      <span
-                        class="material-icons-round text-gray-400 text-[10px]"
-                        >calendar_today</span
-                      >
-                      Mar 15, 2024
-                    </p>
-                  </div>
-                  <div>
-                    <p
-                      class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1"
-                    >
-                      PPA Duration
-                    </p>
-                    <p
-                      class="text-base font-bold text-gray-900 flex items-center gap-1.5"
-                    >
-                      <span
-                        class="material-icons-round text-gray-400 text-[10px]"
-                        >schedule</span
-                      >
-                      10 Years
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col items-end gap-4">
-              <div
-                class="flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-lg"
-              >
-                <span class="material-icons-round text-green-600 text-[32px]"
-                  >check_circle</span
-                >
-                <div class="flex flex-col">
-                  <span
-                    class="text-xs font-bold text-green-800 uppercase leading-none"
-                    >Healthy</span
-                  >
-                  <span class="text-[10px] text-green-600 font-medium"
-                    >System Status</span
-                  >
-                </div>
-              </div>
-              <button
-                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-invest-blue bg-blue-50/50 hover:bg-blue-50 border border-blue-100 rounded-lg transition-colors mt-auto"
-              >
-                <span class="material-icons-round text-lg">download</span>
-                Download Agreement
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <!-- Investment -->
-          <div class="kpi-card border-l-4 border-l-invest-blue">
-            <div class="flex justify-between items-start mb-2">
-              <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
-              >
-                Your Investment
-              </p>
-              <span class="bg-blue-50 text-blue-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >account_balance</span
-                >
-              </span>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900">₹45.0 L</h3>
-              <div class="flex items-center gap-3 mt-1">
-                <span class="text-xs font-medium text-gray-400"
-                  >Equity Share: 15%</span
-                >
-                <div
-                  class="relative w-6 h-6 rounded-full"
-                  style="
-                    background: conic-gradient(
-                      #1565c0 0% 25%,
-                      #d1d1d1 25% 100%
-                    );
-                  "
-                >
-                  <div
-                    class="absolute inset-0 m-auto w-3 h-3 bg-white rounded-full"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Revenue -->
-          <div class="kpi-card border-l-4 border-l-invest-green">
-            <div class="flex justify-between items-start mb-2">
-              <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
-              >
-                Revenue Earned
-              </p>
-              <span class="bg-green-50 text-green-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >payments</span
-                >
-              </span>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900">₹14.2 L</h3>
-              <div class="flex items-center gap-1 mt-1 text-green-600">
-                <span class="material-icons-round text-xs">arrow_upward</span>
-                <span class="text-xs font-bold">+8.4%</span>
-                <span class="text-xs text-gray-400 font-normal ml-1"
-                  >vs forecast</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- IRR -->
-          <div class="kpi-card border-l-4 border-l-invest-orange">
-            <div class="flex justify-between items-start mb-2">
-              <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
-              >
-                Project IRR
-              </p>
-              <span class="bg-orange-50 text-orange-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >percent</span
-                >
-              </span>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold" style="color: #e8740c">31.2%</h3>
-              <div class="flex items-center gap-1 mt-1">
-                <span class="text-xs font-medium text-gray-400"
-                  >Target: 25%</span
-                >
-                <span class="material-icons-round text-xs text-green-600"
-                  >check_circle</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Energy Delivered -->
-          <div class="kpi-card border-l-4 border-l-gray-500">
-            <div class="flex justify-between items-start mb-2">
-              <p
-                class="text-xs font-semibold text-gray-500 uppercase tracking-wider"
-              >
-                Energy Delivered
-              </p>
-              <span class="bg-gray-100 text-gray-700 rounded-full p-1.5">
-                <span class="material-symbols-outlined text-lg block"
-                  >bolt</span
-                >
-              </span>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold text-gray-900">6,84,000</h3>
-              <div class="flex items-center gap-1 mt-1">
-                <span class="text-xs font-medium text-gray-400"
-                  >kWh (Lifetime)</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Charts Row -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <!-- Revenue Trend -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div class="flex justify-between items-center mb-6">
-              <div>
-                <h3 class="text-lg font-bold text-gray-900">Revenue Trend</h3>
-                <p class="text-sm text-gray-500">Monthly returns from PPA</p>
-              </div>
-              <div class="flex flex-col items-end gap-1">
-                <div class="flex items-center gap-2">
-                  <div class="flex items-center gap-1.5">
-                    <div
-                      class="w-3 h-3 bg-invest-blue rounded-sm opacity-85"
-                    ></div>
-                    <span class="text-[10px] text-gray-500 font-medium"
-                      >Monthly</span
-                    >
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <div
-                      class="w-3 h-0.5 border-t border-invest-blue border-dashed"
-                    ></div>
-                    <span class="text-[10px] text-gray-500 font-medium"
-                      >Cumulative Revenue</span
-                    >
-                  </div>
-                </div>
-                <span
-                  class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100"
-                  >Avg: ₹2.4L/mo</span
-                >
-              </div>
-            </div>
-            <div class="relative h-[250px] w-full mt-4">
-              <div
-                class="absolute left-0 top-0 bottom-8 flex flex-col justify-between text-[10px] text-gray-400 font-medium text-right w-6"
-              >
-                <span>4L</span><span>3L</span><span>2L</span><span>1L</span
-                ><span>0</span>
-              </div>
-              <div
-                class="absolute right-0 top-0 bottom-8 flex flex-col justify-between text-[10px] text-gray-400 font-medium text-left w-8"
-              >
-                <span>20L</span><span>15L</span><span>10L</span><span>5L</span
-                ><span>0</span>
-              </div>
-              <div
-                class="absolute inset-0 left-8 right-8 top-0 bottom-8 flex flex-col justify-between pointer-events-none"
-              >
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div class="border-b border-gray-200 w-full h-0"></div>
-              </div>
-              <div class="absolute inset-0 left-8 right-8 top-2 bottom-8">
-                <!-- Bars -->
-                <div
-                  class="absolute inset-0 flex items-end justify-between px-2 z-10"
-                >
-                  <div
-                    class="w-[8%] bg-blue-100/85 hover:bg-invest-blue transition-colors rounded-t-sm h-[30%]"
-                  ></div>
-                  <div
-                    class="w-[8%] bg-blue-100/85 hover:bg-invest-blue transition-colors rounded-t-sm h-[45%]"
-                  ></div>
-                  <div
-                    class="w-[8%] bg-invest-blue/85 rounded-t-sm h-[55%]"
-                  ></div>
-                  <div
-                    class="w-[8%] bg-invest-blue/85 rounded-t-sm h-[65%]"
-                  ></div>
-                  <div
-                    class="w-[8%] bg-invest-blue/85 rounded-t-sm h-[75%]"
-                  ></div>
-                  <div class="w-[8%] bg-invest-blue rounded-t-sm h-[70%]"></div>
-                </div>
-                <!-- Cumulative Line -->
-                <svg
-                  class="absolute inset-0 w-full h-full overflow-visible z-20 pointer-events-none"
-                  preserveAspectRatio="none"
-                  viewBox="0 0 100 100"
-                >
-                  <path
-                    d="M8,94 L25,85 L41,74 L58,61 L75,46 L91,32"
-                    fill="none"
-                    stroke="#1565C0"
-                    stroke-dasharray="4,4"
-                    stroke-opacity="0.5"
-                    stroke-width="1.5"
-                    vector-effect="non-scaling-stroke"
-                  ></path>
-                  <circle cx="8" cy="94" fill="#1565C0" r="2"></circle>
-                  <circle cx="25" cy="85" fill="#1565C0" r="2"></circle>
-                  <circle cx="41" cy="74" fill="#1565C0" r="2"></circle>
-                  <circle cx="58" cy="61" fill="#1565C0" r="2"></circle>
-                  <circle cx="75" cy="46" fill="#1565C0" r="2"></circle>
-                  <circle cx="91" cy="32" fill="#1565C0" r="2"></circle>
-                </svg>
-              </div>
-              <div
-                class="absolute left-8 right-8 bottom-0 flex justify-between text-[10px] text-gray-500 font-medium px-2"
-              >
-                <span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span
-                ><span>Feb</span><span>Mar</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Energy Performance -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div class="flex justify-between items-start mb-6">
-              <div>
-                <h3 class="text-lg font-bold text-gray-900">
-                  Energy Performance
-                </h3>
-                <p class="text-sm text-gray-500">
-                  Actual Generation vs Expected
-                </p>
-              </div>
-              <div class="flex flex-col items-end gap-2">
-                <div
-                  class="flex items-center gap-1 bg-[#E8F5E9] px-2 py-1 rounded text-green-700 text-xs font-bold border border-green-100"
-                >
-                  <span class="material-icons-round text-sm">arrow_upward</span>
-                  104.2% Performance
-                </div>
-                <div class="flex items-center gap-3 text-xs mt-1">
-                  <div class="flex items-center gap-1.5">
-                    <div
-                      class="w-3 h-0.5 bg-orange-500 border-t border-orange-500"
-                    ></div>
-                    <span class="text-gray-600 font-medium">Actual</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <div
-                      class="w-3 h-0.5 bg-gray-400 border-t border-dashed border-gray-400"
-                    ></div>
-                    <span class="text-gray-600 font-medium">Expected</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="relative h-[250px] w-full mt-4">
-              <div
-                class="absolute left-0 top-0 bottom-8 flex flex-col justify-between text-[10px] text-gray-400 font-medium text-right w-8"
-              >
-                <span>80k</span><span>60k</span><span>40k</span><span>20k</span
-                ><span>0</span>
-              </div>
-              <div
-                class="absolute inset-0 left-10 right-0 top-0 bottom-8 flex flex-col justify-between pointer-events-none"
-              >
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div
-                  class="border-b border-gray-100 border-dashed w-full h-0"
-                ></div>
-                <div class="border-b border-gray-200 w-full h-0"></div>
-              </div>
-              <div class="absolute inset-0 left-10 right-0 top-0 bottom-8">
-                <svg
-                  class="w-full h-full overflow-visible"
-                  preserveAspectRatio="none"
-                  viewBox="0 0 100 100"
-                >
-                  <path
-                    d="M0,85 L20,65 L40,50 L60,35 L80,25 L100,15 L100,20 L80,30 L60,40 L40,60 L20,70 L0,80 Z"
-                    fill="#2E7D32"
-                    fill-opacity="0.05"
-                    stroke="none"
-                  ></path>
-                  <path
-                    d="M0,80 L20,70 L40,60 L60,40 L80,30 L100,20"
-                    fill="none"
-                    stroke="#9CA3AF"
-                    stroke-dasharray="4,4"
-                    stroke-width="2"
-                    vector-effect="non-scaling-stroke"
-                  ></path>
-                  <path
-                    d="M0,85 L20,65 L40,50 L60,35 L80,25 L100,15"
-                    fill="none"
-                    stroke="#E65100"
-                    stroke-width="2.5"
-                    vector-effect="non-scaling-stroke"
-                  ></path>
-                  <circle
-                    cx="0"
-                    cy="85"
-                    fill="#fff"
-                    r="3"
-                    stroke="#E65100"
-                    stroke-width="2"
-                    vector-effect="non-scaling-stroke"
-                  ></circle>
-                  <circle
-                    cx="20"
-                    cy="65"
-                    fill="#fff"
-                    r="3"
-                    stroke="#E65100"
-                    stroke-width="2"
-                    vector-effect="non-scaling-stroke"
-                  ></circle>
-                  <circle
-                    cx="40"
-                    cy="50"
-                    fill="#fff"
-                    r="3"
-                    stroke="#E65100"
-                    stroke-width="2"
-                    vector-effect="non-scaling-stroke"
-                  ></circle>
-                  <circle
-                    cx="60"
-                    cy="35"
-                    fill="#fff"
-                    r="3"
-                    stroke="#E65100"
-                    stroke-width="2"
-                    vector-effect="non-scaling-stroke"
-                  ></circle>
-                  <circle
-                    cx="80"
-                    cy="25"
-                    fill="#fff"
-                    r="3"
-                    stroke="#E65100"
-                    stroke-width="2"
-                    vector-effect="non-scaling-stroke"
-                  ></circle>
-                  <circle
-                    cx="100"
-                    cy="15"
-                    fill="#E65100"
-                    r="4"
-                    stroke="#fff"
-                    stroke-width="2"
-                    vector-effect="non-scaling-stroke"
-                  ></circle>
-                </svg>
-                <div
-                  class="absolute right-0 top-[10%] bg-gray-900 text-white text-[10px] py-1 px-2 rounded shadow-lg transform -translate-x-1/2 -translate-y-full"
-                >
-                  72k kWh
-                  <div
-                    class="absolute bottom-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"
-                  ></div>
-                </div>
-              </div>
-              <div
-                class="absolute left-10 right-0 bottom-0 flex justify-between text-[10px] text-gray-500 font-medium"
-              >
-                <span>10am</span><span>11am</span><span>12pm</span
-                ><span>1pm</span><span>2pm</span><span>3pm</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Financial Summary & Timeline -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <!-- Financial Table -->
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden lg:col-span-2"
+            class="bg-white rounded-2xl p-5 lg:p-6 border border-card-border"
           >
             <div
-              class="px-6 py-5 border-b border-gray-100 flex justify-between items-center"
+              class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"
             >
-              <h3 class="text-lg font-bold text-gray-900">Financial Summary</h3>
-              <button
-                class="text-sm text-invest-blue font-medium hover:text-blue-800 transition-colors"
-              >
-                Full Report
-              </button>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-sm text-left">
-                <thead
-                  class="text-xs text-gray-500 uppercase bg-gray-50/50 border-b border-gray-100"
+              <!-- Left: project identity -->
+              <div class="flex items-start gap-4">
+                <!-- Thumbnail -->
+                <div
+                  class="w-14 h-14 rounded-xl bg-[#FFF3E0] flex items-center justify-center flex-shrink-0"
                 >
-                  <tr>
-                    <th class="px-6 py-3 font-semibold">Metric</th>
-                    <th class="px-6 py-3 font-semibold">Value</th>
-                    <th class="px-6 py-3 font-semibold">Description</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                  <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">
-                      Project Cost
-                    </td>
-                    <td class="px-6 py-4 text-gray-700">₹3.0 Cr</td>
-                    <td class="px-6 py-4 text-gray-500 text-xs">
-                      Total cost of installation & commissioning
-                    </td>
-                  </tr>
-                  <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">
-                      Equity Share
-                    </td>
-                    <td class="px-6 py-4 text-gray-700">15%</td>
-                    <td class="px-6 py-4 text-gray-500 text-xs">
-                      Your ownership percentage in the SPV
-                    </td>
-                  </tr>
-                  <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">
-                      PPA Rate
-                    </td>
-                    <td class="px-6 py-4 text-gray-700">₹4.25 / kWh</td>
-                    <td class="px-6 py-4 text-gray-500 text-xs">
-                      Fixed tariff for 10 years
-                    </td>
-                  </tr>
-                  <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">
-                      Breakeven
-                    </td>
-                    <td class="px-6 py-4 text-gray-700">3.2 Years</td>
-                    <td class="px-6 py-4 text-gray-500 text-xs">
-                      Estimated time to recover initial investment
-                    </td>
-                  </tr>
-                  <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">
-                      Depreciation Benefit
-                    </td>
-                    <td class="px-6 py-4 text-gray-700">₹12.0 L</td>
-                    <td class="px-6 py-4 text-gray-500 text-xs">
-                      Accelerated depreciation benefit in Yr 1
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                  <span class="material-icons-round text-primary text-[28px]"
+                    >wb_sunny</span
+                  >
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span
+                      class="inline-flex items-center gap-1 bg-success-light text-success text-[0.6875rem] font-semibold px-3 py-1 rounded-full"
+                    >
+                      <span class="relative flex h-1.5 w-1.5">
+                        <span
+                          class="pulse-dot absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                        ></span>
+                        <span
+                          class="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"
+                        ></span>
+                      </span>
+                      Operational
+                    </span>
+                  </div>
+                  <h1 class="text-[1.375rem] font-bold text-text-primary">
+                    Noida Factory
+                  </h1>
+                  <div class="flex items-center gap-1.5 mt-1">
+                    <span
+                      class="material-icons-round text-text-muted"
+                      style="font-size: 14px"
+                      >location_on</span
+                    >
+                    <span class="text-[0.875rem] text-text-secondary"
+                      >Sector 63, Noida, Uttar Pradesh</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Center: info items -->
+              <div
+                class="flex flex-wrap items-center gap-0 divide-x divide-card-border"
+              >
+                <div class="px-4 lg:px-5 py-1 first:pl-0">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">
+                    System Size
+                  </p>
+                  <p
+                    class="text-[0.9375rem] font-semibold text-text-primary flex items-center gap-1"
+                  >
+                    <span
+                      class="material-icons-round text-text-muted"
+                      style="font-size: 12px"
+                      >bolt</span
+                    >
+                    500 KW
+                  </p>
+                </div>
+                <div class="px-4 lg:px-5 py-1">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">Type</p>
+                  <p
+                    class="text-[0.9375rem] font-semibold text-text-primary flex items-center gap-1"
+                  >
+                    <span
+                      class="material-icons-round text-primary"
+                      style="font-size: 12px"
+                      >wb_sunny</span
+                    >
+                    Solar (SEAS)
+                  </p>
+                </div>
+                <div class="px-4 lg:px-5 py-1">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">
+                    Commissioned
+                  </p>
+                  <p
+                    class="text-[0.9375rem] font-semibold text-text-primary flex items-center gap-1"
+                  >
+                    <span
+                      class="material-icons-round text-text-muted"
+                      style="font-size: 12px"
+                      >event</span
+                    >
+                    Nov 20, 2024
+                  </p>
+                </div>
+                <div class="px-4 lg:px-5 py-1">
+                  <p class="text-[0.6875rem] text-text-muted mb-0.5">
+                    PPA Duration
+                  </p>
+                  <p
+                    class="text-[0.9375rem] font-semibold text-text-primary flex items-center gap-1"
+                  >
+                    <span
+                      class="material-icons-round text-text-muted"
+                      style="font-size: 12px"
+                      >schedule</span
+                    >
+                    10 Years
+                  </p>
+                  <p class="text-[0.625rem] text-text-muted">
+                    9 yrs 4 mo remaining
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right: health + download -->
+              <div class="flex items-center gap-4 flex-shrink-0">
+                <div class="flex flex-col items-center">
+                  <div
+                    class="w-8 h-8 rounded-full bg-success flex items-center justify-center"
+                  >
+                    <span
+                      class="material-icons-round text-white"
+                      style="font-size: 16px"
+                      >check</span
+                    >
+                  </div>
+                  <span class="text-[0.625rem] font-medium text-success mt-1"
+                    >Healthy</span
+                  >
+                </div>
+                <button
+                  class="flex items-center gap-1.5 border border-[#D1D1D1] rounded-lg px-3 py-2 text-[0.75rem] font-medium text-text-secondary hover:border-primary hover:text-primary transition-colors"
+                >
+                  <span class="material-icons-round text-sm">download</span>
+                  <span class="hidden sm:inline">Agreement</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Risk & Timeline -->
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col"
-          >
-            <h3 class="text-lg font-bold text-gray-900 mb-4">
-              Risk &amp; Timeline
-            </h3>
-            <div class="space-y-4 mb-8">
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-xs font-medium text-gray-500"
-                    >Counterparty Risk</span
-                  ><span class="text-xs font-bold text-green-600">Low</span>
-                </div>
-                <div class="w-full bg-gray-100 rounded-full h-1.5">
-                  <div
-                    class="bg-green-500 h-1.5 rounded-full"
-                    style="width: 20%"
-                  ></div>
+          <!-- ====== SECTION 2: KPI CARDS ====== -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Card 1: Your Investment -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-blue cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-financial-blue rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-financial-blue/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-financial-blue text-xl"
+                    >account_balance_wallet</span
+                  >
                 </div>
               </div>
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-xs font-medium text-gray-500"
-                    >Technical Risk</span
-                  ><span class="text-xs font-bold text-green-600">Low</span>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
+                Your Investment
+              </p>
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                ₹85.0 L
+              </p>
+              <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                Equity: ₹21.25L
+                <span class="text-text-disabled mx-0.5">·</span> Debt: ₹63.75L
+              </p>
+            </div>
+
+            <!-- Card 2: Revenue Earned -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-green cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-success rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-success text-xl"
+                    >currency_rupee</span
+                  >
                 </div>
-                <div class="w-full bg-gray-100 rounded-full h-1.5">
-                  <div
-                    class="bg-green-500 h-1.5 rounded-full"
-                    style="width: 15%"
-                  ></div>
+                <span
+                  class="bg-success-light text-success text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
+                >
+                  <span class="material-icons-round text-[13px]"
+                    >trending_up</span
+                  >
+                  12.4%
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
+                Revenue Earned
+              </p>
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                ₹14.2 L
+              </p>
+            </div>
+
+            <!-- Card 3: Project IRR -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-orange cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-primary rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-primary text-xl"
+                    >percent</span
+                  >
+                </div>
+                <span
+                  class="bg-success-light text-success text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
+                >
+                  <span class="material-icons-round text-[13px]">check</span>
+                  Above target
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">Project IRR</p>
+              <p class="text-[1.75rem] font-bold text-success leading-tight">
+                28.2%
+              </p>
+              <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                <span
+                  class="material-icons-round text-success align-middle"
+                  style="font-size: 10px"
+                  >check_circle</span
+                >
+                Target: 25%
+              </p>
+            </div>
+
+            <!-- Card 4: Energy Delivered -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-gray cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-grid-blue rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-grid-blue/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-grid-blue text-xl"
+                    >bolt</span
+                  >
                 </div>
               </div>
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-xs font-medium text-gray-500"
-                    >Regulatory Risk</span
-                  ><span class="text-xs font-bold text-yellow-600">Medium</span>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
+                Energy Delivered
+              </p>
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                3,42,000
+                <span class="text-sm font-normal text-text-muted">kWh</span>
+              </p>
+              <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                Since Nov 2024
+              </p>
+            </div>
+          </div>
+
+          <!-- ====== SECTION 3: TWO CHARTS ====== -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- Chart A: Revenue Trend -->
+            <div class="bg-white rounded-xl border border-card-border">
+              <div
+                class="p-5 border-b border-[#F0F0F0] flex justify-between items-center"
+              >
+                <div>
+                  <h3 class="text-base font-semibold text-text-primary">
+                    Revenue Trend
+                  </h3>
+                  <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                    Monthly revenue from this project
+                  </p>
                 </div>
-                <div class="w-full bg-gray-100 rounded-full h-1.5">
-                  <div
-                    class="bg-yellow-500 h-1.5 rounded-full"
-                    style="width: 40%"
-                  ></div>
+                <div
+                  class="flex border border-[#D1D1D1] rounded-lg overflow-hidden"
+                >
+                  <button
+                    class="px-3 py-1.5 text-xs font-medium bg-financial-blue text-white"
+                  >
+                    6M
+                  </button>
+                  <button
+                    class="px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-financial-light transition-colors border-l border-[#D1D1D1]"
+                  >
+                    1Y
+                  </button>
+                </div>
+              </div>
+              <div class="p-5">
+                <div class="relative h-[220px] w-full">
+                  <canvas id="projectRevenueChart"></canvas>
+                </div>
+                <div class="flex items-center justify-center gap-5 mt-3">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="w-2.5 h-2.5 rounded-sm bg-financial-blue"
+                    ></span>
+                    <span class="text-[0.8125rem] text-text-muted"
+                      >Monthly Revenue</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-2 divide-x divide-[#F0F0F0] border-t border-[#F0F0F0]"
+              >
+                <div class="text-center py-3">
+                  <p
+                    class="text-xs text-text-muted uppercase tracking-wide font-medium mb-0.5"
+                  >
+                    Monthly Avg
+                  </p>
+                  <p class="text-base font-bold text-text-primary">₹1.78L</p>
+                </div>
+                <div class="text-center py-3">
+                  <p
+                    class="text-xs text-text-muted uppercase tracking-wide font-medium mb-0.5"
+                  >
+                    Best Month
+                  </p>
+                  <p class="text-base font-bold text-text-primary">
+                    ₹2.4L
+                    <span class="text-xs font-normal text-text-muted"
+                      >(Jul)</span
+                    >
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="flex-1 relative pl-2">
+
+            <!-- Chart B: Energy Performance -->
+            <div class="bg-white rounded-xl border border-card-border">
               <div
-                class="absolute left-[7px] top-2 bottom-2 w-[1px] bg-gray-200"
-              ></div>
-              <div class="space-y-6 relative">
-                <div class="flex items-start gap-3">
+                class="p-5 border-b border-[#F0F0F0] flex justify-between items-center"
+              >
+                <div>
+                  <h3 class="text-base font-semibold text-text-primary">
+                    Energy Performance
+                  </h3>
+                  <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                    Actual vs expected generation
+                  </p>
+                </div>
+                <span
+                  class="hidden sm:inline-flex bg-success-light text-success text-[0.75rem] font-semibold px-3 py-1 rounded-lg items-center gap-1"
+                >
+                  <span class="material-icons-round text-sm">arrow_upward</span>
+                  104.2%
+                </span>
+              </div>
+              <div class="p-5">
+                <div class="relative h-[220px] w-full">
+                  <canvas id="projectEnergyChart"></canvas>
+                </div>
+                <div class="flex items-center justify-center gap-5 mt-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                    <span class="text-[0.8125rem] text-text-muted">Actual</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="w-4 h-0 border-t-2 border-dashed border-text-disabled inline-block"
+                    ></span>
+                    <span class="text-[0.8125rem] text-text-muted"
+                      >Expected</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-2 divide-x divide-[#F0F0F0] border-t border-[#F0F0F0]"
+              >
+                <div class="text-center py-3">
+                  <p
+                    class="text-xs text-text-muted uppercase tracking-wide font-medium mb-0.5"
+                  >
+                    Avg Performance
+                  </p>
+                  <p class="text-base font-bold text-success">104.2%</p>
+                </div>
+                <div class="text-center py-3">
+                  <p
+                    class="text-xs text-text-muted uppercase tracking-wide font-medium mb-0.5"
+                  >
+                    Total Delivered
+                  </p>
+                  <p class="text-base font-bold text-text-primary">
+                    3,42,000 kWh
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== SECTION 4: BOTTOM ROW ====== -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- Card A: Financial Summary -->
+            <div
+              class="bg-white rounded-xl border border-card-border p-6 flex flex-col"
+            >
+              <h3 class="text-base font-semibold text-text-primary">
+                Financial Summary
+              </h3>
+              <p class="text-[0.8125rem] text-text-muted mt-0.5 mb-4">
+                Key financial metrics for this project
+              </p>
+
+              <div class="flex-1">
+                <!-- Section: Investment -->
+                <p
+                  class="text-[0.625rem] font-semibold text-text-disabled uppercase tracking-[0.06em] pt-2 pb-1.5"
+                >
+                  Investment
+                </p>
+                <div
+                  class="flex justify-between items-center py-2.5 border-b border-[#F5F5F5]"
+                >
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >Total Project Cost</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >₹85.0 L</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center py-2.5 border-b border-[#F5F5F5]"
+                >
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >Your Equity Share</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >₹21.25 L (25%)</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center py-2.5 border-b border-[#F5F5F5]"
+                >
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >Debt Component</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >₹63.75 L (75%)</span
+                  >
+                </div>
+
+                <!-- Section: Pricing -->
+                <p
+                  class="text-[0.625rem] font-semibold text-text-disabled uppercase tracking-[0.06em] pt-4 pb-1.5"
+                >
+                  Pricing
+                </p>
+                <div
+                  class="flex justify-between items-center py-2.5 border-b border-[#F5F5F5]"
+                >
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >PPA Rate</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >₹4.50/kWh</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center py-2.5 border-b border-[#F5F5F5]"
+                >
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >Grid Rate (Avoided)</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >₹9.20/kWh</span
+                  >
+                </div>
+
+                <!-- Section: Returns -->
+                <p
+                  class="text-[0.625rem] font-semibold text-text-disabled uppercase tracking-[0.06em] pt-4 pb-1.5"
+                >
+                  Returns
+                </p>
+                <div
+                  class="flex justify-between items-center py-2.5 border-b border-[#F5F5F5]"
+                >
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >Monthly Revenue (Current)</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-success"
+                    >₹2.4 L</span
+                  >
+                </div>
+                <div class="py-2.5 border-b border-[#F5F5F5]">
+                  <div class="flex justify-between items-center">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Breakeven Timeline</span
+                    >
+                    <span
+                      class="text-[0.875rem] font-semibold text-text-primary"
+                      >3.2 years</span
+                    >
+                  </div>
+                  <!-- Breakeven progress bar -->
+                  <div class="mt-2">
+                    <div class="relative">
+                      <div
+                        class="w-full h-[6px] bg-[#E0E0E0] rounded-full overflow-hidden"
+                      >
+                        <div
+                          class="bg-primary h-full rounded-full"
+                          style="width: 25%"
+                        ></div>
+                      </div>
+                      <!-- Marker triangle -->
+                      <div
+                        class="absolute top-[-4px]"
+                        style="left: calc(25% - 4px)"
+                      >
+                        <div
+                          class="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[5px] border-l-transparent border-r-transparent border-t-primary"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                      <span class="text-[0.5625rem] text-text-disabled"
+                        >Start</span
+                      >
+                      <span class="text-[0.5625rem] text-text-disabled"
+                        >Breakeven</span
+                      >
+                    </div>
+                    <p class="text-[0.6875rem] text-text-muted mt-0.5">
+                      0.8 of 3.2 years · Est. Jan 2028
+                    </p>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center py-2.5">
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >PAT (Profit After Tax)</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >22.5%</span
+                  >
+                </div>
+              </div>
+
+              <p
+                class="text-[0.6875rem] text-text-disabled italic mt-4 pt-3 border-t border-[#F0F0F0]"
+              >
+                Last updated: Jul 28, 2025
+              </p>
+            </div>
+
+            <!-- Card B: Risk & Timeline -->
+            <div
+              class="bg-white rounded-xl border border-card-border p-6 flex flex-col"
+            >
+              <h3 class="text-base font-semibold text-text-primary">
+                Risk Assessment & Timeline
+              </h3>
+              <p class="text-[0.8125rem] text-text-muted mt-0.5 mb-4">
+                Project health and milestone tracking
+              </p>
+
+              <!-- Risk Indicators -->
+              <div class="space-y-0">
+                <div class="py-3 border-b border-[#F5F5F5]">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Counterparty Risk</span
+                    >
+                    <span
+                      class="bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                      >Low</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 h-1 bg-[#E0E0E0] rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-success h-full rounded-full health-bar"
+                        style="--final-width: 90%"
+                      ></div>
+                    </div>
+                    <span class="text-[0.625rem] text-text-muted w-6 text-right"
+                      >90</span
+                    >
+                  </div>
+                  <p class="text-[0.625rem] text-text-disabled mt-1">
+                    Client creditworthiness and payment history
+                  </p>
+                </div>
+                <div class="py-3 border-b border-[#F5F5F5]">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Technical Risk</span
+                    >
+                    <span
+                      class="bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                      >Low</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 h-1 bg-[#E0E0E0] rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-success h-full rounded-full health-bar"
+                        style="--final-width: 92%"
+                      ></div>
+                    </div>
+                    <span class="text-[0.625rem] text-text-muted w-6 text-right"
+                      >92</span
+                    >
+                  </div>
+                  <p class="text-[0.625rem] text-text-disabled mt-1">
+                    System performance and equipment reliability
+                  </p>
+                </div>
+                <div class="py-3">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <span class="text-[0.8125rem] text-text-secondary"
+                      >Payment Risk</span
+                    >
+                    <span
+                      class="bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                      >Low</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="flex-1 h-1 bg-[#E0E0E0] rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-success h-full rounded-full health-bar"
+                        style="--final-width: 88%"
+                      ></div>
+                    </div>
+                    <span class="text-[0.625rem] text-text-muted w-6 text-right"
+                      >88</span
+                    >
+                  </div>
+                  <p class="text-[0.625rem] text-text-disabled mt-1">
+                    On-time payment track record
+                  </p>
+                </div>
+              </div>
+
+              <!-- Divider -->
+              <div class="border-t border-card-border my-4"></div>
+
+              <!-- Project Timeline -->
+              <h4 class="text-[0.875rem] font-medium text-text-primary mb-4">
+                Project Milestones
+              </h4>
+
+              <div class="relative pl-6 space-y-0 flex-1">
+                <!-- Vertical line -->
+                <div
+                  class="absolute left-[7px] top-[6px] w-[2px] h-[calc(100%-12px)]"
+                >
+                  <div class="w-full h-[80%] bg-success"></div>
                   <div
-                    class="w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-white shadow-sm flex-shrink-0 z-10 relative"
+                    class="w-full h-[20%] border-l-2 border-dashed border-[#D1D1D1]"
                   ></div>
-                  <div class="-mt-1">
-                    <p class="text-xs font-bold text-gray-900">
+                </div>
+
+                <!-- M1 -->
+                <div class="relative flex items-start gap-3 pb-5">
+                  <div
+                    class="absolute -left-6 top-[2px] w-[16px] h-[16px] rounded-full bg-success flex items-center justify-center z-10"
+                  >
+                    <span
+                      class="material-icons-round text-white"
+                      style="font-size: 10px"
+                      >check</span
+                    >
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-[0.8125rem] font-medium text-text-primary">
                       Site Survey Completed
                     </p>
-                    <p class="text-[10px] text-gray-400">Jan 10, 2024</p>
+                    <p class="text-[0.6875rem] text-text-muted">Sep 15, 2024</p>
                   </div>
                 </div>
-                <!-- More milestones... -->
-                <div class="flex items-start gap-3">
+                <p class="text-[0.5625rem] text-text-disabled pl-1 -mt-3 mb-2">
+                  ↓ 26 days
+                </p>
+
+                <!-- M2 -->
+                <div class="relative flex items-start gap-3 pb-5">
                   <div
-                    class="w-3.5 h-3.5 rounded-full bg-invest-blue border-2 border-white shadow-sm flex-shrink-0 z-10 relative animate-pulse"
-                  ></div>
-                  <div class="-mt-1">
-                    <p class="text-xs font-bold text-invest-blue">
-                      Operational Phase
+                    class="absolute -left-6 top-[2px] w-[16px] h-[16px] rounded-full bg-success flex items-center justify-center z-10"
+                  >
+                    <span
+                      class="material-icons-round text-white"
+                      style="font-size: 10px"
+                      >check</span
+                    >
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-[0.8125rem] font-medium text-text-primary">
+                      System Design Approved
                     </p>
-                    <p class="text-[10px] text-gray-400">
-                      Mar 15, 2024 - Present
+                    <p class="text-[0.6875rem] text-text-muted">Oct 11, 2024</p>
+                  </div>
+                </div>
+                <p class="text-[0.5625rem] text-text-disabled pl-1 -mt-3 mb-2">
+                  ↓ 24 days
+                </p>
+
+                <!-- M3 -->
+                <div class="relative flex items-start gap-3 pb-5">
+                  <div
+                    class="absolute -left-6 top-[2px] w-[16px] h-[16px] rounded-full bg-success flex items-center justify-center z-10"
+                  >
+                    <span
+                      class="material-icons-round text-white"
+                      style="font-size: 10px"
+                      >check</span
+                    >
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-[0.8125rem] font-medium text-text-primary">
+                      Installation Complete
+                    </p>
+                    <p class="text-[0.6875rem] text-text-muted">Nov 4, 2024</p>
+                  </div>
+                </div>
+                <p class="text-[0.5625rem] text-text-disabled pl-1 -mt-3 mb-2">
+                  ↓ 16 days
+                </p>
+
+                <!-- M4 -->
+                <div class="relative flex items-start gap-3 pb-5">
+                  <div
+                    class="absolute -left-6 top-[2px] w-[16px] h-[16px] rounded-full bg-success flex items-center justify-center z-10"
+                  >
+                    <span
+                      class="material-icons-round text-white"
+                      style="font-size: 10px"
+                      >check</span
+                    >
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-[0.8125rem] font-medium text-text-primary">
+                      Commissioned & Live
+                    </p>
+                    <p class="text-[0.6875rem] text-text-muted">Nov 20, 2024</p>
+                  </div>
+                </div>
+                <p class="text-[0.5625rem] text-text-muted pl-1 -mt-3 mb-2">
+                  ↓ ~10 years remaining
+                </p>
+
+                <!-- M5: Future -->
+                <div class="relative flex items-start gap-3">
+                  <div
+                    class="absolute -left-6 top-[2px] w-[16px] h-[16px] rounded-full bg-white border-2 border-[#D1D1D1] z-10"
+                  ></div>
+                  <div class="flex-1">
+                    <p class="text-[0.8125rem] font-medium text-text-muted">
+                      PPA Contract End
+                    </p>
+                    <p class="text-[0.6875rem] text-text-disabled">
+                      Nov 20, 2034
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Bottom Spacer -->
-        <div class="h-8"></div>
+          <!-- Footer -->
+          <footer class="mt-2 mb-2 text-center">
+            <p class="text-xs text-text-disabled">
+              © 2026 SunZero Energy Intelligence
+            </p>
+          </footer>
+        </div>
       </main>
     </div>
 
-    <!-- Navigation Script -->
-    <script src="../../js/navigation.js"></script>
+    <script>
+      function toggleMobileSidebar() {
+        document.getElementById("mobileSidebar").classList.toggle("active");
+        document.getElementById("sidebarOverlay").classList.toggle("active");
+      }
+    </script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <!-- Mock Data & Charts -->
+    <script src="../../js/mock-data.js"></script>
+    <script src="../../js/charts.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        renderProjectRevenueChart("projectRevenueChart");
+        renderProjectEnergyChart("projectEnergyChart");
+      });
+    </script>
   </body>
 </html>
