@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SunZero — Savings & Billing</title>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link rel="stylesheet" href="../../css/global.css" />
+
+    <!-- Page Specific Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "sz-bg": "#F7F4EF",
+              "sz-card": "#FFFFFF",
+              "sz-border": "#EBEBEB",
+              "sz-sidebar": "#1A1A1A",
+              "sz-text": "#1A1A1A",
+              "sz-text-secondary": "#6B6B6B",
+              "sz-text-muted": "#8A8A8A",
+              "sz-text-disabled": "#B0B0B0",
+              "sz-orange": "#E8740C",
+              "sz-orange-hover": "#C2571A",
+              "sz-green": "#2E7D32",
+              "sz-green-light": "#E8F5E9",
+              "sz-amber": "#E65100",
+              "sz-amber-light": "#FFF8E1",
+              "sz-red": "#C62828",
+              "sz-red-light": "#FFEBEE",
+              "sz-blue": "#1565C0",
+              "sz-blue-neutral": "#6B8FA6",
+              "sz-battery": "#66BB6A",
+              primary: "#E8740C",
+              "solar-accent": "#E8740C",
+              "battery-accent": "#66BB6A",
+              "grid-accent": "#6B8FA6",
+            },
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+              display: ["Inter", "sans-serif"],
+            },
+            backgroundImage: {
+              "gradient-savings":
+                "linear-gradient(90deg, #E8F5E9 0%, #FFFFFF 100%)",
+              "diagonal-pattern":
+                "repeating-linear-gradient(45deg, #2E7D32, #2E7D32 2px, transparent 2px, transparent 10px)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      }
+      body {
+        @apply font-display text-gray-800 antialiased bg-[#F7F4EF];
+      }
+
+      .nav-item {
+        @apply flex items-center px-4 py-2.5 text-sm font-medium rounded-r-lg rounded-l-none transition-all duration-200 cursor-pointer text-[#8A8A8A] hover:bg-[#2D2D2D] hover:text-white border-l-[3px] border-transparent ml-0;
+      }
+      .nav-item.active {
+        @apply bg-gradient-to-r from-[#e9730c]/15 to-transparent text-[#e9730c] border-l-[#e9730c] font-semibold;
+      }
+      .nav-category {
+        @apply px-4 text-[11px] font-bold text-[#5C5C5C] tracking-wider uppercase mt-4 mb-2;
+      }
+
+      .donut-ring {
+        stroke-dasharray: 51, 100;
+        stroke-dashoffset: 0;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        transition: stroke-dasharray 0.5s ease;
+      }
+    </style>
+  </head>
+  <body class="flex h-screen overflow-hidden bg-[#F7F4EF]">
+    <!-- ============================== -->
+    <!-- SIDEBAR                        -->
+    <!-- ============================== -->
+    <aside
+      class="w-[260px] bg-sidebar flex-shrink-0 flex flex-col h-full text-white border-r border-gray-800 z-30"
+    >
+      <div class="h-[72px] flex items-center px-6 border-b border-gray-800">
+        <a href="../../index.html" class="flex items-center gap-2">
+          <span class="material-icons-round text-primary text-3xl"
+            >wb_sunny</span
+          >
+          <span class="text-xl font-bold tracking-tight"
+            >Sun<span class="text-primary">Zero</span></span
+          >
+        </a>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto py-4 space-y-0.5">
+        <div class="nav-category mt-4">MAIN</div>
+        <a class="nav-item" href="overview.html">
+          <span class="material-icons-round mr-3 text-lg">dashboard</span>
+          Overview
+        </a>
+        <a class="nav-item" href="energy.html">
+          <span class="material-icons-round mr-3 text-lg">bolt</span>
+          Energy Monitoring
+        </a>
+        <a class="nav-item" href="flow.html">
+          <span class="material-icons-round mr-3 text-lg">schema</span>
+          Energy Flow
+        </a>
+
+        <div class="nav-category">FINANCIALS</div>
+        <a class="nav-item active" href="savings.html">
+          <span class="material-icons-round mr-3 text-lg">savings</span>
+          Savings &amp; Billing
+        </a>
+
+        <div class="nav-category">SUSTAINABILITY</div>
+        <a class="nav-item" href="carbon.html">
+          <span class="material-icons-round mr-3 text-lg">eco</span>
+          Carbon Impact
+        </a>
+
+        <div class="nav-category">PROJECT</div>
+        <a class="nav-item" href="progress.html">
+          <span class="material-icons-round mr-3 text-lg">engineering</span>
+          Project Progress
+        </a>
+        <a class="nav-item" href="#">
+          <span class="material-icons-round mr-3 text-lg">bar_chart</span>
+          Reports
+        </a>
+      </nav>
+
+      <div class="px-4 pb-4">
+        <div
+          class="bg-[#2D2D2D] rounded-xl p-4 mb-4 relative overflow-hidden group cursor-pointer hover:bg-[#333333] transition-colors"
+        >
+          <div
+            class="absolute -right-2 -top-2 w-16 h-16 bg-white/5 rounded-full blur-xl group-hover:bg-white/10 transition-all"
+          ></div>
+          <div class="flex items-start gap-3 relative z-10">
+            <div
+              class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0"
+            >
+              <span class="material-icons-round text-primary text-lg"
+                >support_agent</span
+              >
+            </div>
+            <div>
+              <h4 class="text-white text-sm font-semibold">Need Help?</h4>
+              <p class="text-[#8A8A8A] text-xs mt-0.5">
+                Contact our support team
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-4">
+          <a
+            href="../../index.html"
+            class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group"
+          >
+            <div class="relative">
+              <div
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm"
+              >
+                RK
+              </div>
+              <div
+                class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#1A1A1A] rounded-full"
+              ></div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p
+                class="text-sm font-medium text-white truncate group-hover:text-primary transition-colors"
+              >
+                Rajesh Kumar
+              </p>
+              <p class="text-xs text-gray-400 truncate">Facility Manager</p>
+            </div>
+            <span
+              class="material-icons-round text-gray-500 text-lg group-hover:text-white transition-colors"
+              >chevron_right</span
+            >
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============================== -->
+    <!-- MAIN CONTENT AREA              -->
+    <!-- ============================== -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
+      <!-- Top Bar -->
+      <header
+        class="h-[72px] sticky top-0 bg-white border-b border-[#EBEBEB] flex items-center justify-between px-8 flex-shrink-0 z-20"
+      >
+        <div class="flex flex-col justify-center h-full">
+          <div class="flex items-center gap-2 text-sm mb-0.5">
+            <a
+              href="overview.html"
+              class="text-[#8A8A8A] hover:text-primary transition-colors"
+              >Dashboard</a
+            >
+            <span class="text-[#D1D1D1] material-icons-round text-base"
+              >chevron_right</span
+            >
+            <span class="text-[#1A1A1A] font-medium">Savings & Billing</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="flex items-center gap-2 bg-white border border-[#D1D1D1] px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <span class="material-icons-round text-gray-500 text-lg"
+              >calendar_today</span
+            >
+            <span>July 2025</span>
+            <span class="material-icons-round text-gray-400 text-lg"
+              >expand_more</span
+            >
+          </button>
+          <button
+            class="flex items-center gap-2 bg-white border border-[#D1D1D1] px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <span class="material-icons-round text-gray-500 text-lg"
+              >business</span
+            >
+            <span>Noida Factory — 500 KW</span>
+            <span class="material-icons-round text-gray-400 text-lg"
+              >expand_more</span
+            >
+          </button>
+          <button
+            class="relative w-9 h-9 flex items-center justify-center border border-[#D1D1D1] rounded-lg text-gray-500 hover:text-primary hover:bg-gray-50 transition-colors"
+          >
+            <span class="material-icons-round text-xl">notifications</span>
+            <span
+              class="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full border-2 border-white"
+            ></span>
+          </button>
+          <div
+            class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white text-sm font-bold shadow-sm"
+          >
+            R
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main
+        class="flex-1 overflow-y-auto p-8 bg-[#F7F4EF] scrollbar-hide page-content"
+      >
+        <!-- Page Header -->
+        <div class="mb-6 flex justify-between items-end">
+          <div>
+            <h1 class="text-[1.75rem] font-bold text-[#1A1A1A]">
+              Savings & Billing
+            </h1>
+            <p class="text-sm text-[#5C5C5C] mt-1">
+              Track your cost savings, PPA billing, and financial impact.
+            </p>
+          </div>
+          <div class="flex gap-3">
+            <button
+              class="flex items-center gap-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <span class="material-icons-round text-lg">download</span>
+              Export Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Savings Banner -->
+        <div
+          class="bg-gradient-savings rounded-xl p-8 mb-8 border border-green-100 shadow-sm relative overflow-hidden"
+        >
+          <div
+            class="absolute right-0 top-0 h-full w-[20%] bg-diagonal-pattern opacity-5 pointer-events-none z-0"
+          ></div>
+          <div
+            class="absolute right-0 top-0 h-full w-1/3 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-green-100/40 via-transparent to-transparent pointer-events-none"
+          ></div>
+
+          <div
+            class="flex flex-col md:flex-row justify-between items-start relative z-10 gap-8"
+          >
+            <div class="flex-1 max-w-xl">
+              <div class="flex items-center gap-2 mb-2">
+                <span
+                  class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                  >Month to Date</span
+                >
+                <span class="text-gray-500 text-sm">July 01 - July 28</span>
+              </div>
+              <h2 class="text-5xl font-bold text-gray-900 tracking-tight mb-2">
+                ₹2,01,395
+              </h2>
+              <div class="flex items-center gap-2 text-sm font-medium mb-6">
+                <span
+                  class="flex items-center text-green-600 bg-green-50 px-2 py-1 rounded-md border border-green-100"
+                >
+                  <span class="material-icons-round text-sm mr-1"
+                    >trending_up</span
+                  >
+                  +12.5%
+                </span>
+                <span class="text-gray-500">vs last month's savings</span>
+              </div>
+              <div class="pt-4 border-t border-green-100/60">
+                <div class="flex justify-between items-end mb-2">
+                  <span class="text-sm font-medium text-gray-700"
+                    >Total saved since install:
+                    <span class="text-gray-900 font-bold"
+                      >₹14,20,000</span
+                    ></span
+                  >
+                  <span class="text-xs text-green-700 font-medium"
+                    >68% of estimated annual savings achieved</span
+                  >
+                </div>
+                <div
+                  class="w-full h-2.5 bg-[#C8E6C9] rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-[#2E7D32] rounded-full"
+                    style="width: 68%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Circular Gauge -->
+            <div
+              class="w-full md:w-auto flex items-center gap-8 bg-white/60 backdrop-blur-sm p-4 rounded-xl border border-green-50 shadow-sm z-10"
+            >
+              <div class="relative w-24 h-24">
+                <svg class="w-full h-full" viewBox="0 0 36 36">
+                  <path
+                    class="text-green-100"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3.8"
+                  ></path>
+                  <path
+                    class="text-green-500 donut-ring"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="3.8"
+                  ></path>
+                </svg>
+                <div
+                  class="absolute inset-0 flex items-center justify-center flex-col"
+                >
+                  <span class="text-xl font-bold text-gray-900">51%</span>
+                  <span class="text-[9px] text-gray-500 uppercase font-semibold"
+                    >Saved</span
+                  >
+                </div>
+              </div>
+              <div class="text-left">
+                <h3 class="text-gray-900 font-bold text-lg mb-1">
+                  Total Bill Savings
+                </h3>
+                <p class="text-sm text-gray-500 max-w-[160px] leading-relaxed">
+                  Reduction in energy costs compared to standard grid tariffs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cost Comparison Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <!-- PPA Bill -->
+          <div
+            class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm relative overflow-hidden group hover:border-orange-200 hover:-translate-y-[2px] transition-all duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600"
+              >
+                <span class="material-icons-round">receipt_long</span>
+              </div>
+              <span
+                class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-orange-50 text-orange-700 border border-orange-100 uppercase tracking-wide"
+                >PPA Bill</span
+              >
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500 mb-1">
+                Current Charges
+              </p>
+              <h3 class="text-2xl font-bold text-gray-900">₹1,92,825</h3>
+              <p class="text-xs text-orange-600 mt-2 font-medium">
+                Due by Aug 05
+              </p>
+            </div>
+            <div
+              class="absolute bottom-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity"
+            >
+              <span class="material-icons-round text-8xl text-orange-500"
+                >solar_power</span
+              >
+            </div>
+          </div>
+
+          <!-- Grid Equivalent -->
+          <div
+            class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm relative overflow-hidden group hover:border-gray-300 hover:-translate-y-[2px] transition-all duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600"
+              >
+                <span class="material-icons-round">grid_off</span>
+              </div>
+              <span
+                class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-gray-100 text-gray-600 border border-gray-200 uppercase tracking-wide"
+                >Grid Equivalent</span
+              >
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500 mb-1">
+                Estimated Cost
+              </p>
+              <h3
+                class="text-2xl font-bold text-gray-400 line-through decoration-red-500 decoration-2"
+              >
+                ₹3,94,220
+              </h3>
+              <p class="text-xs text-gray-500 mt-2">If purchased from grid</p>
+            </div>
+            <div
+              class="absolute bottom-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity"
+            >
+              <span class="material-icons-round text-8xl text-gray-500"
+                >electrical_services</span
+              >
+            </div>
+          </div>
+
+          <!-- Net Savings -->
+          <div
+            class="bg-green-50/50 rounded-xl p-5 border border-green-100 shadow-sm relative overflow-hidden group hover:bg-green-50 hover:-translate-y-[2px] transition-all duration-300"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-green-600 border border-green-100 shadow-sm"
+              >
+                <span class="material-icons-round">savings</span>
+              </div>
+              <span
+                class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-green-100 text-green-700 border border-green-200 uppercase tracking-wide"
+                >Net Savings</span
+              >
+            </div>
+            <div class="relative z-10">
+              <p class="text-sm font-medium text-gray-500 mb-1">
+                Realized Value
+              </p>
+              <h3 class="text-2xl font-bold text-green-700">₹2,01,395</h3>
+              <p class="text-xs text-green-700 mt-2 font-medium">
+                Avoided cost this month
+              </p>
+            </div>
+            <div
+              class="absolute bottom-0 left-0 right-0 h-24 flex items-end opacity-20 z-0"
+            >
+              <svg
+                class="w-full h-full"
+                preserveAspectRatio="none"
+                viewBox="0 0 100 24"
+              >
+                <path
+                  d="M0,24 L0,15 L10,18 L20,12 L30,16 L40,10 L50,14 L60,8 L70,12 L80,5 L90,10 L100,2 L100,24 Z"
+                  fill="#2E7D32"
+                ></path>
+              </svg>
+            </div>
+            <div
+              class="absolute bottom-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"
+            >
+              <span class="material-icons-round text-8xl text-green-600"
+                >account_balance_wallet</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Savings Trend Chart -->
+        <div
+          class="bg-white rounded-[16px] shadow-sm border border-gray-200 mb-8 p-6"
+        >
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold text-gray-900">
+              Savings Trend (Last 6 Months)
+            </h3>
+            <div class="flex gap-4 items-center">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-orange-500"></span>
+                <span class="text-sm text-gray-600">PPA Bill</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+                <span class="text-sm text-gray-600">Grid Equivalent</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span
+                  class="w-4 h-0.5 border-t border-dashed border-[#2E7D32]"
+                ></span>
+                <span class="text-sm text-gray-600">Cumulative Savings</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="relative h-[300px] w-full flex items-end justify-between px-4 pb-8 border-b border-gray-100"
+          >
+            <div
+              class="absolute inset-0 flex flex-col justify-between pointer-events-none pb-8 text-xs text-gray-400 font-medium"
+            >
+              <div
+                class="border-b border-dashed border-gray-100 w-full h-0 flex items-center"
+              >
+                <span class="-ml-8">₹4.0L</span>
+              </div>
+              <div
+                class="border-b border-dashed border-gray-100 w-full h-0 flex items-center"
+              >
+                <span class="-ml-8">₹3.0L</span>
+              </div>
+              <div
+                class="border-b border-dashed border-gray-100 w-full h-0 flex items-center"
+              >
+                <span class="-ml-8">₹2.0L</span>
+              </div>
+              <div
+                class="border-b border-dashed border-gray-100 w-full h-0 flex items-center"
+              >
+                <span class="-ml-8">₹1.0L</span>
+              </div>
+              <div
+                class="border-b border-gray-200 w-full h-0 flex items-center"
+              >
+                <span class="-ml-8">₹0</span>
+              </div>
+            </div>
+
+            <!-- Monthly Target Line -->
+            <div
+              class="absolute bottom-[40%] w-full border-t border-dashed border-[#E8740C] pointer-events-none z-0"
+            >
+              <div
+                class="absolute -top-3 right-0 text-[10px] font-bold text-[#E8740C] bg-[#FFF8F0] px-1"
+              >
+                Monthly Target (₹2.5L)
+              </div>
+            </div>
+
+            <!-- Cumulative Line -->
+            <div
+              class="absolute top-0 bottom-[32px] left-[4%] right-[4%] z-20 pointer-events-none"
+            >
+              <svg
+                class="w-full h-full overflow-visible"
+                preserveAspectRatio="none"
+                viewBox="0 0 100 100"
+              >
+                <path
+                  class="drop-shadow-sm"
+                  d="M0,85 Q20,75 40,65 T80,45 T100,30"
+                  fill="none"
+                  stroke="#2E7D32"
+                  stroke-dasharray="4,4"
+                  stroke-width="2"
+                ></path>
+                <circle
+                  class="stroke-white stroke-2"
+                  cx="0"
+                  cy="85"
+                  fill="#2E7D32"
+                  r="3"
+                ></circle>
+                <circle
+                  class="stroke-white stroke-2"
+                  cx="20"
+                  cy="78"
+                  fill="#2E7D32"
+                  r="3"
+                ></circle>
+                <circle
+                  class="stroke-white stroke-2"
+                  cx="40"
+                  cy="65"
+                  fill="#2E7D32"
+                  r="3"
+                ></circle>
+                <circle
+                  class="stroke-white stroke-2"
+                  cx="60"
+                  cy="55"
+                  fill="#2E7D32"
+                  r="3"
+                ></circle>
+                <circle
+                  class="stroke-white stroke-2"
+                  cx="80"
+                  cy="45"
+                  fill="#2E7D32"
+                  r="3"
+                ></circle>
+                <circle
+                  class="stroke-white stroke-2"
+                  cx="100"
+                  cy="30"
+                  fill="#2E7D32"
+                  r="3"
+                ></circle>
+              </svg>
+            </div>
+
+            <!-- Bars -->
+            <div class="relative z-10 flex flex-col items-center group w-full">
+              <div class="flex items-end gap-1 h-full pt-12">
+                <div
+                  class="w-3 md:w-8 bg-orange-500 rounded-t-sm h-[40%] hover:opacity-90 transition-all"
+                ></div>
+                <div
+                  class="w-3 md:w-8 bg-gray-300 rounded-t-sm h-[82%] hover:opacity-90 transition-all"
+                ></div>
+              </div>
+              <span
+                class="absolute bottom-[-30px] text-xs font-medium text-gray-500"
+                >Feb</span
+              >
+              <div
+                class="absolute top-[20px] bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity transform -translate-y-1"
+              >
+                ₹1.8L Saved
+              </div>
+            </div>
+            <!-- March -->
+            <div class="relative z-10 flex flex-col items-center group w-full">
+              <div class="flex items-end gap-1 h-full pt-12">
+                <div
+                  class="w-3 md:w-8 bg-orange-500 rounded-t-sm h-[45%] hover:opacity-90 transition-all"
+                ></div>
+                <div
+                  class="w-3 md:w-8 bg-gray-300 rounded-t-sm h-[88%] hover:opacity-90 transition-all"
+                ></div>
+              </div>
+              <span
+                class="absolute bottom-[-30px] text-xs font-medium text-gray-500"
+                >Mar</span
+              >
+              <div
+                class="absolute top-[10px] bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity transform -translate-y-1"
+              >
+                ₹1.9L Saved
+              </div>
+            </div>
+            <!-- April -->
+            <div class="relative z-10 flex flex-col items-center group w-full">
+              <div class="flex items-end gap-1 h-full pt-12">
+                <div
+                  class="w-3 md:w-8 bg-orange-500 rounded-t-sm h-[48%] hover:opacity-90 transition-all"
+                ></div>
+                <div
+                  class="w-3 md:w-8 bg-gray-300 rounded-t-sm h-[92%] hover:opacity-90 transition-all"
+                ></div>
+              </div>
+              <span
+                class="absolute bottom-[-30px] text-xs font-medium text-gray-500"
+                >Apr</span
+              >
+              <div
+                class="absolute top-[5px] bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity transform -translate-y-1"
+              >
+                ₹2.0L Saved
+              </div>
+            </div>
+            <!-- May -->
+            <div class="relative z-10 flex flex-col items-center group w-full">
+              <div class="flex items-end gap-1 h-full pt-12">
+                <div
+                  class="w-3 md:w-8 bg-orange-500 rounded-t-sm h-[52%] hover:opacity-90 transition-all"
+                ></div>
+                <div
+                  class="w-3 md:w-8 bg-gray-300 rounded-t-sm h-[98%] hover:opacity-90 transition-all"
+                ></div>
+              </div>
+              <span
+                class="absolute bottom-[-30px] text-xs font-medium text-gray-500"
+                >May</span
+              >
+              <div
+                class="absolute top-[0px] bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity transform -translate-y-1"
+              >
+                ₹2.2L Saved
+              </div>
+            </div>
+            <!-- June -->
+            <div class="relative z-10 flex flex-col items-center group w-full">
+              <div class="flex items-end gap-1 h-full pt-12">
+                <div
+                  class="w-3 md:w-8 bg-orange-500 rounded-t-sm h-[50%] hover:opacity-90 transition-all"
+                ></div>
+                <div
+                  class="w-3 md:w-8 bg-gray-300 rounded-t-sm h-[95%] hover:opacity-90 transition-all"
+                ></div>
+              </div>
+              <span
+                class="absolute bottom-[-30px] text-xs font-medium text-gray-500"
+                >Jun</span
+              >
+              <div
+                class="absolute top-[4px] bg-green-50 text-green-700 border border-green-100 px-2 py-0.5 rounded text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity transform -translate-y-1"
+              >
+                ₹2.1L Saved
+              </div>
+            </div>
+            <!-- July -->
+            <div class="relative z-10 flex flex-col items-center group w-full">
+              <div class="flex items-end gap-1 h-full pt-12">
+                <div
+                  class="w-3 md:w-8 bg-orange-500 rounded-t-sm h-[48%] hover:opacity-90 transition-all shadow-md ring-2 ring-orange-200 ring-offset-1"
+                ></div>
+                <div
+                  class="w-3 md:w-8 bg-gray-300 rounded-t-sm h-[97%] hover:opacity-90 transition-all"
+                ></div>
+              </div>
+              <span
+                class="absolute bottom-[-30px] text-xs font-bold text-gray-800"
+                >Jul</span
+              >
+              <div
+                class="absolute top-[2px] bg-green-100 text-green-800 border border-green-200 px-2 py-0.5 rounded text-[10px] font-bold transform -translate-y-1 shadow-sm"
+              >
+                ₹2.0L Saved
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Rate Comparison & Invoices -->
+        <div class="flex flex-col lg:flex-row gap-6">
+          <!-- Rate Comparison -->
+          <div
+            class="w-full lg:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+          >
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="text-lg font-bold text-gray-900">Rate Comparison</h3>
+              <div
+                class="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded border border-gray-200"
+              >
+                Per kWh
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div class="relative">
+                <div class="flex justify-between text-sm font-medium mb-1">
+                  <span class="text-orange-700">PPA Tariff</span>
+                  <span class="text-gray-900 font-bold">₹4.50</span>
+                </div>
+                <div
+                  class="w-full bg-gray-100 rounded-full h-3 overflow-hidden"
+                >
+                  <div
+                    class="bg-orange-500 h-3 rounded-full"
+                    style="width: 48%"
+                  ></div>
+                </div>
+              </div>
+              <div class="relative">
+                <div class="flex justify-between text-sm font-medium mb-1">
+                  <span class="text-gray-600">Grid Tariff</span>
+                  <span class="text-gray-900 font-bold">₹9.20</span>
+                </div>
+                <div
+                  class="w-full bg-gray-100 rounded-full h-3 overflow-hidden"
+                >
+                  <div
+                    class="bg-gray-400 h-3 rounded-full"
+                    style="width: 95%"
+                  ></div>
+                </div>
+              </div>
+              <div class="mt-8">
+                <div class="flex justify-between items-start mb-4">
+                  <div>
+                    <h4 class="text-sm font-bold text-gray-900">
+                      Time-of-Day Rates
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-1">
+                      Grid tariff varies by time — your PPA rate stays flat
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div
+                    class="bg-[#FAFAFA] rounded-[6px] p-3 flex items-center justify-between border border-transparent"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                      <span class="text-xs font-medium text-gray-600 w-20"
+                        >Off-Peak</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-4 text-xs">
+                      <div class="flex flex-col items-end">
+                        <span class="text-gray-400 text-[10px]">Grid</span>
+                        <span class="font-bold text-gray-700">₹7.50</span>
+                      </div>
+                      <div class="h-4 w-[1px] bg-gray-200"></div>
+                      <div class="flex flex-col items-end">
+                        <span class="text-orange-400 text-[10px]">PPA</span>
+                        <span class="font-bold text-orange-600">₹4.50</span>
+                      </div>
+                    </div>
+                    <div class="ml-2">
+                      <span
+                        class="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded border border-green-200"
+                        >40% Saved</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="bg-[#FAFAFA] rounded-[6px] p-3 flex items-center justify-between border border-transparent"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="w-1.5 h-1.5 rounded-full bg-gray-400"></div>
+                      <span class="text-xs font-medium text-gray-600 w-20"
+                        >Normal</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-4 text-xs">
+                      <div class="flex flex-col items-end">
+                        <span class="text-gray-400 text-[10px]">Grid</span>
+                        <span class="font-bold text-gray-700">₹9.20</span>
+                      </div>
+                      <div class="h-4 w-[1px] bg-gray-200"></div>
+                      <div class="flex flex-col items-end">
+                        <span class="text-orange-400 text-[10px]">PPA</span>
+                        <span class="font-bold text-orange-600">₹4.50</span>
+                      </div>
+                    </div>
+                    <div class="ml-2">
+                      <span
+                        class="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded border border-green-200"
+                        >51% Saved</span
+                      >
+                    </div>
+                  </div>
+                  <div
+                    class="bg-[#FAFAFA] rounded-[6px] p-3 flex items-center justify-between border border-transparent"
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="w-1.5 h-1.5 rounded-full bg-red-400"></div>
+                      <span class="text-xs font-medium text-gray-600 w-20"
+                        >Peak</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-4 text-xs">
+                      <div class="flex flex-col items-end">
+                        <span class="text-gray-400 text-[10px]">Grid</span>
+                        <span class="font-bold text-gray-700">₹12.80</span>
+                      </div>
+                      <div class="h-4 w-[1px] bg-gray-200"></div>
+                      <div class="flex flex-col items-end">
+                        <span class="text-orange-400 text-[10px]">PPA</span>
+                        <span class="font-bold text-orange-600">₹4.50</span>
+                      </div>
+                    </div>
+                    <div class="ml-2">
+                      <span
+                        class="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded border border-green-200"
+                        >65% Saved</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="mt-4 p-3 bg-[#FFF8F0] border-l-[3px] border-orange-500 rounded-r-md"
+              >
+                <p class="text-xs text-orange-800 italic">
+                  💡 Your PPA rate is fixed for 10 years — no surprises.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoice History -->
+          <div
+            class="w-full lg:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 p-6 overflow-hidden"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-bold text-gray-900">Invoice History</h3>
+              <a
+                class="text-sm text-primary font-medium hover:text-primary-dark"
+                href="#"
+                >View All</a
+              >
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm text-left">
+                <thead
+                  class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100"
+                >
+                  <tr>
+                    <th class="px-4 py-3 font-medium">Month</th>
+                    <th class="px-4 py-3 font-medium">Amount</th>
+                    <th class="px-4 py-3 font-medium">Status</th>
+                    <th class="px-4 py-3 font-medium text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                  <tr class="hover:bg-[#FFF8F0] transition-colors">
+                    <td class="px-4 py-3 font-medium text-gray-900">
+                      Jul 2025
+                    </td>
+                    <td class="px-4 py-3 text-gray-600 relative">
+                      <span
+                        class="absolute left-0 top-3 bottom-3 w-[3px] bg-orange-500 rounded-r-sm h-5 my-auto"
+                      ></span>
+                      ₹1,92,825
+                    </td>
+                    <td class="px-4 py-3">
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-100"
+                        >Due</span
+                      >
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                      <button
+                        class="text-gray-400 hover:text-primary transition-colors"
+                      >
+                        <span class="material-icons-round text-lg"
+                          >download</span
+                        >
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-[#FFF8F0] transition-colors">
+                    <td class="px-4 py-3 font-medium text-gray-900">
+                      Jun 2025
+                    </td>
+                    <td class="px-4 py-3 text-gray-600 relative">
+                      <span
+                        class="absolute left-0 top-3 bottom-3 w-[3px] bg-green-500 rounded-r-sm h-5 my-auto"
+                      ></span>
+                      ₹1,85,420
+                    </td>
+                    <td class="px-4 py-3">
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-50 text-green-700 border border-green-100"
+                        >Paid</span
+                      >
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                      <button
+                        class="text-gray-400 hover:text-primary transition-colors"
+                      >
+                        <span class="material-icons-round text-lg"
+                          >download</span
+                        >
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-[#FFF8F0] transition-colors">
+                    <td class="px-4 py-3 font-medium text-gray-900">
+                      May 2025
+                    </td>
+                    <td class="px-4 py-3 text-gray-600 relative">
+                      <span
+                        class="absolute left-0 top-3 bottom-3 w-[3px] bg-green-500 rounded-r-sm h-5 my-auto"
+                      ></span>
+                      ₹1,98,150
+                    </td>
+                    <td class="px-4 py-3">
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-50 text-green-700 border border-green-100"
+                        >Paid</span
+                      >
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                      <button
+                        class="text-gray-400 hover:text-primary transition-colors"
+                      >
+                        <span class="material-icons-round text-lg"
+                          >download</span
+                        >
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-[#FFF8F0] transition-colors">
+                    <td class="px-4 py-3 font-medium text-gray-900">
+                      Apr 2025
+                    </td>
+                    <td class="px-4 py-3 text-gray-600 relative">
+                      <span
+                        class="absolute left-0 top-3 bottom-3 w-[3px] bg-green-500 rounded-r-sm h-5 my-auto"
+                      ></span>
+                      ₹1,72,600
+                    </td>
+                    <td class="px-4 py-3">
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-50 text-green-700 border border-green-100"
+                        >Paid</span
+                      >
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                      <button
+                        class="text-gray-400 hover:text-primary transition-colors"
+                      >
+                        <span class="material-icons-round text-lg"
+                          >download</span
+                        >
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="bg-[#F7F4EF] font-bold border-t border-gray-200">
+                    <td class="px-4 py-3 text-gray-900">Total (5 months)</td>
+                    <td class="px-4 py-3 text-gray-900">₹8,92,575</td>
+                    <td class="px-4 py-3"></td>
+                    <td class="px-4 py-3"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Spacer -->
+        <div class="h-8"></div>
+      </main>
+    </div>
+
+    <!-- Navigation Script -->
+    <script src="../../js/navigation.js"></script>
+  </body>
+</html>
