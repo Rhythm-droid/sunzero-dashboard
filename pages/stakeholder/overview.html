@@ -4,10 +4,6 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>SunZero — Dashboard Overview</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -16,99 +12,133 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-    <!-- Global Styles -->
-    <link rel="stylesheet" href="../../css/global.css" />
-
-    <!-- Tailwind Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              "sz-bg": "#F7F4EF",
-              "sz-card": "#FFFFFF",
-              "sz-border": "#EBEBEB",
-              "sz-sidebar": "#1A1A1A",
-              "sz-text": "#1A1A1A",
-              "sz-text-secondary": "#6B6B6B",
-              "sz-text-muted": "#8A8A8A",
-              "sz-text-disabled": "#B0B0B0",
-              "sz-orange": "#E8740C",
-              "sz-orange-hover": "#C2571A",
-              "sz-green": "#2E7D32",
-              "sz-green-light": "#E8F5E9",
-              "sz-amber": "#E65100",
-              "sz-amber-light": "#FFF8E1",
-              "sz-red": "#C62828",
-              "sz-red-light": "#FFEBEE",
-              "sz-blue": "#1565C0",
-              "sz-blue-neutral": "#6B8FA6",
-              "sz-battery": "#66BB6A",
               primary: "#E8740C",
               "primary-dark": "#C2571A",
+              "bg-warm": "#F7F4EF",
               sidebar: "#1A1A1A",
+              "sidebar-hover": "#2D2D2D",
+              "card-border": "#EBEBEB",
+              "text-primary": "#1A1A1A",
+              "text-secondary": "#6B6B6B",
+              "text-muted": "#8A8A8A",
+              "text-disabled": "#B0B0B0",
+              success: "#2E7D32",
+              "success-dark": "#1B5E20",
+              "success-light": "#E8F5E9",
+              error: "#C62828",
+              "error-light": "#FFEBEE",
+              warning: "#E65100",
               "grid-blue": "#6B8FA6",
+              "battery-green": "#66BB6A",
             },
-            fontFamily: {
-              inter: ["Inter", "sans-serif"],
-              display: ["Inter", "sans-serif"],
-            },
+            fontFamily: { sans: ["Inter", "sans-serif"] },
           },
         },
       };
     </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d1d1d1;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b0b0b0;
+      }
 
-    <style type="text/tailwindcss">
-      @layer utilities {
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
+      .sidebar-active {
+        background: linear-gradient(
+          90deg,
+          rgba(232, 116, 12, 0.15) 0%,
+          rgba(232, 116, 12, 0.03) 100%
+        );
+        border-left: 3px solid #e8740c;
       }
-      body {
-        @apply font-display text-gray-800 antialiased bg-[#F7F4EF];
-      }
-      .nav-item {
-        @apply flex items-center px-4 py-2.5 text-sm font-medium rounded-r-lg rounded-l-none transition-all duration-200 cursor-pointer text-[#8A8A8A] hover:bg-[#2D2D2D] hover:text-white border-l-[3px] border-transparent ml-0;
-      }
-      .nav-item.active {
-        @apply bg-gradient-to-r from-[#e9730c]/15 to-transparent text-[#e9730c] border-l-[#e9730c] font-semibold;
-      }
-      .nav-category {
-        @apply px-4 text-[11px] font-bold text-[#5C5C5C] tracking-wider uppercase mt-4 mb-2;
-      }
-      .card {
-        @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
-      }
+
       .kpi-card {
-        @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg border-t-[3px] flex flex-col justify-between h-full;
+        transition:
+          transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.25s ease;
       }
-      .icon-box-kpi {
-        @apply flex items-center justify-center w-[40px] h-[40px] rounded-full;
+      .kpi-card:hover {
+        transform: translateY(-2px);
+      }
+      .kpi-card-orange:hover {
+        box-shadow: 0 8px 20px -4px rgba(232, 116, 12, 0.15);
+      }
+      .kpi-card-green:hover {
+        box-shadow: 0 8px 20px -4px rgba(46, 125, 50, 0.15);
+      }
+      .kpi-card-darkgreen:hover {
+        box-shadow: 0 8px 20px -4px rgba(27, 94, 32, 0.15);
+      }
+
+      .gauge-bar {
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .arrow-link-hover:hover .arrow-icon {
+        transform: translateX(4px);
+      }
+
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.4);
+          opacity: 0.6;
+        }
+      }
+      .pulse-dot {
+        animation: pulse-dot 1.5s ease-in-out infinite;
+      }
+
+      .sidebar-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .sidebar-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sidebar-mobile {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar-mobile.active {
+        transform: translateX(0);
       }
     </style>
   </head>
-  <body class="flex h-screen overflow-hidden">
-    <!-- ============================== -->
-    <!-- SIDEBAR                        -->
-    <!-- ============================== -->
+
+  <body
+    class="font-sans bg-bg-warm text-text-primary flex h-screen overflow-hidden"
+  >
+    <!-- ==================== SIDEBAR ==================== -->
     <aside
-      class="w-[260px] bg-sidebar flex-shrink-0 flex flex-col h-full text-white border-r border-gray-800 z-30"
+      class="w-64 bg-sidebar flex-shrink-0 flex flex-col h-full text-white hidden lg:flex"
     >
       <!-- Logo -->
-      <div class="h-[72px] flex items-center px-6 border-b border-gray-800">
-        <a href="../../index.html" class="flex items-center gap-2">
+      <div
+        class="h-[72px] flex items-center px-5 border-b border-white/10 flex-shrink-0"
+      >
+        <a href="overview.html" class="flex items-center gap-2">
           <span class="material-icons-round text-primary text-3xl"
             >wb_sunny</span
           >
@@ -119,742 +149,861 @@
       </div>
 
       <!-- Navigation -->
-      <nav class="flex-1 overflow-y-auto py-4 space-y-0.5">
-        <div class="nav-category mt-4">MAIN</div>
-        <a class="nav-item active" href="overview.html">
-          <span class="material-icons-round mr-3 text-lg">dashboard</span>
-          Overview
-        </a>
-        <a class="nav-item" href="energy.html">
-          <span class="material-icons-round mr-3 text-lg">bolt</span>
-          Energy Monitoring
-        </a>
-        <a class="nav-item" href="flow.html">
-          <span class="material-icons-round mr-3 text-lg">schema</span>
-          Energy Flow
-        </a>
-
-        <div class="nav-category">FINANCIALS</div>
-        <a class="nav-item" href="savings.html">
-          <span class="material-icons-round mr-3 text-lg">savings</span>
-          Savings &amp; Billing
-        </a>
-
-        <div class="nav-category">SUSTAINABILITY</div>
-        <a class="nav-item" href="carbon.html">
-          <span class="material-icons-round mr-3 text-lg">eco</span>
-          Carbon Impact
-        </a>
-
-        <div class="nav-category">PROJECT</div>
-        <a class="nav-item" href="progress.html">
-          <span class="material-icons-round mr-3 text-lg">engineering</span>
-          Project Progress
-        </a>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">bar_chart</span>
-          Reports
-        </a>
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Main
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="overview.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem] transition-all"
+                ><span class="material-icons-round text-lg">dashboard</span
+                >Overview</a
+              >
+            </li>
+            <li>
+              <a
+                href="energy.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">insights</span
+                >Energy Monitoring</a
+              >
+            </li>
+            <li>
+              <a
+                href="flow.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">swap_horiz</span
+                >Energy Flow</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="savings.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg"
+                  >account_balance_wallet</span
+                >Savings & Billing</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Sustainability
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="carbon.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">eco</span>Carbon
+                Impact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Project
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg"
+                  >assignment_turned_in</span
+                >Project Progress</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </div>
       </nav>
 
-      <!-- Support Card + Profile -->
-      <div class="px-4 pb-4">
-        <!-- Support Card -->
+      <!-- Bottom Section -->
+      <div class="p-3 space-y-3 border-t border-white/10 flex-shrink-0">
         <div
-          class="bg-[#2D2D2D] rounded-xl p-4 mb-4 relative overflow-hidden group cursor-pointer hover:bg-[#333333] transition-colors"
+          class="bg-sidebar-hover rounded-xl p-3.5 cursor-pointer hover:bg-[#3A3A3A] transition-colors group"
         >
-          <div
-            class="absolute -right-2 -top-2 w-16 h-16 bg-white/5 rounded-full blur-xl group-hover:bg-white/10 transition-all"
-          ></div>
-          <div class="flex items-start gap-3 relative z-10">
+          <div class="flex items-center gap-3">
             <div
-              class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0"
+              class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0"
             >
-              <span class="material-icons-round text-primary text-lg"
+              <span class="material-icons-round text-primary text-sm"
                 >support_agent</span
               >
             </div>
-            <div>
-              <h4 class="text-white text-sm font-semibold">Need Help?</h4>
-              <p class="text-[#8A8A8A] text-xs mt-0.5">
-                Contact our support team
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- User Profile -->
-        <div class="border-t border-gray-800 pt-4">
-          <a
-            href="../../index.html"
-            class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group"
-          >
-            <div class="relative">
-              <div
-                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm"
-              >
-                RK
-              </div>
-              <div
-                class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#1A1A1A] rounded-full"
-              ></div>
-            </div>
             <div class="flex-1 min-w-0">
-              <p
-                class="text-sm font-medium text-white truncate group-hover:text-primary transition-colors"
-              >
-                Rajesh Kumar
-              </p>
-              <p class="text-xs text-gray-400 truncate">Facility Manager</p>
+              <p class="text-[0.8125rem] font-medium">Need Help?</p>
+              <p class="text-[0.6875rem] text-[#6B6B6B]">Contact support</p>
             </div>
             <span
-              class="material-icons-round text-gray-500 text-lg group-hover:text-white transition-colors"
-              >chevron_right</span
+              class="material-icons-round text-[#6B6B6B] text-sm group-hover:translate-x-0.5 transition-transform"
+              >arrow_forward</span
             >
+          </div>
+        </div>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+          <div class="relative flex-shrink-0">
+            <div
+              class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs"
+            >
+              RK
+            </div>
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-sidebar rounded-full"
+            ></span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Rajesh Kumar</p>
+            <p class="text-xs text-[#6B6B6B] truncate">Facility Manager</p>
+          </div>
+          <a
+            href="../../index.html"
+            class="text-[#6B6B6B] hover:text-white transition-colors"
+            title="Sign Out"
+          >
+            <span class="material-icons-round text-lg">logout</span>
           </a>
         </div>
       </div>
     </aside>
 
-    <!-- ============================== -->
-    <!-- MAIN CONTENT AREA              -->
-    <!-- ============================== -->
-    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-      <!-- Top Bar -->
-      <header
-        class="h-[72px] sticky top-0 bg-white border-b border-[#EBEBEB] flex items-center justify-between px-8 flex-shrink-0 z-20"
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      id="sidebarOverlay"
+      class="fixed inset-0 z-40 sidebar-overlay lg:hidden"
+      onclick="toggleMobileSidebar()"
+    ></div>
+
+    <!-- Mobile Sidebar -->
+    <aside
+      id="mobileSidebar"
+      class="fixed top-0 left-0 w-72 h-full bg-sidebar z-50 sidebar-mobile lg:hidden flex flex-col text-white"
+    >
+      <div
+        class="h-14 flex items-center justify-between px-5 border-b border-white/10"
       >
-        <div class="flex items-center gap-2 text-sm">
-          <span class="text-[#8A8A8A]">Dashboard</span>
-          <span class="text-[#D1D1D1] material-icons-round text-base"
-            >chevron_right</span
+        <div class="flex items-center gap-2">
+          <span class="material-icons-round text-primary text-2xl"
+            >wb_sunny</span
           >
-          <span class="text-[#1A1A1A] font-medium">Overview</span>
+          <span class="text-lg font-bold tracking-tight"
+            >Sun<span class="text-primary">Zero</span></span
+          >
         </div>
+        <button
+          onclick="toggleMobileSidebar()"
+          class="text-[#8A8A8A] hover:text-white"
+        >
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Main
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="overview.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem]"
+                ><span class="material-icons-round text-lg">dashboard</span
+                >Overview</a
+              >
+            </li>
+            <li>
+              <a
+                href="energy.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">insights</span
+                >Energy Monitoring</a
+              >
+            </li>
+            <li>
+              <a
+                href="flow.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">swap_horiz</span
+                >Energy Flow</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="savings.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg"
+                  >account_balance_wallet</span
+                >Savings & Billing</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Sustainability
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="carbon.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">eco</span>Carbon
+                Impact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Project
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg"
+                  >assignment_turned_in</span
+                >Project Progress</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ==================== MAIN AREA ==================== -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+      <!-- TOP BAR -->
+      <header
+        class="h-[72px] bg-white border-b border-card-border flex items-center justify-between px-6 lg:px-8 flex-shrink-0"
+      >
         <div class="flex items-center gap-4">
           <button
-            class="flex items-center gap-2 bg-white border border-[#D1D1D1] px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            onclick="toggleMobileSidebar()"
+            class="lg:hidden text-text-secondary hover:text-text-primary transition-colors"
           >
-            <span class="material-icons-round text-gray-500 text-lg"
+            <span class="material-icons-round">menu</span>
+          </button>
+          <div class="flex flex-col">
+            <nav class="hidden sm:flex text-[0.8125rem] items-center gap-1.5">
+              <span class="text-text-muted">Dashboard</span>
+              <span class="text-text-disabled">/</span>
+              <span class="text-text-primary font-medium">Overview</span>
+            </nav>
+            <h1 class="text-lg font-semibold text-text-primary mt-0.5">
+              Good morning, Rajesh 👋
+            </h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center border border-[#D1D1D1] rounded-lg px-3 py-[7px] hover:border-primary/40 transition-colors cursor-pointer"
+          >
+            <span
+              class="material-icons-round text-text-secondary text-base mr-2"
               >calendar_today</span
             >
-            <span>Jul 1 - Jul 28, 2025</span>
-            <span class="material-icons-round text-gray-400 text-lg"
+            <span class="text-[0.8125rem] font-medium text-text-primary"
+              >Jul 1 — Jul 28, 2025</span
+            >
+            <span class="material-icons-round text-text-disabled text-base ml-2"
               >expand_more</span
             >
-          </button>
-          <button
-            class="flex items-center gap-2 bg-white border border-[#D1D1D1] px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          </div>
+          <div
+            class="hidden lg:flex items-center border border-[#D1D1D1] rounded-lg px-3 py-[7px] hover:border-primary/40 transition-colors cursor-pointer"
           >
-            <span class="material-icons-round text-gray-500 text-lg"
+            <span
+              class="material-icons-round text-text-secondary text-base mr-2"
               >business</span
             >
-            <span>Noida Factory — 500 KW</span>
-            <span class="material-icons-round text-gray-400 text-lg"
+            <span class="text-[0.8125rem] font-medium text-text-primary"
+              >Noida Factory — 500 KW</span
+            >
+            <span class="material-icons-round text-text-disabled text-base ml-2"
               >expand_more</span
             >
-          </button>
+          </div>
           <button
-            class="relative w-9 h-9 flex items-center justify-center border border-[#D1D1D1] rounded-lg text-gray-500 hover:text-primary hover:bg-gray-50 transition-colors"
+            class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-text-secondary hover:text-text-primary transition-colors"
           >
-            <span class="material-icons-round text-xl">notifications</span>
+            <span class="material-icons-round text-xl">notifications_none</span>
             <span
-              class="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full border-2 border-white"
+              class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-white"
             ></span>
           </button>
           <div
-            class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white text-sm font-bold shadow-sm"
+            class="hidden sm:flex w-8 h-8 rounded-full bg-primary items-center justify-center text-white font-bold text-xs cursor-pointer hover:ring-2 hover:ring-primary/30 transition-all"
           >
             R
           </div>
         </div>
       </header>
 
-      <!-- Page Content -->
-      <main
-        class="flex-1 overflow-y-auto p-8 bg-[#F7F4EF] scrollbar-hide page-content"
-      >
-        <!-- Greeting -->
-        <div class="mb-8">
-          <h1 class="text-[1.25rem] font-bold text-[#1A1A1A]">
-            Good morning, Rajesh 👋
-          </h1>
-          <p class="text-sm text-[#5C5C5C] mt-1">
-            Here's how your system is performing today.
-          </p>
-        </div>
-
-        <!-- KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-          <!-- Energy Generated -->
-          <div class="kpi-card border-t-primary">
-            <div class="flex justify-between items-start mb-3">
-              <div class="icon-box-kpi bg-orange-50 text-primary">
-                <span class="material-icons-round text-xl">wb_sunny</span>
-              </div>
-              <span
-                class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-50 text-green-700 border border-green-100"
-              >
-                <span class="material-icons-round text-[10px] mr-0.5 font-bold"
-                  >arrow_upward</span
-                >
-                12.5%
-              </span>
-            </div>
-            <div class="flex flex-col">
-              <p class="text-sm font-medium text-gray-500 mb-1">
-                Energy Generated
-              </p>
-              <h3 class="text-2xl font-bold text-gray-900">
-                42,850
-                <span class="text-base font-normal text-gray-500">kWh</span>
-              </h3>
-            </div>
-          </div>
-
-          <!-- Cost Savings -->
-          <div class="kpi-card border-t-[#10B981]">
-            <div class="flex justify-between items-start mb-3">
-              <div class="icon-box-kpi bg-green-50 text-green-600">
-                <span class="material-icons-round text-xl">currency_rupee</span>
-              </div>
-              <span
-                class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-50 text-green-700 border border-green-100"
-              >
-                <span class="material-icons-round text-[10px] mr-0.5 font-bold"
-                  >arrow_upward</span
-                >
-                8.2%
-              </span>
-            </div>
-            <div class="flex flex-col">
-              <p class="text-sm font-medium text-gray-500 mb-1">Cost Savings</p>
-              <h3 class="text-2xl font-bold text-gray-900">₹3,42,800</h3>
-            </div>
-          </div>
-
-          <!-- CO2 Avoided -->
-          <div class="kpi-card border-t-teal-700">
-            <div class="flex justify-between items-start mb-3">
-              <div class="icon-box-kpi bg-teal-50 text-teal-700">
-                <span class="material-icons-round text-xl">co2</span>
-              </div>
-              <span
-                class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-50 text-green-700 border border-green-100"
-              >
-                <span class="material-icons-round text-[10px] mr-0.5 font-bold"
-                  >arrow_upward</span
-                >
-                4.1%
-              </span>
-            </div>
-            <div class="flex flex-col">
-              <p class="text-sm font-medium text-gray-500 mb-1">CO₂ Avoided</p>
-              <h3 class="text-2xl font-bold text-gray-900">
-                34.2
-                <span class="text-base font-normal text-gray-500">tonnes</span>
-              </h3>
-            </div>
-          </div>
-
-          <!-- System Status -->
-          <div class="kpi-card border-t-primary">
-            <div class="flex justify-between items-start mb-3">
-              <div class="icon-box-kpi bg-blue-50 text-blue-600">
-                <span class="material-icons-round text-xl">verified_user</span>
-              </div>
-              <div
-                class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-green-50 text-green-700 text-xs font-semibold border border-green-100"
-              >
-                <span class="relative flex h-2 w-2">
-                  <span
-                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
-                  ></span>
-                  <span
-                    class="relative inline-flex rounded-full h-2 w-2 bg-green-500"
-                  ></span>
-                </span>
-                Operational
-              </div>
-            </div>
-            <div class="flex flex-col">
-              <p class="text-sm font-medium text-gray-500 mb-1">
-                System Status
-              </p>
-              <h3 class="text-2xl font-bold text-gray-900">
-                98.5%
-                <span class="text-base font-normal text-gray-500">Uptime</span>
-              </h3>
-            </div>
-          </div>
-        </div>
-
-        <!-- Energy Overview Chart -->
-        <div
-          class="card mb-8 !p-0 overflow-hidden border border-gray-100 shadow-sm rounded-xl"
-        >
-          <div class="p-6 pb-2">
+      <!-- SCROLLABLE CONTENT -->
+      <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-6">
+          <!-- ====== ROW 1: KPI CARDS ====== -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Card 1: Energy Generated -->
             <div
-              class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-2"
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-orange cursor-default"
             >
-              <div>
-                <h3 class="text-lg font-bold text-gray-900">Energy Overview</h3>
-                <p class="text-sm text-gray-500">
-                  Solar Generation vs Grid Consumption
-                </p>
-              </div>
               <div
-                class="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full lg:w-auto"
-              >
-                <div class="flex flex-col items-end">
-                  <div class="flex items-baseline gap-1.5">
-                    <span
-                      class="text-xs text-gray-500 font-medium uppercase tracking-wide mr-1"
-                      >Total Generated</span
-                    >
-                    <span class="text-xl font-bold text-gray-900">42,850</span>
-                    <span class="text-sm text-gray-500">kWh</span>
-                    <span
-                      class="text-xs text-green-700 bg-green-50 px-1.5 py-0.5 rounded font-medium border border-green-100"
-                      >this month</span
-                    >
-                  </div>
-                </div>
-                <div class="flex rounded-md shadow-sm bg-white" role="group">
-                  <button
-                    class="px-5 py-1.5 text-xs font-medium bg-primary text-white border border-primary rounded-l-md z-10 hover:bg-primary-dark transition-colors"
-                    type="button"
-                  >
-                    Daily
-                  </button>
-                  <button
-                    class="px-5 py-1.5 text-xs font-medium bg-white text-gray-600 border-t border-b border-gray-200 border-l border-r-0 hover:bg-gray-50 hover:text-gray-900 transition-colors"
-                    type="button"
-                  >
-                    Weekly
-                  </button>
-                  <button
-                    class="px-5 py-1.5 text-xs font-medium bg-white text-gray-600 border border-gray-200 rounded-r-md border-l hover:bg-gray-50 hover:text-gray-900 transition-colors"
-                    type="button"
-                  >
-                    Monthly
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Chart Area -->
-          <div
-            class="relative h-72 w-full bg-white flex items-end px-2 pt-4 pb-2"
-          >
-            <!-- Grid Lines -->
-            <div
-              class="absolute inset-0 z-0 flex flex-col justify-between py-8 pl-12 pr-6"
-            >
-              <div class="border-t border-[#F5F5F5] w-full h-0"></div>
-              <div class="border-t border-[#F5F5F5] w-full h-0"></div>
-              <div class="border-t border-[#F5F5F5] w-full h-0"></div>
-              <div class="border-t border-[#F5F5F5] w-full h-0"></div>
-              <div class="border-t border-[#F5F5F5] w-full h-0"></div>
-            </div>
-
-            <!-- Y-Axis Labels -->
-            <div
-              class="absolute left-0 top-0 bottom-0 z-10 flex flex-col justify-between py-6 pl-4 text-[#B0B0B0] text-[0.6875rem] font-medium pointer-events-none select-none h-full"
-            >
-              <span>800</span>
-              <span>600</span>
-              <span>400</span>
-              <span>200</span>
-              <span>0</span>
-            </div>
-
-            <!-- SVG Chart -->
-            <div class="relative w-full h-full pl-10 pr-4 z-10">
-              <!-- Solar Line + Area -->
-              <svg
-                class="absolute bottom-0 left-10 right-4 top-0 h-full w-[calc(100%-3.5rem)] overflow-visible"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 100"
-              >
-                <defs>
-                  <linearGradient id="solarFill" x1="0" x2="0" y1="0" y2="1">
-                    <stop
-                      offset="0%"
-                      stop-color="#E8740C"
-                      stop-opacity="0.06"
-                    ></stop>
-                    <stop
-                      offset="100%"
-                      stop-color="#E8740C"
-                      stop-opacity="0"
-                    ></stop>
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M0,100 L0,60 C15,55 25,45 40,48 C55,51 65,35 75,25 C85,15 95,20 100,30 L100,100 Z"
-                  fill="url(#solarFill)"
-                  stroke="none"
-                ></path>
-                <path
-                  d="M0,60 C15,55 25,45 40,48 C55,51 65,35 75,25 C85,15 95,20 100,30"
-                  fill="none"
-                  stroke="#E8740C"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                ></path>
-              </svg>
-
-              <!-- Grid Line + Area -->
-              <svg
-                class="absolute bottom-0 left-10 right-4 top-0 h-full w-[calc(100%-3.5rem)] overflow-visible"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 100"
-              >
-                <defs>
-                  <linearGradient id="gridFill" x1="0" x2="0" y1="0" y2="1">
-                    <stop
-                      offset="0%"
-                      stop-color="#6B8FA6"
-                      stop-opacity="0.04"
-                    ></stop>
-                    <stop
-                      offset="100%"
-                      stop-color="#6B8FA6"
-                      stop-opacity="0"
-                    ></stop>
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M0,100 L0,75 C15,80 30,85 45,70 C60,55 75,65 85,72 C95,78 98,75 100,74 L100,100 Z"
-                  fill="url(#gridFill)"
-                  stroke="none"
-                ></path>
-                <path
-                  d="M0,75 C15,80 30,85 45,70 C60,55 75,65 85,72 C95,78 98,75 100,74"
-                  fill="none"
-                  stroke="#6B8FA6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                ></path>
-              </svg>
-
-              <!-- Static Hover Tooltip -->
-              <div
-                class="absolute left-[65%] top-0 bottom-0 w-[1px] bg-gray-300 z-20 pointer-events-none border-r border-dashed border-gray-300"
-              >
-                <!-- Solar marker -->
+                class="absolute top-0 left-0 right-0 h-[3px] bg-primary rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
                 <div
-                  class="absolute top-[25%] left-[-5px] w-[11px] h-[11px] rounded-full border-[2px] border-[#E8740C] bg-white shadow-sm z-30 ring-2 ring-white"
-                ></div>
-                <!-- Grid marker -->
-                <div
-                  class="absolute top-[65%] left-[-5px] w-[11px] h-[11px] rounded-full border-[2px] border-[#6B8FA6] bg-white shadow-sm z-30 ring-2 ring-white"
-                ></div>
-                <!-- Tooltip card -->
-                <div
-                  class="absolute top-12 left-4 bg-white rounded-[10px] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1)] border border-gray-100 p-3 min-w-[160px] z-40"
+                  class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
                 >
-                  <div
-                    class="text-xs text-gray-500 font-medium mb-2 pb-2 border-b border-gray-100"
-                  >
-                    Jul 15, 2:00 PM
-                  </div>
-                  <div class="flex flex-col gap-1.5">
-                    <div class="flex justify-between items-center text-xs">
-                      <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[#E8740C]"></span>
-                        <span class="text-gray-600 font-medium">Solar</span>
-                      </div>
-                      <span class="font-bold text-gray-900">1,420 kWh</span>
-                    </div>
-                    <div class="flex justify-between items-center text-xs">
-                      <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[#6B8FA6]"></span>
-                        <span class="text-gray-600 font-medium">Grid</span>
-                      </div>
-                      <span class="font-bold text-gray-900">680 kWh</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Chart Stats Row -->
-          <div class="border-t border-gray-100 px-6 py-4 bg-gray-50/50">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="flex flex-col gap-1">
-                <div class="flex items-center justify-between">
-                  <span
-                    class="text-xs text-gray-500 font-medium uppercase tracking-wide"
-                    >Peak Generation</span
-                  >
-                  <span class="material-icons-round text-gray-300 text-sm"
-                    >bolt</span
-                  >
-                </div>
-                <div class="flex items-baseline gap-2 mt-1">
-                  <span class="text-xl font-bold text-gray-900">1.8 MW</span>
-                  <span
-                    class="text-xs font-medium text-green-600 bg-green-50 px-1.5 py-0.5 rounded"
-                    >↑ 2.4%</span
-                  >
-                </div>
-                <p class="text-[10px] text-gray-400">
-                  Highest recorded at 1:30 PM
-                </p>
-              </div>
-              <div
-                class="flex flex-col gap-1 md:border-l md:border-gray-200 md:pl-6"
-              >
-                <div class="flex items-center justify-between">
-                  <span
-                    class="text-xs text-gray-500 font-medium uppercase tracking-wide"
-                    >Solar Utilization</span
-                  >
-                  <span class="material-icons-round text-gray-300 text-sm"
+                  <span class="material-icons-round text-primary text-xl"
                     >wb_sunny</span
                   >
                 </div>
-                <div class="flex items-baseline gap-2 mt-1">
-                  <span class="text-xl font-bold text-gray-900">88%</span>
-                  <span
-                    class="text-xs font-medium text-green-600 bg-green-50 px-1.5 py-0.5 rounded"
-                    >↑ 5.1%</span
+                <span
+                  class="bg-success-light text-success text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
+                >
+                  <span class="material-icons-round text-[13px]"
+                    >trending_up</span
+                  >
+                  12.3%
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">
+                Energy Generated
+              </p>
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                42,850
+                <span class="text-sm font-normal text-text-muted">kWh</span>
+              </p>
+            </div>
+
+            <!-- Card 2: Cost Savings -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-green cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-success rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-success text-xl"
+                    >currency_rupee</span
                   >
                 </div>
-                <p class="text-[10px] text-gray-400">
-                  Of total capacity deployed
+                <span
+                  class="bg-success-light text-success text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
+                >
+                  <span class="material-icons-round text-[13px]"
+                    >trending_up</span
+                  >
+                  8.7%
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">Cost Savings</p>
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                ₹3,42,800
+              </p>
+            </div>
+
+            <!-- Card 3: CO₂ Avoided -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-darkgreen cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-success-dark rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-success-dark/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-success-dark text-xl"
+                    >eco</span
+                  >
+                </div>
+                <span
+                  class="bg-success-light text-success text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
+                >
+                  <span class="material-icons-round text-[13px]"
+                    >trending_up</span
+                  >
+                  15.1%
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">CO₂ Avoided</p>
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                34.2
+                <span class="text-sm font-normal text-text-muted">tonnes</span>
+              </p>
+            </div>
+
+            <!-- Card 4: System Status -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden kpi-card kpi-card-orange cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-primary rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-center mb-3">
+                <div
+                  class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
+                >
+                  <span class="material-icons-round text-primary text-xl"
+                    >monitor_heart</span
+                  >
+                </div>
+                <span
+                  class="text-success text-xs font-medium flex items-center gap-1.5"
+                >
+                  <span class="relative flex h-2 w-2">
+                    <span
+                      class="pulse-dot absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                    ></span>
+                    <span
+                      class="relative inline-flex rounded-full h-2 w-2 bg-green-500"
+                    ></span>
+                  </span>
+                  Operational
+                </span>
+              </div>
+              <p class="text-[0.8125rem] text-text-muted mb-1">System Uptime</p>
+              <p
+                class="text-[1.75rem] font-bold text-text-primary leading-tight"
+              >
+                98.5<span class="text-sm font-normal text-text-muted">%</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- ====== ROW 2: ENERGY OVERVIEW CHART ====== -->
+          <div class="bg-white rounded-xl p-6 border border-card-border">
+            <div
+              class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5"
+            >
+              <div>
+                <h2 class="text-lg font-semibold text-text-primary">
+                  Energy Overview
+                </h2>
+                <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                  Solar generation vs grid consumption
                 </p>
               </div>
-              <div
-                class="flex flex-col gap-1 md:border-l md:border-gray-200 md:pl-6"
-              >
-                <div class="flex items-center justify-between">
-                  <span
-                    class="text-xs text-gray-500 font-medium uppercase tracking-wide"
-                    >Grid Dependency</span
+              <div class="flex items-center gap-4">
+                <div
+                  class="flex border border-[#D1D1D1] rounded-lg overflow-hidden"
+                >
+                  <button
+                    class="px-3.5 py-1.5 text-xs font-medium text-text-secondary hover:bg-[#FFF8F0] transition-colors border-r border-[#D1D1D1]"
                   >
-                  <span class="material-icons-round text-gray-300 text-sm"
-                    >power</span
+                    Day
+                  </button>
+                  <button
+                    class="px-3.5 py-1.5 text-xs font-medium text-text-secondary hover:bg-[#FFF8F0] transition-colors border-r border-[#D1D1D1]"
                   >
+                    Week
+                  </button>
+                  <button
+                    class="px-3.5 py-1.5 text-xs font-medium bg-primary text-white"
+                  >
+                    Month
+                  </button>
+                  <button
+                    class="px-3.5 py-1.5 text-xs font-medium text-text-secondary hover:bg-[#FFF8F0] transition-colors border-l border-[#D1D1D1]"
+                  >
+                    Year
+                  </button>
                 </div>
-                <div class="flex items-baseline gap-2 mt-1">
-                  <span class="text-xl font-bold text-gray-900">12%</span>
-                  <span
-                    class="text-xs font-medium text-green-600 bg-green-50 px-1.5 py-0.5 rounded"
-                    >↓ 1.2%</span
-                  >
+                <div class="hidden md:block text-right">
+                  <p class="text-lg font-bold text-text-primary">42,850 kWh</p>
+                  <p class="text-xs text-text-muted">this month</p>
                 </div>
-                <p class="text-[10px] text-gray-400">
-                  Decreased from last week
+              </div>
+            </div>
+
+            <!-- Energy Overview Chart -->
+            <div class="relative h-[280px] w-full">
+              <canvas id="overviewChart"></canvas>
+            </div>
+
+            <!-- Legend -->
+            <div class="flex items-center gap-6 mt-4">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                <span class="text-[0.8125rem] text-text-muted"
+                  >Solar Generation</span
+                >
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-grid-blue"></span>
+                <span class="text-[0.8125rem] text-text-muted"
+                  >Grid Consumption</span
+                >
+              </div>
+            </div>
+
+            <!-- Summary Stats -->
+            <div
+              class="grid grid-cols-1 sm:grid-cols-3 gap-0 mt-4 pt-4 border-t border-[#F0F0F0]"
+            >
+              <div class="text-center py-3 sm:border-r border-card-border">
+                <p
+                  class="text-xs text-text-muted uppercase tracking-wide font-medium mb-1"
+                >
+                  Peak Generation
+                </p>
+                <p class="text-lg font-bold text-text-primary">
+                  1,850
+                  <span class="text-sm font-normal text-text-muted">kWh</span>
+                </p>
+                <p class="text-[0.6875rem] text-text-disabled mt-0.5">
+                  at 12:30 PM
+                </p>
+              </div>
+              <div class="text-center py-3 sm:border-r border-card-border">
+                <p
+                  class="text-xs text-text-muted uppercase tracking-wide font-medium mb-1"
+                >
+                  Solar Utilization
+                </p>
+                <p class="text-lg font-bold text-text-primary">
+                  78<span class="text-sm font-normal text-text-muted">%</span>
+                </p>
+                <p class="text-[0.6875rem] text-text-disabled mt-0.5">
+                  of total consumption
+                </p>
+              </div>
+              <div class="text-center py-3">
+                <p
+                  class="text-xs text-text-muted uppercase tracking-wide font-medium mb-1"
+                >
+                  Grid Dependency
+                </p>
+                <p class="text-lg font-bold text-text-primary">
+                  22<span class="text-sm font-normal text-text-muted">%</span>
+                </p>
+                <p class="text-[0.6875rem] text-text-disabled mt-0.5">
+                  of total consumption
                 </p>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Bottom Row: Savings + Environmental -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Savings Snapshot -->
-          <div class="card h-full flex flex-col">
-            <div class="flex justify-between items-center mb-6">
-              <div>
-                <h3 class="text-lg font-bold text-gray-900">
-                  Savings Snapshot
-                </h3>
-                <p class="text-sm text-gray-500">PPA Rate vs Grid Tariff</p>
-              </div>
-              <a
-                href="savings.html"
-                class="text-primary text-sm font-medium hover:underline"
-                >View Details →</a
-              >
-            </div>
-            <div class="flex flex-col gap-4 flex-1">
-              <div class="relative pt-2 pb-6">
-                <div class="flex justify-between text-sm font-medium mb-2">
-                  <div class="flex flex-col items-start">
-                    <span class="text-primary font-bold text-lg">₹4.50</span>
-                    <span class="text-xs text-gray-500">SunZero PPA</span>
-                  </div>
-                  <div class="flex flex-col items-end">
-                    <span class="text-gray-900 font-bold text-lg">₹9.20</span>
-                    <span class="text-xs text-gray-500">Grid Rate</span>
-                  </div>
+          <!-- ====== ROW 3: BOTTOM CARDS ====== -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Card A: Savings Snapshot -->
+            <div
+              class="bg-white rounded-xl p-6 border border-card-border flex flex-col"
+            >
+              <div class="flex justify-between items-center mb-6">
+                <div>
+                  <h3 class="text-base font-semibold text-text-primary">
+                    Savings Snapshot
+                  </h3>
+                  <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                    PPA vs Grid rate comparison
+                  </p>
                 </div>
-                <div
-                  class="w-full bg-[#E0E0E0] rounded-full h-3 relative overflow-hidden"
+                <a
+                  href="savings.html"
+                  class="text-[0.8125rem] font-medium text-primary flex items-center gap-1 hover:gap-2 transition-all arrow-link-hover"
                 >
+                  View billing
+                  <span
+                    class="arrow-icon material-icons-round text-base transition-transform"
+                    >arrow_forward</span
+                  >
+                </a>
+              </div>
+
+              <div class="flex justify-between text-[0.8125rem] mb-2">
+                <span class="font-medium text-primary"
+                  >SunZero PPA: ₹4.50/kWh</span
+                >
+                <span class="text-text-muted">Grid Rate: ₹9.20/kWh</span>
+              </div>
+
+              <div
+                class="w-full h-7 rounded-lg bg-[#E8E8E8] overflow-hidden gauge-bar"
+              >
+                <div class="h-full w-[51%] bg-primary rounded-lg relative">
                   <div
-                    class="bg-primary h-full rounded-full"
-                    style="width: 51%"
-                  ></div>
-                </div>
-                <div class="mt-3 text-center">
-                  <p class="text-sm text-gray-600">
-                    You save <span class="font-bold text-primary">51%</span> on
-                    every unit consumed
-                  </p>
-                </div>
-              </div>
-              <div
-                class="bg-gray-50 rounded-lg overflow-hidden border border-gray-100 mt-auto"
-              >
-                <table class="min-w-full text-sm">
-                  <tbody class="divide-y divide-gray-100">
-                    <tr class="hover:bg-gray-50/50">
-                      <td class="px-4 py-3 text-gray-500 font-medium">
-                        Solar Bill
-                      </td>
-                      <td
-                        class="px-4 py-3 text-right font-semibold text-gray-900"
-                      >
-                        ₹1,92,825
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50/50">
-                      <td class="px-4 py-3 text-gray-500 font-medium">
-                        Estimated Grid Bill
-                      </td>
-                      <td
-                        class="px-4 py-3 text-right font-semibold text-gray-500 line-through decoration-gray-400"
-                      >
-                        ₹3,94,220
-                      </td>
-                    </tr>
-                    <tr class="bg-green-50/50">
-                      <td class="px-4 py-3 text-green-800 font-bold">
-                        Net Savings
-                      </td>
-                      <td class="px-4 py-3 text-right font-bold text-green-700">
-                        ₹2,01,395
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- Environmental Impact -->
-          <div class="card h-full flex flex-col">
-            <div class="flex justify-between items-center mb-6">
-              <div>
-                <h3 class="text-lg font-bold text-gray-900">
-                  Environmental Impact
-                </h3>
-                <p class="text-sm text-gray-500">
-                  Your contribution to a greener planet
-                </p>
-              </div>
-              <!-- Progress Ring -->
-              <div class="relative w-[120px] h-[120px]">
-                <svg class="w-full h-full transform -rotate-90">
-                  <circle
-                    cx="60"
-                    cy="60"
-                    fill="none"
-                    r="52"
-                    stroke="#E0E0E0"
-                    stroke-width="8"
-                  ></circle>
-                  <circle
-                    cx="60"
-                    cy="60"
-                    fill="none"
-                    r="52"
-                    stroke="url(#greenGradient)"
-                    stroke-dasharray="326"
-                    stroke-dashoffset="71.72"
-                    stroke-linecap="round"
-                    stroke-width="8"
-                  ></circle>
-                  <defs>
-                    <linearGradient
-                      id="greenGradient"
-                      x1="0%"
-                      x2="100%"
-                      y1="0%"
-                      y2="0%"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full ml-3"
+                  >
+                    <span
+                      class="bg-success-light text-success text-xs font-bold px-2.5 py-1 rounded-full border border-success/20 whitespace-nowrap"
+                      >51% Saved</span
                     >
-                      <stop offset="0%" stop-color="#2E7D32"></stop>
-                      <stop offset="100%" stop-color="#66BB6A"></stop>
-                    </linearGradient>
-                  </defs>
-                </svg>
+                  </div>
+                </div>
+              </div>
+
+              <p
+                class="text-center text-success font-semibold text-[0.875rem] mt-3"
+              >
+                You save 51% on every unit
+              </p>
+
+              <div class="mt-5 flex-1">
                 <div
-                  class="absolute inset-0 flex flex-col items-center justify-center text-center"
+                  class="flex justify-between items-center py-2.5 border-b border-[#F0F0F0]"
                 >
-                  <span class="text-2xl font-bold text-gray-900">78%</span>
-                  <span
-                    class="text-[10px] text-gray-500 font-medium uppercase tracking-wide"
-                    >Goal</span
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >Solar Bill (PPA)</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >₹1,92,825</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center py-2.5 border-b border-[#F0F0F0]"
+                >
+                  <span class="text-[0.8125rem] text-text-secondary"
+                    >Estimated Grid Bill</span
+                  >
+                  <span class="text-[0.875rem] font-semibold text-text-primary"
+                    >₹3,94,220</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center py-2.5 px-3 bg-success-light rounded-lg mt-1"
+                >
+                  <span class="text-[0.8125rem] font-medium text-success"
+                    >Net Savings</span
+                  >
+                  <span class="text-[0.9375rem] font-bold text-success"
+                    >₹2,01,395</span
                   >
                 </div>
               </div>
             </div>
-            <div class="flex flex-col items-center justify-center flex-1">
-              <div class="grid grid-cols-3 gap-4 w-full">
-                <div
-                  class="bg-[#F1F8F1] rounded-lg p-3 text-center border border-green-100 transition-transform hover:-translate-y-1"
-                >
-                  <div class="flex justify-center mb-1 text-green-700">
-                    <span class="material-icons-round text-xl">co2</span>
-                  </div>
-                  <p class="text-lg font-bold text-gray-900 leading-tight">
-                    34.2
-                  </p>
-                  <p class="text-[10px] text-gray-500 font-medium">
-                    Tonnes CO₂
+
+            <!-- Card B: Carbon Impact -->
+            <div
+              class="bg-white rounded-xl p-6 border border-card-border flex flex-col"
+            >
+              <div class="flex justify-between items-center mb-4">
+                <div>
+                  <h3 class="text-base font-semibold text-text-primary">
+                    Carbon Impact
+                  </h3>
+                  <p class="text-[0.8125rem] text-text-muted mt-0.5">
+                    Environmental contribution
                   </p>
                 </div>
-                <div
-                  class="bg-[#F1F8F1] rounded-lg p-3 text-center border border-green-100 transition-transform hover:-translate-y-1"
+                <a
+                  href="carbon.html"
+                  class="text-[0.8125rem] font-medium text-primary flex items-center gap-1 hover:gap-2 transition-all arrow-link-hover"
                 >
-                  <div class="flex justify-center mb-1 text-green-700">
-                    <span class="material-icons-round text-xl">forest</span>
-                  </div>
-                  <p class="text-lg font-bold text-gray-900 leading-tight">
-                    1,540
-                  </p>
-                  <p class="text-[10px] text-gray-500 font-medium">Trees</p>
-                </div>
+                  Full report
+                  <span
+                    class="arrow-icon material-icons-round text-base transition-transform"
+                    >arrow_forward</span
+                  >
+                </a>
+              </div>
+
+              <div class="flex justify-center my-4">
                 <div
-                  class="bg-[#F1F8F1] rounded-lg p-3 text-center border border-green-100 transition-transform hover:-translate-y-1"
+                  class="relative w-[120px] h-[120px] flex items-center justify-center"
                 >
-                  <div class="flex justify-center mb-1 text-green-700">
-                    <span class="material-icons-round text-xl"
-                      >directions_car</span
+                  <svg
+                    class="w-full h-full transform -rotate-90"
+                    viewBox="0 0 120 120"
+                  >
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="transparent"
+                      stroke="#EBEBEB"
+                      stroke-width="8"
+                    ></circle>
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="transparent"
+                      stroke="#2E7D32"
+                      stroke-width="8"
+                      stroke-dasharray="326.73"
+                      stroke-dashoffset="71.88"
+                      stroke-linecap="round"
+                    ></circle>
+                  </svg>
+                  <div
+                    class="absolute inset-0 flex flex-col items-center justify-center"
+                  >
+                    <span class="text-2xl font-bold text-text-primary"
+                      >78%</span
+                    >
+                    <span
+                      class="text-[0.625rem] text-text-muted uppercase tracking-wide font-medium mt-0.5"
+                      >Annual Goal</span
                     >
                   </div>
-                  <p class="text-lg font-bold text-gray-900 leading-tight">
-                    15
-                  </p>
-                  <p class="text-[10px] text-gray-500 font-medium">
-                    Cars Removed
-                  </p>
                 </div>
               </div>
-              <a
-                href="carbon.html"
-                class="text-primary text-sm font-medium hover:underline mt-6"
-                >View carbon report →</a
-              >
+
+              <div class="space-y-2 flex-1">
+                <div
+                  class="flex items-center justify-between p-3 bg-[#F1F8F1] rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center"
+                    >
+                      <span class="material-icons-round text-success text-base"
+                        >eco</span
+                      >
+                    </div>
+                    <div>
+                      <p
+                        class="text-[0.8125rem] font-semibold text-text-primary"
+                      >
+                        34.2 tonnes
+                      </p>
+                      <p class="text-[0.6875rem] text-text-secondary">
+                        CO₂ emissions avoided
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center justify-between p-3 bg-[#F1F8F1] rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center"
+                    >
+                      <span class="material-icons-round text-success text-base"
+                        >forest</span
+                      >
+                    </div>
+                    <div>
+                      <p
+                        class="text-[0.8125rem] font-semibold text-text-primary"
+                      >
+                        1,540 trees
+                      </p>
+                      <p class="text-[0.6875rem] text-text-secondary">
+                        Equivalent planted
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center justify-between p-3 bg-[#F1F8F1] rounded-lg"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center"
+                    >
+                      <span class="material-icons-round text-success text-base"
+                        >directions_car</span
+                      >
+                    </div>
+                    <div>
+                      <p
+                        class="text-[0.8125rem] font-semibold text-text-primary"
+                      >
+                        15 cars
+                      </p>
+                      <p class="text-[0.6875rem] text-text-secondary">
+                        Removed from roads for a year
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Bottom Spacer -->
-        <div class="h-8"></div>
+          <!-- Footer -->
+          <footer class="mt-4 mb-2 text-center">
+            <p class="text-xs text-text-disabled">
+              © 2026 SunZero Energy Intelligence
+            </p>
+          </footer>
+        </div>
       </main>
     </div>
 
-    <!-- Navigation Script -->
-    <script src="../../js/navigation.js"></script>
+    <script>
+      function toggleMobileSidebar() {
+        document.getElementById("mobileSidebar").classList.toggle("active");
+        document.getElementById("sidebarOverlay").classList.toggle("active");
+      }
+    </script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <!-- Mock Data & Charts -->
+    <script src="../../js/mock-data.js"></script>
+    <script src="../../js/charts.js"></script>
+    <script>
+      // Render overview chart on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        renderOverviewChart("overviewChart");
+      });
+    </script>
   </body>
 </html>

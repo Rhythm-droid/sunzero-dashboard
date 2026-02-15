@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>SunZero — Energy Flow</title>
-
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -15,154 +12,199 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-    <link rel="stylesheet" href="../../css/global.css" />
-
-    <!-- Page Specific Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              "sz-bg": "#F7F4EF",
-              "sz-card": "#FFFFFF",
-              "sz-border": "#EBEBEB",
-              "sz-sidebar": "#1A1A1A",
-              "sz-text": "#1A1A1A",
-              "sz-text-secondary": "#6B6B6B",
-              "sz-text-muted": "#8A8A8A",
-              "sz-text-disabled": "#B0B0B0",
-              "sz-orange": "#E8740C",
-              "sz-orange-hover": "#C2571A",
-              "sz-green": "#2E7D32",
-              "sz-green-light": "#E8F5E9",
-              "sz-amber": "#E65100",
-              "sz-amber-light": "#FFF8E1",
-              "sz-red": "#C62828",
-              "sz-red-light": "#FFEBEE",
-              "sz-blue": "#1565C0",
-              "sz-blue-neutral": "#6B8FA6",
-              "sz-battery": "#66BB6A",
               primary: "#E8740C",
-              "solar-accent": "#E8740C",
-              "battery-accent": "#66BB6A",
-              "grid-accent": "#6B8FA6",
+              "primary-dark": "#C2571A",
+              "bg-warm": "#F7F4EF",
+              sidebar: "#1A1A1A",
+              "sidebar-hover": "#2D2D2D",
+              "card-border": "#EBEBEB",
+              "text-primary": "#1A1A1A",
+              "text-secondary": "#6B6B6B",
+              "text-muted": "#8A8A8A",
+              "text-disabled": "#B0B0B0",
+              success: "#2E7D32",
+              "success-dark": "#1B5E20",
+              "success-light": "#E8F5E9",
+              error: "#C62828",
+              "error-light": "#FFEBEE",
+              warning: "#E65100",
+              "warning-light": "#FFF8E1",
+              "grid-blue": "#6B8FA6",
+              "battery-green": "#66BB6A",
+              "financial-blue": "#1565C0",
             },
-            fontFamily: {
-              inter: ["Inter", "sans-serif"],
-              display: ["Inter", "sans-serif"],
-            },
-            backgroundImage: {
-              "dot-grid": "radial-gradient(#D1D5DB 1px, transparent 1px)",
-            },
-            backgroundSize: {
-              "dot-grid": "20px 20px",
-            },
-            boxShadow: {
-              "subtle-node": "0 2px 8px rgba(0,0,0,0.04)",
-              "hover-node":
-                "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
-            },
+            fontFamily: { sans: ["Inter", "sans-serif"] },
           },
         },
       };
     </script>
-
-    <!-- Flow Animation Styles -->
-    <style type="text/tailwindcss">
-      @layer utilities {
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
+    <style>
+      ::-webkit-scrollbar {
+        width: 6px;
       }
-      body {
-        @apply font-display text-gray-800 antialiased bg-[#F7F4EF];
+      ::-webkit-scrollbar-track {
+        background: transparent;
       }
-
-      .nav-item {
-        @apply flex items-center px-4 py-2.5 text-sm font-medium rounded-r-lg rounded-l-none transition-all duration-200 cursor-pointer text-[#8A8A8A] hover:bg-[#2D2D2D] hover:text-white border-l-[3px] border-transparent ml-0;
+      ::-webkit-scrollbar-thumb {
+        background: #d1d1d1;
+        border-radius: 3px;
       }
-      .nav-item.active {
-        @apply bg-gradient-to-r from-[#e9730c]/15 to-transparent text-[#e9730c] border-l-[#e9730c] font-semibold;
-      }
-      .nav-category {
-        @apply px-4 text-[11px] font-bold text-[#5C5C5C] tracking-wider uppercase mt-4 mb-2;
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b0b0b0;
       }
 
-      /* Flow Animations */
-      @keyframes dash {
-        to {
-          stroke-dashoffset: -20;
-        }
-      }
-      .animate-flow {
-        stroke-dasharray: 5, 5;
-        animation: dash 1s linear infinite;
+      .sidebar-active {
+        background: linear-gradient(
+          90deg,
+          rgba(232, 116, 12, 0.15) 0%,
+          rgba(232, 116, 12, 0.03) 100%
+        );
+        border-left: 3px solid #e8740c;
       }
 
-      .pulse-dot {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-        animation: pulse-green 2s infinite;
-      }
-      @keyframes pulse-green {
-        0% {
-          transform: scale(0.95);
-          box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-        }
-        70% {
+      /* Pulsing live dot */
+      @keyframes pulse-dot {
+        0%,
+        100% {
           transform: scale(1);
-          box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.4);
+          opacity: 0.6;
+        }
+      }
+      .pulse-dot {
+        animation: pulse-dot 1.5s ease-in-out infinite;
+      }
+
+      /* Dot grid background for diagram */
+      .dot-grid {
+        background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      /* Flow line animations */
+      @keyframes flow-down {
+        0% {
+          background-position: 0 0;
         }
         100% {
-          transform: scale(0.95);
-          box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+          background-position: 0 20px;
+        }
+      }
+      @keyframes flow-right {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 20px 0;
         }
       }
 
-      .node-card {
-        @apply shadow-subtle-node transition-all duration-300 border border-transparent;
-      }
-      .node-card:hover {
-        @apply shadow-hover-node scale-105 border-[2.5px];
+      .flow-line-v {
+        background-image: linear-gradient(
+          180deg,
+          currentColor 50%,
+          transparent 50%
+        );
+        background-size: 2px 12px;
+        background-repeat: repeat-y;
+        background-position: center;
+        animation: flow-down 0.8s linear infinite;
       }
 
-      .donut-chart {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: conic-gradient(#e8740c 0% 80%, #e5e7eb 80% 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
+      .flow-line-h {
+        background-image: linear-gradient(
+          90deg,
+          currentColor 50%,
+          transparent 50%
+        );
+        background-size: 12px 2px;
+        background-repeat: repeat-x;
+        background-position: center;
+        animation: flow-right 0.8s linear infinite;
       }
-      .donut-hole {
-        width: 20px;
-        height: 20px;
-        background: white;
-        border-radius: 50%;
+
+      /* Reverse flow for battery charging (flowing down TO battery) */
+      .flow-line-v-reverse {
+        animation-direction: normal;
+      }
+
+      /* Refresh spin */
+      .spin-hover:hover .refresh-icon {
+        animation: spin360 0.5s ease-in-out;
+      }
+      @keyframes spin360 {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Node hover */
+      .flow-node {
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .flow-node:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Source card hover */
+      .source-card {
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .source-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Mobile sidebar */
+      .sidebar-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .sidebar-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .sidebar-mobile {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar-mobile.active {
+        transform: translateX(0);
       }
     </style>
   </head>
-  <body class="flex h-screen overflow-hidden bg-[#F7F4EF]">
-    <!-- ============================== -->
-    <!-- SIDEBAR                        -->
-    <!-- ============================== -->
+
+  <body
+    class="font-sans bg-bg-warm text-text-primary flex h-screen overflow-hidden"
+  >
+    <!-- ==================== SIDEBAR ==================== -->
     <aside
-      class="w-[260px] bg-sidebar flex-shrink-0 flex flex-col h-full text-white border-r border-gray-800 z-30"
+      class="w-64 bg-sidebar flex-shrink-0 flex flex-col h-full text-white hidden lg:flex"
     >
-      <div class="h-[72px] flex items-center px-6 border-b border-gray-800">
-        <a href="../../index.html" class="flex items-center gap-2">
+      <!-- Logo -->
+      <div
+        class="h-[72px] flex items-center px-5 border-b border-white/10 flex-shrink-0"
+      >
+        <a href="overview.html" class="flex items-center gap-2">
           <span class="material-icons-round text-primary text-3xl"
             >wb_sunny</span
           >
@@ -172,717 +214,914 @@
         </a>
       </div>
 
-      <nav class="flex-1 overflow-y-auto py-4 space-y-0.5">
-        <div class="nav-category mt-4">MAIN</div>
-        <a class="nav-item" href="overview.html">
-          <span class="material-icons-round mr-3 text-lg">dashboard</span>
-          Overview
-        </a>
-        <a class="nav-item" href="energy.html">
-          <span class="material-icons-round mr-3 text-lg">bolt</span>
-          Energy Monitoring
-        </a>
-        <a class="nav-item active" href="flow.html">
-          <span class="material-icons-round mr-3 text-lg">schema</span>
-          Energy Flow
-        </a>
-
-        <div class="nav-category">FINANCIALS</div>
-        <a class="nav-item" href="savings.html">
-          <span class="material-icons-round mr-3 text-lg">savings</span>
-          Savings &amp; Billing
-        </a>
-
-        <div class="nav-category">SUSTAINABILITY</div>
-        <a class="nav-item" href="carbon.html">
-          <span class="material-icons-round mr-3 text-lg">eco</span>
-          Carbon Impact
-        </a>
-
-        <div class="nav-category">PROJECT</div>
-        <a class="nav-item" href="progress.html">
-          <span class="material-icons-round mr-3 text-lg">engineering</span>
-          Project Progress
-        </a>
-        <a class="nav-item" href="#">
-          <span class="material-icons-round mr-3 text-lg">bar_chart</span>
-          Reports
-        </a>
+      <!-- Navigation -->
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Main
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="overview.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">dashboard</span
+                >Overview</a
+              >
+            </li>
+            <li>
+              <a
+                href="energy.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">insights</span
+                >Energy Monitoring</a
+              >
+            </li>
+            <li>
+              <a
+                href="flow.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem] transition-all"
+                ><span class="material-icons-round text-lg text-primary"
+                  >swap_horiz</span
+                >Energy Flow</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="savings.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg"
+                  >account_balance_wallet</span
+                >Savings & Billing</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Sustainability
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="carbon.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">eco</span>Carbon
+                Impact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Project
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg"
+                  >assignment_turned_in</span
+                >Project Progress</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] hover:bg-sidebar-hover hover:text-white text-[0.8125rem] font-medium transition-all border-l-[3px] border-transparent"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </div>
       </nav>
 
-      <div class="px-4 pb-4">
+      <!-- Bottom Section -->
+      <div class="p-3 space-y-3 border-t border-white/10 flex-shrink-0">
         <div
-          class="bg-[#2D2D2D] rounded-xl p-4 mb-4 relative overflow-hidden group cursor-pointer hover:bg-[#333333] transition-colors"
+          class="bg-sidebar-hover rounded-xl p-3.5 cursor-pointer hover:bg-[#3A3A3A] transition-colors group"
         >
-          <div
-            class="absolute -right-2 -top-2 w-16 h-16 bg-white/5 rounded-full blur-xl group-hover:bg-white/10 transition-all"
-          ></div>
-          <div class="flex items-start gap-3 relative z-10">
+          <div class="flex items-center gap-3">
             <div
-              class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0"
+              class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0"
             >
-              <span class="material-icons-round text-primary text-lg"
+              <span class="material-icons-round text-primary text-sm"
                 >support_agent</span
               >
             </div>
-            <div>
-              <h4 class="text-white text-sm font-semibold">Need Help?</h4>
-              <p class="text-[#8A8A8A] text-xs mt-0.5">
-                Contact our support team
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="border-t border-gray-800 pt-4">
-          <a
-            href="../../index.html"
-            class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group"
-          >
-            <div class="relative">
-              <div
-                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm"
-              >
-                RK
-              </div>
-              <div
-                class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#1A1A1A] rounded-full"
-              ></div>
-            </div>
             <div class="flex-1 min-w-0">
-              <p
-                class="text-sm font-medium text-white truncate group-hover:text-primary transition-colors"
-              >
-                Rajesh Kumar
-              </p>
-              <p class="text-xs text-gray-400 truncate">Facility Manager</p>
+              <p class="text-[0.8125rem] font-medium">Need Help?</p>
+              <p class="text-[0.6875rem] text-[#6B6B6B]">Contact support</p>
             </div>
             <span
-              class="material-icons-round text-gray-500 text-lg group-hover:text-white transition-colors"
-              >chevron_right</span
+              class="material-icons-round text-[#6B6B6B] text-sm group-hover:translate-x-0.5 transition-transform"
+              >arrow_forward</span
             >
+          </div>
+        </div>
+        <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+          <div class="relative flex-shrink-0">
+            <div
+              class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs"
+            >
+              RK
+            </div>
+            <span
+              class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-sidebar rounded-full"
+            ></span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">Rajesh Kumar</p>
+            <p class="text-xs text-[#6B6B6B] truncate">Facility Manager</p>
+          </div>
+          <a
+            href="../../index.html"
+            class="text-[#6B6B6B] hover:text-white transition-colors"
+            title="Sign Out"
+          >
+            <span class="material-icons-round text-lg">logout</span>
           </a>
         </div>
       </div>
     </aside>
 
-    <!-- ============================== -->
-    <!-- MAIN CONTENT AREA              -->
-    <!-- ============================== -->
-    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-      <!-- Top Bar -->
-      <header
-        class="h-[72px] sticky top-0 bg-white border-b border-[#EBEBEB] flex items-center justify-between px-8 flex-shrink-0 z-20"
+    <!-- Mobile Sidebar Overlay -->
+    <div
+      id="sidebarOverlay"
+      class="fixed inset-0 z-40 sidebar-overlay lg:hidden"
+      onclick="toggleMobileSidebar()"
+    ></div>
+
+    <!-- Mobile Sidebar -->
+    <aside
+      id="mobileSidebar"
+      class="fixed top-0 left-0 w-72 h-full bg-sidebar z-50 sidebar-mobile lg:hidden flex flex-col text-white"
+    >
+      <div
+        class="h-14 flex items-center justify-between px-5 border-b border-white/10"
       >
-        <div class="flex flex-col justify-center h-full">
-          <div class="flex items-center gap-2 text-sm mb-0.5">
-            <a
-              href="overview.html"
-              class="text-[#8A8A8A] hover:text-primary transition-colors"
-              >Dashboard</a
-            >
-            <span class="text-[#D1D1D1] material-icons-round text-base"
-              >chevron_right</span
-            >
-            <span class="text-[#1A1A1A] font-medium">Energy Flow</span>
-          </div>
+        <div class="flex items-center gap-2">
+          <span class="material-icons-round text-primary text-2xl"
+            >wb_sunny</span
+          >
+          <span class="text-lg font-bold tracking-tight"
+            >Sun<span class="text-primary">Zero</span></span
+          >
         </div>
+        <button
+          onclick="toggleMobileSidebar()"
+          class="text-[#8A8A8A] hover:text-white"
+        >
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Main
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="overview.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">dashboard</span
+                >Overview</a
+              >
+            </li>
+            <li>
+              <a
+                href="energy.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">insights</span
+                >Energy Monitoring</a
+              >
+            </li>
+            <li>
+              <a
+                href="flow.html"
+                class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-semibold text-[0.8125rem]"
+                ><span class="material-icons-round text-lg">swap_horiz</span
+                >Energy Flow</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Financials
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="savings.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg"
+                  >account_balance_wallet</span
+                >Savings & Billing</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Sustainability
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="carbon.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">eco</span>Carbon
+                Impact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3
+            class="text-[0.625rem] font-semibold text-[#5C5C5C] uppercase tracking-[0.08em] px-3 mb-2"
+          >
+            Project
+          </h3>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg"
+                  >assignment_turned_in</span
+                >Project Progress</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#8A8A8A] text-[0.8125rem] font-medium"
+                ><span class="material-icons-round text-lg">description</span
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ==================== MAIN AREA ==================== -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+      <!-- TOP BAR -->
+      <header
+        class="h-[72px] bg-white border-b border-card-border flex items-center justify-between px-6 lg:px-8 flex-shrink-0"
+      >
         <div class="flex items-center gap-4">
           <button
-            class="flex items-center gap-2 bg-white border border-[#D1D1D1] px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            onclick="toggleMobileSidebar()"
+            class="lg:hidden text-text-secondary hover:text-text-primary transition-colors"
           >
-            <span class="material-icons-round text-gray-500 text-lg"
+            <span class="material-icons-round">menu</span>
+          </button>
+          <div class="flex flex-col">
+            <nav class="hidden sm:flex text-[0.8125rem] items-center gap-1.5">
+              <a
+                href="overview.html"
+                class="text-text-muted hover:text-text-primary transition-colors"
+                >Dashboard</a
+              >
+              <span class="text-text-disabled">/</span>
+              <span class="text-text-primary font-medium">Energy Flow</span>
+            </nav>
+            <h1 class="text-lg font-semibold text-text-primary mt-0.5">
+              Energy Flow
+            </h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center border border-[#D1D1D1] rounded-lg px-3 py-[7px] hover:border-primary/40 transition-colors cursor-pointer"
+          >
+            <span
+              class="material-icons-round text-text-secondary text-base mr-2"
               >calendar_today</span
             >
-            <span>Jul 28, 2025</span>
-            <span class="material-icons-round text-gray-400 text-lg"
+            <span class="text-[0.8125rem] font-medium text-text-primary"
+              >Jul 28, 2025</span
+            >
+            <span class="material-icons-round text-text-disabled text-base ml-2"
               >expand_more</span
             >
-          </button>
-          <button
-            class="flex items-center gap-2 bg-white border border-[#D1D1D1] px-3 py-1.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          </div>
+          <div
+            class="hidden lg:flex items-center border border-[#D1D1D1] rounded-lg px-3 py-[7px] hover:border-primary/40 transition-colors cursor-pointer"
           >
-            <span class="material-icons-round text-gray-500 text-lg"
+            <span
+              class="material-icons-round text-text-secondary text-base mr-2"
               >business</span
             >
-            <span>Noida Factory — 500 KW</span>
-            <span class="material-icons-round text-gray-400 text-lg"
+            <span class="text-[0.8125rem] font-medium text-text-primary"
+              >Noida Factory — 500 KW</span
+            >
+            <span class="material-icons-round text-text-disabled text-base ml-2"
               >expand_more</span
             >
-          </button>
+          </div>
           <button
-            class="relative w-9 h-9 flex items-center justify-center border border-[#D1D1D1] rounded-lg text-gray-500 hover:text-primary hover:bg-gray-50 transition-colors"
+            class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-text-secondary hover:text-text-primary transition-colors"
           >
-            <span class="material-icons-round text-xl">notifications</span>
+            <span class="material-icons-round text-xl">notifications_none</span>
             <span
-              class="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full border-2 border-white"
+              class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-white"
             ></span>
           </button>
           <div
-            class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white text-sm font-bold shadow-sm"
+            class="hidden sm:flex w-8 h-8 rounded-full bg-primary items-center justify-center text-white font-bold text-xs cursor-pointer hover:ring-2 hover:ring-primary/30 transition-all"
           >
             R
           </div>
         </div>
       </header>
 
-      <!-- Page Content -->
-      <main
-        class="flex-1 overflow-y-auto p-8 bg-[#F7F4EF] scrollbar-hide page-content"
-      >
-        <div class="mb-6 flex justify-between items-end">
-          <div>
-            <h1 class="text-[1.75rem] font-bold text-[#1A1A1A]">Energy Flow</h1>
-            <p class="text-sm text-[#5C5C5C] mt-1">
-              Real-time view of how energy moves through your facility.
-            </p>
-          </div>
-        </div>
-
-        <!-- Source Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <!-- Solar Card -->
-          <div
-            class="bg-white rounded-xl p-5 border border-gray-100 border-t-[3px] border-t-solar-accent shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-all duration-300"
-          >
-            <div class="flex justify-between items-start mb-4">
-              <div
-                class="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-600"
-              >
-                <span class="material-icons-round">wb_sunny</span>
-              </div>
-              <span
-                class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-green-50 text-green-700 border border-green-100 uppercase tracking-wide"
-                >Generating</span
-              >
-            </div>
-            <div class="mb-2">
-              <p class="text-sm font-medium text-gray-500 mb-1">Solar Array</p>
-              <h3 class="text-2xl font-bold text-gray-900">
-                245 <span class="text-sm font-semibold text-gray-500">kW</span>
-              </h3>
-            </div>
-            <div class="h-8 w-full flex items-end">
-              <svg
-                class="w-full h-full overflow-visible"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 32"
-              >
-                <path
-                  d="M0,32 L0,20 L10,15 L20,25 L30,10 L40,18 L50,5 L60,15 L70,8 L80,20 L90,12 L100,22"
-                  fill="none"
-                  stroke="#E8740C"
-                  stroke-width="1.5"
-                ></path>
-                <path
-                  d="M0,32 L0,20 L10,15 L20,25 L30,10 L40,18 L50,5 L60,15 L70,8 L80,20 L90,12 L100,22 V32 H0 Z"
-                  fill="#E8740C"
-                  opacity="0.05"
-                ></path>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Battery Card -->
-          <div
-            class="bg-white rounded-xl p-5 border border-gray-100 border-t-[3px] border-t-battery-accent shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-all duration-300"
-          >
-            <div class="flex justify-between items-start mb-4">
-              <div
-                class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600"
-              >
-                <span class="material-icons-round">battery_charging_full</span>
-              </div>
-              <span
-                class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100 uppercase tracking-wide"
-                >Charging</span
-              >
-            </div>
-            <div class="mb-2">
-              <p class="text-sm font-medium text-gray-500 mb-1">
-                Battery Storage
-              </p>
-              <div class="flex items-center gap-3">
-                <div
-                  class="relative w-[48px] h-[20px] rounded border border-gray-300 bg-gray-100 overflow-hidden"
-                >
-                  <div
-                    class="h-full bg-battery-accent transition-all duration-500"
-                    style="width: 78%"
-                  ></div>
-                  <div
-                    class="absolute top-1/2 right-[-3px] -translate-y-1/2 w-[2px] h-[10px] bg-gray-400 rounded-r-sm"
-                  ></div>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900">78%</h3>
-              </div>
-            </div>
-            <div class="h-8 w-full flex items-end">
-              <svg
-                class="w-full h-full overflow-visible"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 32"
-              >
-                <path
-                  d="M0,28 L10,26 L20,24 L30,22 L40,20 L50,18 L60,15 L70,12 L80,10 L90,8 L100,5"
-                  fill="none"
-                  stroke="#66BB6A"
-                  stroke-width="1.5"
-                ></path>
-                <path
-                  d="M0,28 L10,26 L20,24 L30,22 L40,20 L50,18 L60,15 L70,12 L80,10 L90,8 L100,5 V32 H0 Z"
-                  fill="#66BB6A"
-                  opacity="0.05"
-                ></path>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Grid Card -->
-          <div
-            class="bg-white rounded-xl p-5 border border-gray-100 border-t-[3px] border-t-grid-accent shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-all duration-300"
-          >
-            <div class="flex justify-between items-start mb-4">
-              <div
-                class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600"
-              >
-                <span class="material-icons-round">grid_view</span>
-              </div>
-              <span
-                class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-purple-50 text-purple-700 border border-purple-100 uppercase tracking-wide"
-                >Importing</span
-              >
-            </div>
-            <div class="mb-2">
-              <p class="text-sm font-medium text-gray-500 mb-1">
-                Grid Connection
-              </p>
-              <h3 class="text-2xl font-bold text-gray-900">
-                62 <span class="text-sm font-semibold text-gray-500">kW</span>
-              </h3>
-            </div>
-            <div class="h-8 w-full flex items-end">
-              <svg
-                class="w-full h-full overflow-visible"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 32"
-              >
-                <path
-                  d="M0,15 L10,12 L20,18 L30,8 L40,14 L50,6 L60,16 L70,10 L80,15 L90,5 L100,12"
-                  fill="none"
-                  stroke="#6B8FA6"
-                  stroke-width="1.5"
-                ></path>
-                <path
-                  d="M0,15 L10,12 L20,18 L30,8 L40,14 L50,6 L60,16 L70,10 L80,15 L90,5 L100,12 V32 H0 Z"
-                  fill="#6B8FA6"
-                  opacity="0.05"
-                ></path>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Energy Flow Diagram -->
-        <div
-          class="bg-white rounded-[16px] shadow-sm border border-gray-200 mb-8 relative overflow-hidden"
-        >
-          <div
-            class="absolute inset-0 bg-dot-grid opacity-30 pointer-events-none"
-          ></div>
-          <div
-            class="p-6 border-b border-gray-100 bg-white/50 backdrop-blur-sm sticky top-0 z-10 flex justify-between items-center"
-          >
-            <div class="flex items-center gap-3">
-              <h3 class="text-lg font-bold text-gray-900">Live Energy Flow</h3>
-              <div
-                class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-50 border border-green-100"
-              >
-                <div class="w-2 h-2 rounded-full bg-green-500 pulse-dot"></div>
-                <span
-                  class="text-xs font-semibold text-green-700 uppercase tracking-wider"
-                  >Live</span
-                >
-              </div>
-            </div>
-            <button class="text-gray-400 hover:text-gray-600">
-              <span class="material-icons-round">fullscreen</span>
-            </button>
-          </div>
-          <div
-            class="h-[500px] relative w-full flex items-center justify-center p-8"
-          >
-            <!-- Efficiency Gauge -->
-            <div class="absolute top-8 right-8 z-20 flex flex-col items-center">
-              <div class="relative w-32 h-16 overflow-hidden">
-                <div
-                  class="absolute top-0 left-0 w-32 h-32 rounded-full border-[8px] border-gray-100 box-border"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-32 h-32 rounded-full border-[8px] border-green-500 box-border"
-                  style="
-                    clip-path: polygon(0 50%, 100% 50%, 100% 0, 0 0);
-                    transform: rotate(-32deg);
-                    transform-origin: center center;
-                  "
-                ></div>
-              </div>
-              <div class="relative -mt-10 text-center">
-                <h4 class="text-xl font-bold text-gray-900">82%</h4>
-                <p
-                  class="text-xs font-medium text-gray-500 mt-1 uppercase tracking-wide"
-                >
-                  Efficiency
-                </p>
-              </div>
-            </div>
-
-            <!-- Flow SVG -->
-            <svg
-              class="absolute inset-0 w-full h-full pointer-events-none z-0"
-              style="overflow: visible"
-            >
-              <defs>
-                <marker
-                  id="arrowhead-orange"
-                  markerHeight="7"
-                  markerWidth="10"
-                  orient="auto"
-                  refX="9"
-                  refY="3.5"
-                >
-                  <polygon fill="#f97316" points="0 0, 10 3.5, 0 7"></polygon>
-                </marker>
-                <marker
-                  id="arrowhead-blue"
-                  markerHeight="7"
-                  markerWidth="10"
-                  orient="auto"
-                  refX="9"
-                  refY="3.5"
-                >
-                  <polygon fill="#3b82f6" points="0 0, 10 3.5, 0 7"></polygon>
-                </marker>
-                <marker
-                  id="arrowhead-teal"
-                  markerHeight="7"
-                  markerWidth="10"
-                  orient="auto"
-                  refX="9"
-                  refY="3.5"
-                >
-                  <polygon fill="#14b8a6" points="0 0, 10 3.5, 0 7"></polygon>
-                </marker>
-              </defs>
-              <path
-                class="animate-flow"
-                d="M 500,140 C 500,200 500,220 500,250"
-                fill="none"
-                marker-end="url(#arrowhead-orange)"
-                stroke="#f97316"
-                stroke-dasharray="8,8"
-                stroke-width="2"
-              ></path>
-              <path
-                class="animate-flow"
-                d="M 280,310 C 350,310 400,310 430,310"
-                fill="none"
-                marker-end="url(#arrowhead-blue)"
-                stroke="#3b82f6"
-                stroke-dasharray="8,8"
-                stroke-width="2"
-              ></path>
-              <path
-                class="animate-flow"
-                d="M 500,370 C 500,400 500,420 500,450"
-                fill="none"
-                marker-end="url(#arrowhead-teal)"
-                stroke="#14b8a6"
-                stroke-dasharray="8,8"
-                stroke-width="2"
-              ></path>
-            </svg>
-
-            <!-- Flow Labels -->
+      <!-- SCROLLABLE CONTENT -->
+      <main class="flex-1 overflow-y-auto p-5 lg:p-6">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-5">
+          <!-- ====== SECTION 1: SOURCE STATUS CARDS ====== -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Solar Array -->
             <div
-              class="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-white border border-orange-200 shadow-sm px-2 py-0.5 rounded-full text-xs font-bold text-orange-600 flex items-center gap-1"
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden source-card cursor-default"
             >
-              <span class="material-icons-round text-[14px]"
-                >arrow_downward</span
-              >
-              245 kW
-            </div>
-            <div
-              class="absolute top-[62%] left-[35%] -translate-x-1/2 -translate-y-1/2 z-10 bg-white border border-blue-200 shadow-sm px-2 py-0.5 rounded-full text-xs font-bold text-blue-600 flex items-center gap-1"
-            >
-              <span class="material-icons-round text-[14px]"
-                >arrow_forward</span
-              >
-              62 kW
-            </div>
-            <div
-              class="absolute top-[82%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-white border border-teal-200 shadow-sm px-2 py-0.5 rounded-full text-xs font-bold text-teal-600 flex items-center gap-1"
-            >
-              <span class="material-icons-round text-[14px]"
-                >arrow_downward</span
-              >
-              28 kW
-            </div>
-
-            <!-- Nodes -->
-            <div class="relative w-full h-full max-w-4xl mx-auto">
-              <!-- Solar Node -->
               <div
-                class="absolute top-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10"
-              >
-                <div
-                  class="w-36 node-card bg-white rounded-xl hover:border-orange-300 p-4 flex flex-col items-center text-center cursor-pointer"
-                >
+                class="absolute top-0 left-0 right-0 h-[3px] bg-primary rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-3">
                   <div
-                    class="w-12 h-12 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center mb-2"
+                    class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center"
                   >
-                    <span class="material-icons-round text-2xl">wb_sunny</span>
-                  </div>
-                  <h4 class="text-sm font-semibold text-gray-900">
-                    Solar Array
-                  </h4>
-                  <p class="text-lg font-bold text-gray-800 mt-1">245 kW</p>
-                </div>
-              </div>
-
-              <!-- Grid Node -->
-              <div
-                class="absolute top-1/2 -translate-y-1/2 left-16 flex flex-col items-center gap-3 z-10"
-              >
-                <div
-                  class="w-36 node-card bg-white rounded-xl hover:border-blue-300 p-4 flex flex-col items-center text-center cursor-pointer"
-                >
-                  <div
-                    class="w-12 h-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center mb-2"
-                  >
-                    <span class="material-icons-round text-2xl"
-                      >electrical_services</span
+                    <span class="material-icons-round text-primary text-xl"
+                      >wb_sunny</span
                     >
                   </div>
-                  <h4 class="text-sm font-semibold text-gray-900">Grid</h4>
-                  <p class="text-lg font-bold text-gray-800 mt-1">62 kW</p>
+                  <div>
+                    <h3 class="text-[0.8125rem] font-medium text-text-primary">
+                      Solar Array
+                    </h3>
+                    <p class="text-[0.6875rem] text-text-muted">
+                      Rooftop · 500 KW
+                    </p>
+                  </div>
                 </div>
+                <span
+                  class="inline-flex items-center gap-1 bg-success-light text-success text-[0.6875rem] font-semibold px-2.5 py-1 rounded-full"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"
+                  ></span>
+                  Generating
+                </span>
               </div>
-
-              <!-- Center Facility Node -->
-              <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+              <p
+                class="text-[1.5rem] font-bold text-text-primary leading-tight mb-1"
               >
-                <div
-                  class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-bold text-orange-600 bg-white/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-orange-100 shadow-sm whitespace-nowrap"
-                >
-                  80% Solar
-                </div>
-                <div
-                  class="absolute top-1/2 -left-20 -translate-y-1/2 text-xs font-bold text-blue-600 bg-white/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-blue-100 shadow-sm whitespace-nowrap"
-                >
-                  20% Grid
-                </div>
-                <div
-                  class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-bold text-teal-600 bg-white/80 backdrop-blur-sm px-2 py-0.5 rounded-full border border-teal-100 shadow-sm whitespace-nowrap"
-                >
-                  15% to Battery
-                </div>
-                <div
-                  class="w-44 h-44 bg-gray-900 rounded-full shadow-2xl border-4 border-gray-800 flex flex-col items-center justify-center text-center text-white relative node-card hover:border-gray-700"
-                >
-                  <div
-                    class="absolute inset-0 rounded-full border border-gray-700 animate-pulse"
-                  ></div>
-                  <span class="material-icons-round text-3xl mb-1 text-gray-400"
-                    >domain</span
-                  >
-                  <h4
-                    class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1"
-                  >
-                    Facility Load
-                  </h4>
-                  <p class="text-3xl font-bold text-white">
-                    307
-                    <span class="text-sm font-medium text-gray-500">kW</span>
-                  </p>
-                </div>
-              </div>
+                124.5
+                <span class="text-sm font-normal text-text-muted">kW</span>
+              </p>
+              <p class="text-[0.75rem] text-text-muted">
+                Producing at 72% capacity
+              </p>
+            </div>
 
-              <!-- Battery Node -->
+            <!-- Battery Storage -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden source-card cursor-default"
+            >
               <div
-                class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10"
-              >
-                <div
-                  class="w-36 node-card bg-white rounded-xl hover:border-teal-300 p-4 flex flex-col items-center text-center cursor-pointer"
-                >
+                class="absolute top-0 left-0 right-0 h-[3px] bg-battery-green rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-3">
                   <div
-                    class="w-12 h-12 rounded-full bg-teal-50 text-teal-500 flex items-center justify-center mb-2"
+                    class="w-9 h-9 rounded-lg bg-battery-green/10 flex items-center justify-center"
                   >
-                    <span class="material-icons-round text-2xl"
+                    <span
+                      class="material-icons-round text-battery-green text-xl"
                       >battery_charging_full</span
                     >
                   </div>
-                  <h4 class="text-sm font-semibold text-gray-900">Battery</h4>
-                  <div class="flex items-center gap-2 mt-1">
-                    <p class="text-lg font-bold text-gray-800">78%</p>
+                  <div>
+                    <h3 class="text-[0.8125rem] font-medium text-text-primary">
+                      Battery Storage
+                    </h3>
+                    <p class="text-[0.6875rem] text-text-muted">
+                      250 kWh Lithium-Ion
+                    </p>
+                  </div>
+                </div>
+                <span
+                  class="inline-flex items-center gap-1 bg-success-light text-success text-[0.6875rem] font-semibold px-2.5 py-1 rounded-full"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-success animate-pulse"
+                  ></span>
+                  Discharging
+                </span>
+              </div>
+              <p
+                class="text-[1.5rem] font-bold text-text-primary leading-tight mb-1"
+              >
+                68<span class="text-sm font-normal text-text-muted">% SoC</span>
+              </p>
+              <div class="w-full bg-[#E0E0E0] rounded-full h-1.5 mt-2 mb-1.5">
+                <div
+                  class="bg-battery-green h-1.5 rounded-full transition-all"
+                  style="width: 68%"
+                ></div>
+              </div>
+              <p class="text-[0.75rem] text-text-muted">
+                170 kWh stored · Discharging at 20.8 kW
+              </p>
+            </div>
+
+            <!-- Grid Connection -->
+            <div
+              class="bg-white rounded-xl p-5 border border-card-border relative overflow-hidden source-card cursor-default"
+            >
+              <div
+                class="absolute top-0 left-0 right-0 h-[3px] bg-grid-blue rounded-t-xl"
+              ></div>
+              <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-9 h-9 rounded-lg bg-grid-blue/10 flex items-center justify-center"
+                  >
+                    <span class="material-icons-round text-grid-blue text-xl"
+                      >electric_bolt</span
+                    >
+                  </div>
+                  <div>
+                    <h3 class="text-[0.8125rem] font-medium text-text-primary">
+                      Grid Connection
+                    </h3>
+                    <p class="text-[0.6875rem] text-text-muted">
+                      DISCOM Utility Feed
+                    </p>
+                  </div>
+                </div>
+                <span
+                  class="inline-flex items-center gap-1 bg-[#E3F2FD] text-financial-blue text-[0.6875rem] font-semibold px-2.5 py-1 rounded-full"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-financial-blue"
+                  ></span>
+                  Importing
+                </span>
+              </div>
+              <p
+                class="text-[1.5rem] font-bold text-text-primary leading-tight mb-1"
+              >
+                28.3
+                <span class="text-sm font-normal text-text-muted">kW</span>
+              </p>
+              <p class="text-[0.75rem] text-text-muted">
+                Drawing from grid · Tariff: ₹9.20/kWh
+              </p>
+            </div>
+          </div>
+
+          <!-- ====== SECTION 2: ENERGY FLOW DIAGRAM ====== -->
+          <div
+            class="bg-white rounded-2xl p-6 lg:p-8 border border-card-border"
+          >
+            <!-- Header -->
+            <div class="flex justify-between items-start mb-6">
+              <div>
+                <h2 class="text-lg font-semibold text-text-primary">
+                  Live Energy Flow
+                </h2>
+                <div class="flex items-center gap-1.5 mt-1">
+                  <span class="relative flex h-2 w-2">
                     <span
-                      class="text-xs font-medium text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded"
-                      >SoC</span
+                      class="pulse-dot absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                    ></span>
+                    <span
+                      class="relative inline-flex rounded-full h-2 w-2 bg-green-500"
+                    ></span>
+                  </span>
+                  <span class="text-[0.75rem] font-medium text-success"
+                    >Live</span
+                  >
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[0.75rem] text-text-muted"
+                  >Last updated: 2:34 PM</span
+                >
+                <button
+                  class="w-7 h-7 flex items-center justify-center rounded-md hover:bg-gray-100 text-text-muted hover:text-text-primary transition-colors spin-hover"
+                >
+                  <span class="material-icons-round text-base refresh-icon"
+                    >refresh</span
+                  >
+                </button>
+              </div>
+            </div>
+
+            <!-- Flow Diagram — Flexbox Layout -->
+            <div
+              class="dot-grid rounded-xl border border-[#F0F0F0] py-10 px-6 lg:px-12"
+            >
+              <!-- ROW 1: Solar Node (centered) -->
+              <div class="flex justify-center">
+                <div class="flow-node">
+                  <div
+                    class="w-40 bg-[#FFF8F0] rounded-2xl border-2 border-primary flex flex-col items-center justify-center p-4 shadow-sm cursor-default"
+                  >
+                    <span
+                      class="material-icons-round text-primary text-3xl mb-1"
+                      >wb_sunny</span
+                    >
+                    <span
+                      class="text-[0.75rem] font-semibold text-text-primary uppercase tracking-wide"
+                      >Solar</span
+                    >
+                    <span class="text-xl font-bold text-primary mt-0.5"
+                      >124.5 kW</span
                     >
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Legend -->
-            <div
-              class="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm border border-gray-200 rounded-lg p-3 shadow-md z-30"
-            >
-              <h5
-                class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2"
-              >
-                Flow Legend
-              </h5>
-              <div class="flex flex-col gap-2">
-                <div class="flex items-center gap-2">
-                  <div
-                    class="w-8 h-0 border-t-2 border-dashed border-orange-500"
-                  ></div>
-                  <span class="text-xs font-medium text-gray-600">Solar</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <div
-                    class="w-8 h-0 border-t-2 border-dashed border-blue-500"
-                  ></div>
-                  <span class="text-xs font-medium text-gray-600">Grid</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <div
-                    class="w-8 h-0 border-t-2 border-dashed border-teal-500"
-                  ></div>
-                  <span class="text-xs font-medium text-gray-600">Battery</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Live Metrics Bar -->
-        <div
-          class="bg-white rounded-xl shadow-sm border border-gray-200 border-t border-t-gray-100 p-6"
-        >
-          <div
-            class="grid grid-cols-1 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-gray-100"
-          >
-            <div class="px-4 py-3 md:py-0 first:pl-0">
-              <div class="flex items-center justify-between mb-2">
-                <span
-                  class="text-xs font-semibold text-gray-500 uppercase tracking-wide"
-                  >Power Now</span
-                >
-                <span class="material-icons-round text-gray-400 text-sm"
-                  >flash_on</span
-                >
-              </div>
-              <p class="text-2xl font-bold text-gray-900">307 kW</p>
-              <div class="mt-2 flex items-center text-xs text-gray-500">
-                <span
-                  class="text-green-500 font-medium mr-2 flex items-center gap-1"
-                >
+              <!-- CONNECTOR: Solar → Facility -->
+              <div class="flex justify-center">
+                <div class="flex flex-col items-center py-2">
+                  <!-- Animated dashed line -->
+                  <div class="w-0.5 h-8 flow-line-v text-primary"></div>
+                  <!-- Flow label pill -->
                   <span
-                    class="w-1.5 h-1.5 rounded-full bg-green-500 pulse-dot inline-block"
-                  ></span>
-                  Normal
-                </span>
-              </div>
-            </div>
-            <div class="px-4 py-3 md:py-0">
-              <div class="flex items-center justify-between mb-2">
-                <span
-                  class="text-xs font-semibold text-gray-500 uppercase tracking-wide"
-                  >Solar Contribution</span
-                >
-                <span class="material-icons-round text-orange-400 text-sm"
-                  >wb_sunny</span
-                >
-              </div>
-              <div class="flex items-center gap-4 mt-2">
-                <div class="donut-chart">
-                  <div class="donut-hole"></div>
+                    class="bg-white border border-primary rounded-md px-2.5 py-1 text-[0.6875rem] font-semibold text-primary shadow-sm whitespace-nowrap my-1"
+                  >
+                    124.5 kW ↓
+                  </span>
+                  <div class="text-[0.6875rem] font-medium text-primary mb-1">
+                    72% of demand
+                  </div>
+                  <!-- Arrow -->
+                  <span class="material-icons-round text-primary text-lg"
+                    >arrow_downward</span
+                  >
                 </div>
-                <p class="text-2xl font-bold text-gray-900">80%</p>
               </div>
-            </div>
-            <div class="px-4 py-3 md:py-0">
-              <div class="flex items-center justify-between mb-2">
-                <span
-                  class="text-xs font-semibold text-gray-500 uppercase tracking-wide"
-                  >Grid Import</span
+
+              <!-- ROW 2: Grid → Facility ← Battery (3-column layout) -->
+              <div
+                class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 lg:gap-0 items-center"
+              >
+                <!-- Grid Node + Connector (left side) -->
+                <div
+                  class="flex flex-col lg:flex-row items-center justify-center lg:justify-end gap-3"
                 >
-                <span class="material-icons-round text-blue-400 text-sm"
-                  >input</span
+                  <!-- Grid Node -->
+                  <div class="flow-node">
+                    <div
+                      class="w-36 bg-[#F0F7FA] rounded-2xl border-2 border-grid-blue flex flex-col items-center justify-center p-4 shadow-sm cursor-default"
+                    >
+                      <span
+                        class="material-icons-round text-grid-blue text-3xl mb-1"
+                        >electric_bolt</span
+                      >
+                      <span
+                        class="text-[0.75rem] font-semibold text-text-primary uppercase tracking-wide"
+                        >Grid</span
+                      >
+                      <span class="text-xl font-bold text-grid-blue mt-0.5"
+                        >28.3 kW</span
+                      >
+                    </div>
+                  </div>
+
+                  <!-- Horizontal connector (desktop) / Vertical connector (mobile) -->
+                  <div class="hidden lg:flex items-center gap-1">
+                    <div
+                      class="w-12 xl:w-20 h-0.5 flow-line-h text-grid-blue"
+                    ></div>
+                    <span
+                      class="bg-white border border-grid-blue rounded-md px-2 py-0.5 text-[0.6875rem] font-semibold text-grid-blue shadow-sm whitespace-nowrap"
+                    >
+                      28.3 kW →
+                    </span>
+                    <span class="material-icons-round text-grid-blue text-lg"
+                      >arrow_forward</span
+                    >
+                  </div>
+                  <!-- Mobile vertical connector -->
+                  <div class="flex lg:hidden flex-col items-center py-1">
+                    <span
+                      class="bg-white border border-grid-blue rounded-md px-2 py-0.5 text-[0.6875rem] font-semibold text-grid-blue shadow-sm"
+                    >
+                      28.3 kW ↓
+                    </span>
+                    <span class="material-icons-round text-grid-blue text-lg"
+                      >arrow_downward</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Facility Node (center) -->
+                <div class="flex justify-center">
+                  <div class="flow-node">
+                    <div
+                      class="w-44 bg-[#F5F5F5] rounded-2xl border-2 border-text-primary flex flex-col items-center justify-center p-5 shadow-sm cursor-default"
+                    >
+                      <span
+                        class="material-icons-round text-text-primary text-3xl mb-1"
+                        >apartment</span
+                      >
+                      <span
+                        class="text-[0.75rem] font-semibold text-text-primary uppercase tracking-wide"
+                        >Facility Load</span
+                      >
+                      <span
+                        class="text-[1.375rem] font-bold text-text-primary mt-0.5"
+                        >173.6 kW</span
+                      >
+                      <span class="text-[0.6875rem] text-text-muted mt-0.5"
+                        >Total Demand</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Battery connector + Node (right side) -->
+                <div
+                  class="flex flex-col lg:flex-row-reverse items-center justify-center lg:justify-end gap-3"
                 >
-              </div>
-              <div class="flex items-center gap-1">
-                <p class="text-2xl font-bold text-gray-900">62 kW</p>
-                <span
-                  class="material-icons-round text-blue-500 text-[12px] transform rotate-45"
-                  >arrow_downward</span
-                >
-              </div>
-              <div class="mt-2 flex items-center gap-2">
-                <span
-                  class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-100 uppercase"
-                  >Low</span
-                >
-              </div>
-            </div>
-            <div class="px-4 py-3 md:py-0">
-              <div class="flex items-center justify-between mb-2">
-                <span
-                  class="text-xs font-semibold text-gray-500 uppercase tracking-wide"
-                  >Battery SoC</span
-                >
-                <span class="material-icons-round text-teal-400 text-sm"
-                  >battery_std</span
-                >
-              </div>
-              <p class="text-2xl font-bold text-gray-900">78%</p>
-              <div class="w-full flex items-center gap-2 mt-2">
-                <span class="text-[10px] text-gray-400 font-medium">0%</span>
-                <div class="w-[80px] bg-gray-100 rounded-full h-1.5">
+                  <!-- Battery Node -->
+                  <div class="flow-node order-1 lg:order-none">
+                    <div
+                      class="w-40 bg-[#F0FAF0] rounded-2xl border-2 border-battery-green flex flex-col items-center justify-center p-4 shadow-sm cursor-default"
+                    >
+                      <span
+                        class="material-icons-round text-battery-green text-3xl mb-1"
+                        >battery_charging_full</span
+                      >
+                      <span
+                        class="text-[0.75rem] font-semibold text-text-primary uppercase tracking-wide"
+                        >Battery</span
+                      >
+                      <span class="text-xl font-bold text-battery-green mt-0.5"
+                        >68%</span
+                      >
+                      <span class="text-[0.6875rem] text-success mt-0.5"
+                        >Discharging</span
+                      >
+                    </div>
+                  </div>
+
+                  <!-- Horizontal connector (desktop) -->
+                  <div class="hidden lg:flex items-center gap-1">
+                    <span
+                      class="material-icons-round text-battery-green text-lg"
+                      >arrow_back</span
+                    >
+                    <span
+                      class="bg-white border border-battery-green rounded-md px-2 py-0.5 text-[0.6875rem] font-semibold text-battery-green shadow-sm whitespace-nowrap"
+                    >
+                      ← 20.8 kW
+                    </span>
+                    <div
+                      class="w-12 xl:w-20 h-0.5 flow-line-h text-battery-green"
+                      style="animation-direction: reverse"
+                    ></div>
+                  </div>
+                  <!-- Mobile vertical connector -->
                   <div
-                    class="h-1.5 rounded-full bg-gradient-to-r from-[#66BB6A] to-[#2E7D32]"
-                    style="width: 78%"
-                  ></div>
+                    class="flex lg:hidden flex-col items-center py-1 order-first"
+                  >
+                    <span
+                      class="material-icons-round text-battery-green text-lg"
+                      >arrow_downward</span
+                    >
+                    <span
+                      class="bg-white border border-battery-green rounded-md px-2 py-0.5 text-[0.6875rem] font-semibold text-battery-green shadow-sm"
+                    >
+                      20.8 kW ↓
+                    </span>
+                  </div>
                 </div>
-                <span class="text-[10px] text-gray-400 font-medium">100%</span>
+              </div>
+
+              <!-- Source Mix Summary (below diagram) -->
+              <div
+                class="mt-8 flex flex-wrap justify-center gap-6 text-[0.8125rem]"
+              >
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-primary"></div>
+                  <span class="font-medium text-text-primary">72%</span>
+                  <span class="text-text-muted">Solar</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-grid-blue"></div>
+                  <span class="font-medium text-text-primary">16%</span>
+                  <span class="text-text-muted">Grid</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-battery-green"></div>
+                  <span class="font-medium text-text-primary">12%</span>
+                  <span class="text-text-muted">Battery</span>
+                </div>
+              </div>
+
+              <!-- Legend -->
+              <div
+                class="mt-6 pt-5 border-t border-[#F0F0F0] flex flex-wrap justify-between items-center gap-4"
+              >
+                <div class="flex flex-wrap gap-4">
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-5 h-0 border-t-2 border-dashed border-primary"
+                    ></div>
+                    <span class="text-[0.6875rem] text-text-muted"
+                      >Solar Flow</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-5 h-0 border-t-2 border-dashed border-grid-blue"
+                    ></div>
+                    <span class="text-[0.6875rem] text-text-muted"
+                      >Grid Flow</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div
+                      class="w-5 h-0 border-t-2 border-dashed border-battery-green"
+                    ></div>
+                    <span class="text-[0.6875rem] text-text-muted"
+                      >Battery Flow</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="flex items-center gap-4 text-[0.6875rem] text-text-muted"
+                >
+                  <span>Flow direction indicates energy movement</span>
+                  <span class="material-icons-round text-sm text-text-disabled"
+                    >info_outline</span
+                  >
+                </div>
               </div>
             </div>
-            <div class="px-4 py-3 md:py-0 last:pr-0">
-              <div class="flex items-center justify-between mb-2">
-                <span
-                  class="text-xs font-semibold text-gray-500 uppercase tracking-wide"
-                  >Today's Generation</span
+            <!-- end dot-grid -->
+          </div>
+          <!-- end Section 2 card -->
+
+          <!-- ====== SECTION 3: LIVE METRICS BAR ====== -->
+          <div class="bg-white rounded-xl border border-card-border">
+            <div
+              class="grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-[#F0F0F0]"
+            >
+              <!-- Metric 1: Power Now -->
+              <div class="p-4 lg:p-5">
+                <p
+                  class="text-[0.6875rem] text-text-muted uppercase tracking-wide font-semibold mb-1"
                 >
-                <span class="material-icons-round text-green-400 text-sm"
-                  >history</span
-                >
+                  Power Now
+                </p>
+                <p class="text-xl font-bold text-text-primary">
+                  173.6
+                  <span class="text-sm font-normal text-text-muted">kW</span>
+                </p>
+                <div class="mt-1.5">
+                  <span
+                    class="inline-flex items-center gap-1 bg-success-light text-success text-[0.625rem] font-semibold px-2 py-0.5 rounded-full"
+                  >
+                    <span class="relative flex h-1.5 w-1.5">
+                      <span
+                        class="pulse-dot absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                      ></span>
+                      <span
+                        class="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"
+                      ></span>
+                    </span>
+                    Normal
+                  </span>
+                </div>
               </div>
-              <p class="text-2xl font-bold text-gray-900">1.2 MWh</p>
-              <div class="mt-2 flex items-center text-xs text-gray-500">
-                <span class="text-gray-400">Yesterday: 1,640 kWh</span>
+
+              <!-- Metric 2: Solar Contribution -->
+              <div class="p-4 lg:p-5">
+                <p
+                  class="text-[0.6875rem] text-text-muted uppercase tracking-wide font-semibold mb-1"
+                >
+                  Solar Contribution
+                </p>
+                <p class="text-xl font-bold text-primary">72%</p>
+                <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                  124.5 of 173.6 kW
+                </p>
+              </div>
+
+              <!-- Metric 3: Grid Import -->
+              <div class="p-4 lg:p-5">
+                <p
+                  class="text-[0.6875rem] text-text-muted uppercase tracking-wide font-semibold mb-1"
+                >
+                  Grid Import
+                </p>
+                <p class="text-xl font-bold text-grid-blue">
+                  28.3
+                  <span class="text-sm font-normal text-text-muted">kW</span>
+                </p>
+                <p class="text-[0.6875rem] text-text-muted mt-1.5">
+                  16% of demand
+                </p>
+              </div>
+
+              <!-- Metric 4: Battery SoC -->
+              <div class="p-4 lg:p-5">
+                <p
+                  class="text-[0.6875rem] text-text-muted uppercase tracking-wide font-semibold mb-1"
+                >
+                  Battery SoC
+                </p>
+                <p class="text-xl font-bold text-battery-green">68%</p>
+                <div class="mt-2 flex items-center gap-1.5">
+                  <span class="text-[0.5rem] text-text-disabled">0%</span>
+                  <div
+                    class="flex-1 max-w-[80px] bg-[#E0E0E0] rounded-full h-1"
+                  >
+                    <div
+                      class="bg-battery-green h-1 rounded-full"
+                      style="width: 68%"
+                    ></div>
+                  </div>
+                  <span class="text-[0.5rem] text-text-disabled">100%</span>
+                </div>
+              </div>
+
+              <!-- Metric 5: Today's Generation -->
+              <div class="p-4 lg:p-5">
+                <p
+                  class="text-[0.6875rem] text-text-muted uppercase tracking-wide font-semibold mb-1"
+                >
+                  Today's Generation
+                </p>
+                <p class="text-xl font-bold text-text-primary">
+                  1,840
+                  <span class="text-sm font-normal text-text-muted">kWh</span>
+                </p>
+                <p class="text-[0.6875rem] mt-1.5">
+                  <span class="text-success font-medium">
+                    <span class="material-icons-round text-[11px] align-middle"
+                      >trending_up</span
+                    >
+                    +12% vs yesterday
+                  </span>
+                </p>
+                <p class="text-[0.6875rem] text-text-disabled mt-0.5">
+                  Yesterday: 1,640 kWh
+                </p>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Bottom Spacer -->
-        <div class="h-8"></div>
+          <!-- Footer -->
+          <footer class="mt-2 mb-2 text-center">
+            <p class="text-xs text-text-disabled">
+              © 2026 SunZero Energy Intelligence
+            </p>
+          </footer>
+        </div>
       </main>
     </div>
 
-    <!-- Navigation Script -->
-    <script src="../../js/navigation.js"></script>
+    <script>
+      function toggleMobileSidebar() {
+        document.getElementById("mobileSidebar").classList.toggle("active");
+        document.getElementById("sidebarOverlay").classList.toggle("active");
+      }
+    </script>
   </body>
 </html>
