@@ -756,3 +756,56 @@ function getHeatmapColor(intensity) {
   }
   return "#E65100";
 }
+
+// ============================================================
+// SECURITY & WATERMARK INJECTION
+// Automatically adds T-Global watermark to every page
+// ============================================================
+(function injectWatermark() {
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Create the style element for the watermark
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .tglobal-watermark {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        pointer-events: none; /* Allows clicks to pass through */
+        background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' font-family='Inter, sans-serif' font-weight='bold' font-size='18' fill='rgba(0, 0, 0, 0.06)' text-anchor='middle' transform='rotate(-45 150 150)'%3ETGLOBAL %E2%80%A2 PROPOSAL%3C/text%3E%3C/svg%3E");
+        background-repeat: repeat;
+        opacity: 1;
+        mix-blend-mode: multiply;
+      }
+
+      /* Optional: Add a footer badge */
+      .tglobal-badge {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        z-index: 100000;
+        background: #1A1A1A;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        opacity: 0.8;
+        pointer-events: none;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Create the Overlay Div
+    const overlay = document.createElement("div");
+    overlay.className = "tglobal-watermark";
+    document.body.appendChild(overlay);
+
+    // 3. Create the fixed badge (Optional)
+    const badge = document.createElement("div");
+    badge.className = "tglobal-badge";
+    badge.innerHTML = "DESIGNED BY TGLOBAL";
+    document.body.appendChild(badge);
+  });
+})();
